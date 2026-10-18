@@ -1,0 +1,106 @@
+\setcounter{neje}{68}
+\begin{nejer}[Imagen directa de una medida]
+Sea $(X, \mathcal{A}, \mu)$ un espacio de medida, sea $Y$ un conjunto y sea $\phi: X \to Y$ una aplicación. La imagen directa (\textit{pushforward}) de $\mathcal{A}$ es la $\sigma$-álgebra
+$$
+\phi_*\mathcal{A} := \set*{B \subseteq Y \mid \phi^{-1}(B) \en \mathcal{A}} \subseteq 2^Y.
+$$
+La imagen directa de $\mu$ es la función
+$$
+\phi_*\mu\colon \phi_*\mathcal{A} \to [0, \infty]
+$$
+definida por $(\phi_*\mu)(B) := \mu(\phi^{-1}(B))$ para $B \en \phi_*\mathcal{A}$.
+
+\begin{enumerate}[label = (\roman*)]
+\item Pruebe que $(Y, \phi_*\mathcal{A}, \phi_*\mu)$ es un espacio de medida.
+
+\item Sea $(X, \mathcal{A}^*, \mu^*)$ la completación de $(X, \mathcal{A}, \mu)$ y sea $(Y, (\phi_*\mathcal{A})^*, (\phi_*\mu)^*)$ la completación de $(Y, \phi_*\mathcal{A}, \phi_*\mu)$. Pruebe que
+$$
+(\phi_*\mu)^*(E) = \mu^*(\phi^{-1}(E)), \quad \forall E \en (\phi_*\mathcal{A})^* \subseteq \phi_*\mathcal{A}^*.
+$$
+Deduzca que $(Y, \phi_*\mathcal{A}, \phi_*\mu)$ es completo siempre que $(X, \mathcal{A}, \mu)$ sea completo. Encuentre un ejemplo donde $(\phi_*\mathcal{A})^* \subsetneq \phi_*\mathcal{A}^*$.
+
+\item Fije una función $f\colon Y \to [0, \infty]$. Pruebe que $f$ es $\phi_*\mathcal{A}$-medible si y solo si $f \circ \phi$ es $\mathcal{A}$-medible. Si $f$ es $\phi_*\mathcal{A}$-medible, pruebe que
+$$
+\int_Y f \dd{(\phi_*\mu)} = \int_X (f \circ \phi) \dd{\mu}.
+$$
+
+\item Determine la imagen directa de $(X, \mathcal{A}, \mu)$ bajo una aplicación constante.
+\end{enumerate}
+\end{nejer}
+\begin{sol}\vphantom{r}
+\begin{enumerate}[label = (\roman*)]
+%-----------------------------------------------------
+\item %(i)
+\emph{Veamos que $\phi_*\mathcal{A}$ es $\sigma$-álgebra}:\\
+Por un lado, $\varnothing \en \mathcal{A}$ garantiza que $\varnothing=\phi^{-1}(\varnothing)\en\phi_*\mathcal{A}$. Por otro lado, si $\set{A_n}_{n\en\mathbb{N}}$ es una familia de elementos de $\phi_*\mathcal{A}$, entonces $\set*{\phi^{-1}(A_n)}_{n\en\mathbb{N}}$ es una familia de elementos de $\mathcal{A}$, por lo que $\phi^{-1}(\bigcup^\infty_{n=1}A_n) = \bigcup^\infty_{n=1}\phi^{-1}(A_n) \en \mathcal{A}$, lo cual implica que $\bigcup^\infty_{n=1}A_n\en\phi_*\mathcal{A}$. Finalmente, si $A\en\phi_*\mathcal{A}$ entonces $\phi^{-1}(A) \en \mathcal{A}$, de donde $\phi^{-1}(Y\setminus A) = X\setminus \phi^{-1}(A) \en \mathcal{A}$, por lo que $Y\setminus A \en \phi_*\mathcal{A}$.\vspace{1em}\\
+\emph{Veamos que $\phi_*\mu$ es medida}:\\
+Primero notemos que $\phi_*\mu(\varnothing) = \mu(\phi^{-1}(\varnothing)) = \mu(\varnothing) = 0$. Además, si $\set{A_n}_{n\en\mathbb{N}}$ es una familia de elementos de $\phi_*\mathcal{A}$ disjuntos a pares, se sigue que $\set{\phi^{-1}(A_n)}_{n\en\mathbb{N}}$ es una familia de elementos de $\mathcal{A}$, los cuales también serán disjuntos a pares gracias a que la imagen inversa preserva intersecciones. Luego,
+\[
+\phi_*\mu\biggl(\, \bigcup^\infty_{n=1}A_n \,\biggr)
+= \mu\biggl(\phi^{-1}\biggl(\, \bigcup^\infty_{n=1}A_n \,\biggr)\biggr)
+= \mu\biggl(\, \bigcup^\infty_{n=1} \phi^{-1}(A_n) \,\biggr)
+= \sum^\infty_{n=1}\mu(\phi^{-1}(A_n))
+= \sum^\infty_{n=1} \phi_*\mu(A_n)
+\]
+%-----------------------------------------------------
+\item %(ii)
+Sea $E \en (\phi_*\mathcal{A})^*$. Por definición existen $A,B\en\phi_*\mathcal{A}$ con $A \subseteq E \subseteq B$ y $\phi_*\mu(B \setminus A) = 0$; más aún, también se define $(\phi_*\mu)^*(E) = \phi_*\mu(A)$. De esto se sigue que $\phi^{-1}(A) \subseteq \phi^{-1}(E) \subseteq \phi^{-1}(B)$ y $\mu(\phi^{-1}(B) \setminus \phi^{-1}(A)) = \mu(\phi^{-1}(B\setminus A)) = \phi_*\mu(B\setminus A) = 0$, como $\phi^{-1}(A),\phi^{-1}(B) \en \mathcal{A}$, esto demuestra que $\phi^{-1}(E) \en \mathcal{A}^*$, de donde $E \en \phi_*\mathcal{A}^*$; más aún, se define $\mu^*(\phi^{-1}(E)) = \mu(\phi^{-1}(A))$. Pero ya vimos que $(\phi_*\mu)^*(E) = \phi_*\mu(A)$, siendo esto último igual a $\mu(\phi^{-1}(A))$. Por lo tanto, $(\phi_*\mu)^*(E) = \mu^*(\phi^{-1}(E))$.\par
+De esto se sigue que, si $(X,\mathcal{A},\mu)$ es completo, $(\phi_*\mathcal{A})^* \subseteq \phi_*\mathcal{A}^* = \phi_*\mathcal{A}$ (ya que $\mathcal{A} = \mathcal{A}^*$ gracias al \myref{nejer:1.67}). Esto implica que $\phi_*\mathcal{A}$ es completo: si $A \subseteq F$ con $F \en\phi_*\mathcal{A}$ y $\phi_*\mu(F) = 0$, entonces $\varnothing \subseteq A \subseteq F$ con $\phi_*\mu(F \setminus\varnothing) = 0$, así que $A \en (\phi_*\mathcal{A})^* \subseteq \phi_*\mathcal{A}$, de donde $A \en \phi_*\mathcal{A}$.
+\vspace{1em}\\
+\emph{Encontremos un ejemplo de la contención propia}:\\
+Sea $(X,\mathcal{A},\mu)$ cualquier espacio de medida incompleto con $\mu(X)>0$,%
+\footnote{
+    Un ejemplo clásico puede ser $(\mathbb{R},\mathcal{B}_{\mathbb{R}},\lambda)$. Un ejemplo minimal es $X = \set{0,1,2}$, $\mathcal{A} = \set[\big]{\varnothing, \set0, \set{1,2}, X}$ y $\mu = \delta_0$ la medida de Dirac concentrada en $0$. Este espacio es incompleto ya que $\set1 \subseteq\set{1,2}$ con $\delta_0(\set{1,2}) = 0$, pero $\set1 \noten \mathcal{A}$.
+}
+así que existe $N\noten \mathcal{A}$ tal que $N \subseteq B$ con $B\en\mathcal{A}$ y $\mu(B)=0$ (de esto se sigue que $N\en\mathcal{A}^*$ y $\mu^*(N) = 0$). También tomemos $Y = \set{0,1}$ y $\phi \colon X \to Y$ como el mapeo característico de $N$, i.e., $\phi = \chi_N$.\par
+Ahora bien, como $\phi^{-1}(\set1) = N$, tenemos que $\phi^{-1}(\set1) \en \mathcal{A}^*$ y $\phi^{-1}(\set1)\noten \mathcal{A}$, es decir, $\set1 \en \phi_*\mathcal{A}^*$ y $\set1\noten\phi_*\mathcal{A}$. Solo resta probar que $\set1\noten(\phi_*\mathcal{A})^*$:\par
+En efecto, si suponemos por contradicción que $\set1\en(\phi_*\mathcal{A})^*$, entonces existen $E,F\en\phi_*\mathcal{A}$ tales que $E \subseteq \set1 \subseteq F$ y $\phi_*\mu(F\setminus E) = 0$; en particular, se cumple $(\phi_*\mu)^*(\set1) = \phi_*\mu(F)$. Sin embargo, recordemos que $Y = \set{0,1}$, así que $\set1 \subseteq F \subseteq \set{0,1}$; en otras palabras, $F = \set1$ o $F=\set{0,1}$, pero $F\en\phi_*\mathcal{A}$ y ya probamos que $\set1\noten\phi_*\mathcal{A}$, por lo que forzosamente $F = \set{0,1}$. Esto garantiza que 
+\[
+(\phi_*\mu)^*(\set1) = \phi_*\mu(F) =\mu(\phi^{-1}(\set{0,1})) = \mu(X) > 0
+\]
+pero por lo anteriormente probado en (ii): $(\phi_*\mu)^*(\set1) = \mu^*(\phi^{-1}(\set1)) = \mu^*(N) = 0$. Esto es una contradicción. El error estuvo en suponer que $\set1\en(\phi_*\mathcal{A})^*$, así que $\set1\noten(\phi_*\mathcal{A})^*$, y queda probado que $\set1\en\phi_*\mathcal{A}^*\setminus(\phi_*\mathcal{A})^*$, por lo que la contención es propia.
+%-----------------------------------------------------
+\item %(iii)
+Por definición, $f$ es medible si y solo si $f^{-1}(A) \en \phi_*\mathcal{A}$ para todo boreliano $A$, lo cual equivale por definición que $\phi^{-1}(f^{-1}(A))\en\mathcal{A}$ para todo boreliano $A$. Como $(f\circ\phi)^{-1}(A) = \phi^{-1}(f^{-1}(A))$, esto prueba directamente que $f$ es $\phi_*\mathcal{A}$-medible si y solo si $f\circ\phi$ es $\mathcal{A}$-medible.\par
+Ahora bien, si $f$ es $\phi_*\mathcal{A}$-medible, existe $\set{s_n}_{n}$ sucesión monótona de funciones escalonadas, medibles y no negativas que converge puntualmente a $f$. Luego, por convergencia monótona
+\begin{equation}\label{eq:aprox1}
+\lim_{n\to\infty}\int_Y s_n \dd{(\phi_*\mu)} = \int_Y f \dd{(\phi_*\mu)}
+\end{equation}
+Como $\im(s_n \circ \phi) \subseteq \im(s_n)$, se sigue que $s_n\circ\phi$ también es escalonada no negativa, y será medible gracias a que $s_n$ lo es. Más aún, como $\set{s_n}_n$ converge monótona y puntualmente a $f$ entonces se sigue, para cada $x\en X$, que $s_{n+1}(\phi(x)) \ge s_n(\phi(x))$ y $\lim_{n\to\infty} s_n(\phi(x)) = f(\phi(x))$, así que $\set{s_n\circ\phi}_n$ converge monótona y puntualmente a $f \circ \phi$. Por lo tanto, la convergencia monótona garantiza que 
+\begin{equation}\label{eq:aprox2}
+\lim_{n\to\infty}\int_X s_n\circ\phi \dd{\mu} = \int_X f\circ\phi \dd{\mu}
+\end{equation}
+Sin embargo, si ponemos $s_n = \sum^{m}_{k=1}a_k\chi_{A_k}$, entonces $s_n\circ\phi = \sum^m_{k=1}a_k\chi_{\phi^{-1}(A_k)}$, de donde
+\[
+\int_Y s_n \dd{(\phi_*\mu)}
+= \sum^m_{k=1} a_k \cdot\phi_*\mu(A_k)
+= \sum^m_{k=1} a_k \cdot\mu(\phi^{-1}(A_k))
+= \int_X s_n \circ \phi \dd{\mu}
+\]
+Como esto se cumple para cualquier $n\en\mathbb{N}$, (\ref{eq:aprox1}) y (\ref{eq:aprox2}) garantizan que
+\[
+\int_Y f \dd{(\phi_*\mu)} = \int_X f\circ\phi \dd{\mu}
+\]
+%-----------------------------------------------------
+\item %(iv)
+Si $\phi\colon X\to Y$ es de valor constante $y_0\en Y$, entonces para cualquier $A\subseteq Y$ se tiene:
+\[
+\phi^{-1}(A)
+= 
+\begin{cases}
+    X,           &\text{si }y_0\en A.\\
+    \varnothing, &\text{si }y_0\noten A.
+\end{cases}
+\]
+En cualquier caso, se sigue que $\phi^{-1}(A)\en\mathcal{A}$, por lo cual $\phi_*\mathcal{A} = 2^Y$. Más aún, lo anterior también implica que para todo $A \subseteq Y$ se tiene:
+\[
+\phi_*\mu(A) = \mu(\phi^{-1}(A))
+=
+\begin{cases}
+    \mu(X), &\text{si } y_0 \en A.\\
+    0,      &\text{si } y_0 \noten A.
+\end{cases}
+\]
+Esto prueba que $\phi_*\mu = \mu(X)\cdot\delta_{y_0}$ es la medida de Dirac concentrada en $y_0$ multiplicada por $\mu(X)$. Hemos probado que $(Y,\phi_*\mathcal{A},\phi_*\mu) = (Y,2^Y,\mu(X)\delta_{y_0})$.
+\end{enumerate}
+\end{sol}

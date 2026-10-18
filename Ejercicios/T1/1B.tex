@@ -1,0 +1,162 @@
+%------------------------------ Ejercicio 1B.1 -------------------------------
+
+\setcounter{eje}{0}
+\begin{ejer}
+Defina $f \colon [0,1] \to \mathbb{R}$ como sigue:
+$$
+f(a) =%
+\begin{cases} 
+0, %
+&\text{si $a \noten \mathbb{Q}$.} \\
+\frac{1}{n}, %
+&\text{si $a=\frac{m}{n}$ para algunos $m\en\mathbb{N}_0,n\en\mathbb{Z}^+$ primos relativos.}
+\end{cases}
+$$
+Muestre que $f$ es Riemann integrable y compute $\int_0^1 f$.
+\end{ejer}
+\begin{sol}
+Para cualquier partición $P$ y todo intervalo $[x_{i-1},x_i]$ de $P$, existe al menos un irracional en $[x_{i-1},x_i]$ (densidad de $\mathbb{R}\setminus\mathbb{Q}$ en $\mathbb{R}$), así que existe un $x \en [x_{i-1},x_i]$ tal que $f(x) = 0$. Como además $f \ge 0$, entonces necesariamente $\inf_{[x_{i-1},x_i]}f = 0$. Como esto último ocurre en cada intervalo de la partición arbitraria $P$, se sigue que $L(f,P,[0,1]) = 0$ para toda partición $P$ de $[0,1]$; en consecuencia, $L(f,[0,1]) = 0$.\par
+Por otro lado, para cada $n\en\mathbb{N}$, definimos $P_n$ como la \emph{partición regular} con longitud de intervalo constante igual a $\nicefrac{1}{n^3}$, es decir, $P_n$ está definida por los puntos $\set[\big]{\nicefrac{k}{n^3} \given 0 \leq k \leq n^3}$. Ahora bien, fijemos un $n\en\mathbb{N}$ arbitrario. Notemos que hay una cantidad finita de puntos en los que $f$ es mayor o igual a $\nicefrac{1}{n}$, ya que si $a\en[0,1]$ cumple $f(a) \geq \nicefrac{1}{n}$, entonces forzosamente $a\en\mathbb{Q}$ y $a=\nicefrac{m}{k}$ para algunos $m\en\mathbb{N}_0,k\en\mathbb{Z}^+$ primos relativos; de esto se sigue que $\nicefrac{1}{k} = f(a) \geq \nicefrac{1}{n}$, así que $k \leq n$; como además $a\en[0,1]$, tenemos que $m \leq k$. Esto prueba que, si $f(a) \geq \nicefrac{1}{n}$, entonces $a = \nicefrac{m}{k}$ con $1 \leq k \leq n$ y $0 \leq m \leq k$; en otras palabras, 
+\[
+f^{-1}\big(\big[\tfrac{1}{n},\infty\big)\big)%
+\subseteq%
+\set*{\tfrac{m}{k} \given 1 \leq k \leq n, 0 \leq m \leq k }
+\]
+Este último conjunto tiene, a lo sumo, tantos elementos como tiene el conjunto que lo indexa, como el conjunto de índices está contenido en $\set{1,\dots,n} \times\set{0,\dots,n}$, se tiene
+\[
+\operatorname{\#}\big(
+    f^{-1}\big(\big[\tfrac{1}{n},\infty\big)\big)
+\big)%
+\;\leq\;%
+\operatorname{\#}\big(
+    \set*{\tfrac{m}{k} \given 1 \leq k \leq n, 0 \leq m \leq k }
+\big)%
+\;\leq\;%
+n(n+1)
+\]
+
+Ahora acotemos la suma superior: la partición $P_n$ se puede escribir como unión disjunta de dos conjuntos, $P^1_n$ y $P^2_n$, de modo que $P^1_n$ consta de aquellos intervalos de $P_n$ que tienen algún punto de $f^{-1}\big([\nicefrac{1}{n},\infty)\big)$ y $P^2_n$ de aquellos que no. Como cada punto de $f^{-1}\big([\nicefrac{1}{n},\infty)\big)$ puede estar en, a lo sumo, dos intervalos distintos, se sigue que $\operatorname{\#}(P^1_n) \leq 2n(n+1)$. Luego, gracias a que la longitud de todos los intervalos es $\nicefrac{1}{n^3}$:
+\[
+U(f,P_n,[0,1]) = \sum_{I\en P^1_n}\frac{1}{n^3}\sup\nolimits_If +\sum_{I\en P^2_n}\frac{1}{n^3}\sup\nolimits_If
+\]
+Pero, por definición, $f \leq \nicefrac{1}{n}$ sobre todo intervalo $I\en P^2_n$, es decir, $\sup_I f \leq \nicefrac{1}{n}$ para cada $I\en P^2_n$. De modo similar, $f\leq 1$ en todo su dominio, así que siempre tenemos $\sup_I f \leq 1$ para cualquier intervalo. Luego
+\[
+U(f,P_n,[0,1])%
+= \sum_{I\en P^1_n}\frac{1}{n^3} +\sum_{I\en P^2_n}\frac{1}{n^3}\frac{1}{n}%
+= \operatorname{\#}(P^1_n)\frac{1}{n^3} + \operatorname{\#}(P^2_n)\frac{1}{n^4}
+\]
+pero ya vimos que $\operatorname{\#}(P^1_n) \leq 2n(n+1)$ y también $\operatorname{\#}(P^2_n) \leq \operatorname{\#}(P_n) = n^3$. Por lo tanto:
+\[
+U(f,P_n,[0,1])%
+\leq 2\frac{n(n+1)}{n^3} + \frac{n^3}{n^4}%
+= \frac{3}{n} + \frac{2}{n^2}%
+\]
+Por lo tanto se tiene, para cada $n\en\mathbb{N}$, que 
+\[
+0 = L(f,[0,1]) \leq U(f,[0,1]) \leq U(f,P_n,[0,1]) \leq \frac{3}{n} + \frac{2}{n^2}
+\]
+como $\lim_{n\to\infty}\frac{3}{n} + \frac{2}{n^2} = 0$, el teorema de compresión de límites implica que 
+\[
+0 = L(f,[0,1]) = U(f,[0,1])
+\]
+así que $f$ es Riemann integrable y $\int^1_0f = 0$.
+\end{sol}
+
+%------------------------------ Ejercicio 1B.2 -------------------------------
+
+\begin{ejer}
+Suponga que $f \colon [a, b] \to \mathbb{R}$ es acotada. Pruebe que $f$ es Riemann integrable si y solo si
+$$
+L(-f, [a, b]) = -L(f, [a, b]).
+$$
+\end{ejer}
+\begin{sol}
+Si $P$ es cualquier partición de $[a,b]$ dada por $x_0<x_1<\cdots <x_n$, entonces
+\[
+L(-f,P,[a,b])=\sum_{i=1}^n(x_i-x_{i-1})\inf_{{[x_{i-1},x_i]}} (-f),
+\]
+pero, para cada sub-intervalo $I_i=[x_{i-1},x_i]$, se cumple $\inf_{I_i}(-f)=-\sup_{I_i}f$. Por tanto,
+\[
+L(-f,P,[a,b])%
+=\sum_{i=1}^n(x_i-x_{i-1})\inf_{{[x_{i-1},x_i]}} (-f)
+=-\sum_{i=1}^n(x_i-x_{i-1})\sup_{{[x_{i-1},x_i]}} f
+= -U(f,P,[a,b])
+\]
+Luego, si denotamos por $\mathcal{P}$ al conjunto de particiones de $[a,b]$, podemos tomar supremos:
+\[
+\sup_{P\en\mathcal{P}} L(-f,P,[a,b])
+=\sup_{P\en\mathcal{P}} \bigl(-U(f,P,[a,b])\bigr)
+=-\inf_{P\en\mathcal{P}} U(f,P,[a,b])
+\]
+Es decir, esto se traduce, por definición, en $L(-f,[a,b]) = -U(f,[a,b])$. Esta igualdad implica la siguiente cadena de equivalencias:
+\begin{align*}
+f\text{ es integrable }%
+\quad&\iff\quad
+U(f,[a,b])=L(f,[a,b])\\
+\quad&\iff\quad
+-U(f,[a,b])=-L(f,[a,b])\\
+\quad&\iff\quad
+L(-f,[a,b])=-L(f,[a,b])%
+\end{align*}
+Esto concluye la prueba.
+\end{sol}
+
+%------------------------------ Ejercicio 1B.4 -------------------------------
+
+\setcounter{eje}{3}
+\begin{ejer}
+Dé un ejemplo de funciones acotadas $f, g\colon [0,1] \to \mathbb{R}$ tales que
+$$
+L(f, [0,1]) + L(g, [0,1]) < L(f + g, [0,1])
+$$
+y
+$$
+U(f + g, [0,1]) < U(f, [0,1]) + U(g, [0,1]).
+$$
+\end{ejer}
+\begin{sol}
+Tomemos $f = \chi_{\mathbb{Q} \cap[0,1]}$ la función característica de $\mathbb{Q} \cap[0,1]$ y $g = \chi_{[0,1]\setminus\mathbb{Q}}$ la función característica de $[0,1]\setminus\mathbb{Q}$. La imagen de ambas funciones es exactamente $\set{0,1}$, así que ambas son acotadas y no negativas.\par
+Ahora bien, para cualquier sub-intervalo $I\subset [0,1]$, la densidad de $\mathbb{Q}$ y de $\mathbb{R\setminus\mathbb{Q}}$ implican que tanto $I\cap\mathbb{Q}$ como 
+$I\cap([0,1]\setminus\mathbb{Q})$ son no vacíos. Por tanto,
+\[
+\inf\nolimits_I f=0,\qquad \sup\nolimits_I f=1,\qquad 
+\inf\nolimits_I g=0,\qquad \sup\nolimits_I g=1.
+\]
+De aquí se sigue que, para toda partición $P$ de $[0,1]$,
+\[
+L(f,P,[0,1])=0,\qquad U(f,P,[0,1])=1,
+\]
+y análogamente
+\[
+L(g,P,[0,1])=0,\qquad U(g,P,[0,1])=1.
+\]
+Tomando supremos e ínfimos sobre todas las particiones,
+\[
+L(f,[0,1])=0,\qquad U(f,[0,1])=1,
+\qquad
+L(g,[0,1])=0,\qquad U(g,[0,1])=1.
+\]
+Por otro lado, para todo $x\in[0,1]$ se tiene
+\[
+(f+g)(x)=\chi_{\mathbb{Q}}(x)+\chi_{[0,1]\setminus\mathbb{Q}}(x)=1.
+\]
+Es decir, $f+g\equiv 1$ en $[0,1]$. En consecuencia, para cualquier partición $P$,
+\[
+L(f+g,P,[0,1])=\sum_{i=1}^n 1\cdot (x_i-x_{i-1})=1,
+\qquad
+U(f+g,P,[0,1])=1,
+\]
+y por tanto
+\[
+L(f+g,[0,1])=U(f+g,[0,1])=1.
+\]
+Finalmente,
+\[
+L(f,[0,1])+L(g,[0,1])=0+0=0<1=L(f+g,[0,1]),
+\]
+y
+\[
+U(f+g,[0,1])=1<2=U(f,[0,1])+U(g,[0,1]).
+\]
+Esto prueba lo pedido.
+\end{sol}

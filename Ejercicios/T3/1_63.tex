@@ -1,0 +1,83 @@
+\setcounter{neje}{62}
+\begin{nejer}[Repetido]
+Sea $(X, \mathcal{A}, \mu)$ un espacio de medida tal que $\mu(X) < \infty$ y sea $f \colon X \to \mathbb{R}$ una función medible. Demuestre que $f$ es integrable si y solo si
+$$
+\sum_{n=1}^{\infty} \mu\big(\set*{x \en X \given |f(x)| > n}\big) < \infty.
+$$
+\end{nejer}
+\begin{sol}
+Denotemos, para cada $n\en\mathbb{N}$, $A_n \coloneq \set[\big]{x \en X \given |f(x)|>n}$; se sigue, por definición, que $A_n = |f|^{-1}\big((n,\infty)\big)$. También definimos $E_k \coloneq |f|^{-1}\big((k,k+1]\big)$. Como $|f|$ es medible, todos los $A_n$ y los $E_k$ son medibles, al igual que sus uniones e intersecciones contables. Ahora bien, como la imagen inversa de cualquier función manda uniones en uniones e intersecciones en intersecciones, se sigue que manda uniones disjuntas en uniones disjuntas. Por tanto,
+\[
+(n,\infty) = \dot\bigcup^\infty_{k=n}(k,k+1]%
+\quad\implies\quad%
+A_n = \dot\bigcup^\infty_{k=n}E_k
+\]
+por $\sigma$-aditividad se sigue, para cada $m\en\mathbb{N}$:
+\[
+\sum\nolimits^m_{n=1}\mu(A_n)%
+=\sum\nolimits^m_{n=1}\mu\Big( \dot\bigcup^\infty_{k=n}E_k \Big)%
+=\sum\nolimits^m_{n=1}\sum\nolimits^\infty_{k=n}\mu(E_k)%
+=\sum\nolimits^m_{n=1}\Big(\sum\nolimits^m_{k=n}\mu(E_k) + \sum\nolimits^\infty_{k=m+1}\mu(E_k)\Big)
+\]
+Sin embargo podemos reordenar la suma $\sum^m_{n=1}\sum^m_{k=n}\mu(E_k) = \sum_{1\leq n \leq k \leq m} \mu(E_k) = \sum^m_{k=1}\sum^k_{n=1}\mu(E_k)$. Como además $\sum^k_{n=1}\mu(E_k) = k\mu(E_k)$, se sigue que $\sum^m_{n=1}\sum^m_{k=n}\mu(E_k) = \sum^m_{k=1}k\mu(E_k)$. Por otro lado, sabemos que los $E_k$ son disjuntos a pares, así $\sum^\infty_{k=m+1}\mu(E_k) = \mu(\bigcup^\infty_{k=m+1}E_k)$. Luego:
+\begin{equation}\label{eq:reord2}
+\sum\nolimits^m_{n=1}\mu(A_n)%
+= \sum\nolimits^m_{k=1}k\mu(E_k) + \mu\Big( \bigcup\nolimits^\infty_{k=m+1}E_k \Big)
+\end{equation}
+Se cumple $\bigcup^\infty_{k=m+1} E_k = \bigcup^\infty_{k=m+1}|f|^{-1}\big((k,k+1]\big) = |f|^{-1}\big(\bigcup^\infty_{k=m+1}(k,k+1]\big) =|f|^{-1}\big((m+1,\infty)\big)$. Así que, el hecho de que la sucesión de intervalos $\set{(m+1,\infty)}_{m\en\mathbb{N}}$ es decreciente, implica que $\set*{\bigcup^\infty_{k=m+1} E_k}_{m\en\mathbb{N}}$ también; más aún, todos estos conjuntos tiene medida finita,%
+\footnote{
+    Todo conjunto $A \en \mathcal{A}$ tiene medida finita, pues como $A\subseteq X$ se tiene $\mu(A) \leq \mu(x) < \infty$ (hipótesis).
+}
+así que:%
+\[
+\lim_{m\to\infty}\mu\Big(\bigcup\nolimits^\infty_{k=m+1} E_k\Big)%
+= \mu\Big( \bigcap\nolimits^\infty_{m=1}\bigcup\nolimits^\infty_{k=m+1} E_k \Big)%
+= \mu\Big( |f|^{-1}\Big( \bigcap\nolimits^\infty_{m=1}(m+1,\infty) \Big) \Big)%
+= \mu(\varnothing) = 0
+\]
+Como las sumas en (\ref{eq:reord2}) tienen términos no negativos (así que las sucesiones de sumas parciales son monótonas no decrecientes), su límite existe en $[0,\infty]$. Entonces tomamos límite en ambos lados y usamos aditividad de límites para obtener:
+\[
+\sum\nolimits^\infty_{n=1}\mu(A_n)%
+= \sum\nolimits^\infty_{k=1}k\mu(E_k) + \lim_{m\to\infty}\mu\Big(\bigcup\nolimits^\infty_{k=m+1} E_k\Big)%
+= \sum\nolimits^\infty_{k=1}k\mu(E_k)
+\]
+Ahora bien, como vimos al inicio, $A_1 = \dot\bigcup^\infty_{k=1}E_k$, y también $X = A_1 \mathbin{\dot{\cup}} A^c_1$, así que el teorema 1.38 (\cite{Salamon}) garantiza que:
+\begin{equation}\label{eq:partint2}
+\int_X|f|\dd{\mu}%
+= \int_{A_1}|f|\dd{\mu} + \int_{A^c_1}|f|\dd{\mu}%
+= \sum\nolimits^\infty_{k=1}\int_{E_k}|f|\dd{\mu} + \int_{A^c_1}|f|\dd{\mu}
+\end{equation}
+Como $0\leq k \leq |f| \leq k+1$ en $E_k$, se tiene $\int_{E_k}k\dd{\mu} \leq \int_{E_k}|f|\dd{\mu} \leq \int_{E_k}k+1\dd{\mu}$, pero $\int_{E_k}k\dd{\mu} = k\mu(E_k)$ y $\int_{E_k}k+1\dd{\mu} = (k+1)\mu(E_k)$, por lo tanto:
+\[
+\sum\nolimits^\infty_{k=1}k\mu(E_k) %
+\;\leq\;%
+\sum\nolimits^\infty_{k=1}\int_{E_k}|f|\dd{\mu}%
+\;\leq\;%
+\sum\nolimits^\infty_{k=1}(k+1)\mu(E_k)
+\]
+Sumando el valor $\int_{A^c_1}|f|\dd{\mu} > 0$ al centro y derecha de esta desigualdad, obtenemos
+\[
+\sum\nolimits^\infty_{k=1}k\mu(E_k) %
+\;\leq\;%
+\sum\nolimits^\infty_{k=1}\int_{E_k}|f|\dd{\mu} + \int_{A^c_1}|f|\dd{\mu}%
+\;\leq\;%
+\sum\nolimits^\infty_{k=1}(k+1)\mu(E_k) + \int_{A^c_1}|f|\dd{\mu}
+\]
+Ahora sustituimos (\ref{eq:partint2}) y separamos la suma $\sum\nolimits^\infty_{k=1}(k+1)\mu(E_k) = \sum\nolimits^\infty_{k=1}k\mu(E_k) + \sum\nolimits^\infty_{k=1}\mu(E_k)$:
+\[
+\sum\nolimits^\infty_{k=1}k\mu(E_k) %
+\;\leq\;%
+\int_{X}|f|\dd{\mu}%
+\;\leq\;%
+\sum\nolimits^\infty_{k=1}k\mu(E_k) + \sum\nolimits^\infty_{k=1}\mu(E_k) + \int_{A^c_1}|f|\dd{\mu}
+\]
+Pero como $|f| \colon X \to [0,\infty)$, se cumple $A^c_1 = |f|^{-1}\big((1,\infty)\big)^c = |f|^{-1}\big([0,1]\big)$, por lo que $|f| \leq 1$ en $A^c_1$, así que $\int_{A^c_1}|f|\dd{\mu} \leq \int_{A^c_1}1\dd{\mu} = \mu(A^c_1) < \infty$. Asimismo, tenemos $\sum\nolimits^\infty_{k=1}\mu(E_k) = \mu(\bigcup^\infty_{k=1}E_k) < \infty$, por lo cual podemos definir la constante $\alpha \coloneq \sum\nolimits^\infty_{k=1}\mu(E_k) + \int_{A^c_1}|f|\dd{\mu} \en [0,\infty)$. Sustituyendo la constante:
+\begin{equation}\label{eq:cotaint2}
+\sum\nolimits^\infty_{k=1}k\mu(E_k) %
+\;\leq\;%
+\int_{X}|f|\dd{\mu}%
+\;\leq\;%
+\sum\nolimits^\infty_{k=1}k\mu(E_k) + \alpha
+\end{equation}
+La desigualdad (\ref{eq:cotaint2}) implica directamente que $\int_{X}|f|\dd{\mu} < \infty$ si y solo si $\sum^\infty_{k=1}k\mu(E_k) < \infty$; en otras palabras, $f$ es integrable si y solo si $\sum^\infty_{k=1}k\mu(E_k) < \infty$. Como $\sum^\infty_{k=1}k\mu(E_k) = \sum^\infty_{n=1}\mu(A_n)$, hemos probado lo deseado.
+\end{sol}

@@ -1,0 +1,52 @@
+%------------------------------ Ejercicio 3.24 -------------------------------
+
+\setcounter{neje}{23}
+\begin{nejer}
+Este ejercicio muestra que la suposición de Borel no puede ser eliminada en el Teorema 3.18. (La medida $\mu$ en la parte (ii) no es una medida de Borel). Sea $(X, \mathcal{U})$ el espacio topológico definido por $X := \mathbb{N} \cup \set{\infty}$ y
+$$
+\mathcal{U} := \set[\big]{U \subseteq X \mid U \subseteq \mathbb{N} \text{ o } \#U^c < \infty}.
+$$
+Así, $(X, \mathcal{U})$ es la compactificación (de Alexandrov) por un punto de $\mathbb{N}$ con la topología discreta. (Si $\infty \en U$, entonces la condición $\#U^c < \infty$ es equivalente a la afirmación de que $U^c$ es compacto).
+\begin{enumerate}[label = (\roman*), leftmargin=1.5em]
+    \item Pruebe que $(X, \mathcal{U})$ es un espacio de Hausdorff compacto y que todo subconjunto de $X$ es $\sigma$-compacto. Pruebe que la $\sigma$-álgebra de Borel de $X$ es $\mathcal{B} = 2^X$.
+    \item Sea $\mu \colon 2^X \to [0, \infty]$ la medida de conteo. Pruebe que $\mu$ es regular interior, pero no es regular exterior.
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+\begin{enumerate}[label = (\roman*), leftmargin=1.5em]
+%-----------------------------------------------------
+\item % Inciso (i)
+\emph{Veamos que $X$ es Hausdorff}:\\
+Sean $x,y\en X$ distintos. Si ninguno es infinito, $\set{x},\set{y}\en\mathcal{U}$ son disjuntos. Si alguno de ellos es infinito, supongamos s.p.g. que $x=\infty$, en cuyo caso, $y\en\mathbb{N}$. Se sigue que $\set{y}^c,\set{y} \en \mathcal{U}$ son disjuntos y $x=\infty \en \set{y}^c$. En cualquier caso, podemos separar a $x,y$ por abiertos disjuntos.\vspace{1em}\\
+\emph{Veamos que $X$ es compacto}:\\
+Sea $\mathscr{U} \subseteq {\mathcal{U}}$ cubierta de $X$. Entonces existe $U_\infty \en \mathscr{U}$ tal que $\infty \en U_{\infty}$, como $U_\infty \nsubseteq \mathbb{N}$ es abierto, forzosamente $U^c_\infty$ es finito, pongamos $U^c_\infty = \set{n_1,\dots,n_k}$. Se sigue que, para cada $1 \le i \le k$, existe $U_i\en\mathscr{U}$ tal que $n_i \en U_i$. En consecuencia, $X = U_1 \cup \cdots\cup U_k \cup U_\infty$, así que $\set{U_1,\dots,U_k,U_\infty}$ es sub-cubierta finita de $\mathscr{U}$.\vspace{1em}\\
+\emph{Veamos que todo $A\subseteq X$ es $\sigma$-compacto y $\mathcal{B} = 2^X$}:\\
+Esto es obvio: $A = \bigcup_{x\en A}\set{x}$ es una unión contable donde cada $\set{x}$ es compacto por ser finito. Más aún, como $X$ es Hausdorff, todo compacto es cerrado, por lo que $A$ es unión contable de cerrados, y así $A \en \mathcal{B}$. Como $A\subseteq X$ es arbitrario, esto concluye la prueba.
+%-----------------------------------------------------
+\item % Inciso (ii)
+\emph{Veamos que $\mu$ es regular interior}:\\
+Sea $A\subseteq X$ arbitrario. Si $A$ es finito, es compacto, así que trivialmente (por monotonía):%
+\footnote{
+En efecto, ya que $\mu(A) \en \set{\mu(K) \given K \subseteq A \text{ es compacto}}$, y todo elemento de este conjunto será menor o igual a $\mu(A)$ gracias a la monotonía.
+}
+\[
+\mu(A) = \sup\set{\mu(K) \given K \subseteq A \text{ es compacto}}
+\]
+Si $A$ es infinito, para cada $n\en\mathbb{N}$ existe $K_n \subseteq A$ con $n$ elementos. Como $K_n$ es finito, es compacto, así que
+\[
+\sup\set{\mu(K) \given K \subseteq A \text{ es compacto}} \ge \mu(K_n) =n
+\]
+Como $n\en\mathbb{N}$ es arbitrario, se sigue que este supremo es $\infty$, al igual que $\mu(A)$ por definición. En cualquier caso, probamos la regularidad interior de $\mu$.\vspace{1em}\\
+\emph{Veamos que $\mu$ no es regular exterior}:\\
+Por definición $\mu(\set{\infty}) = 1$. No obstante, si $U \supseteq \set{\infty}$ es abierto, forzosamente $U^c$ es finito. Como $X = U \cup U^c$ es infinito, se sigue que $U$ es infinito (de otro modo, $X$ sería unión de dos finitos). Por lo tanto $\mu(U) = \infty$. Esto prueba que
+\[
+\inf\set{\mu(U) \given U \supseteq \set{\infty} \text{ es abierto}}
+= \inf\set{\infty} = \infty
+\]
+Por consiguiente,
+\[
+\mu(\set{\infty}) \neq \inf\set{\mu(U) \given U \supseteq \set{\infty} \text{ es abierto}}
+\]
+y $\mu$ no es regular exterior.
+\end{enumerate}
+\end{sol}

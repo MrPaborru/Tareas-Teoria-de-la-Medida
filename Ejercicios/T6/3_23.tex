@@ -1,0 +1,112 @@
+%------------------------------ Ejercicio 3.23 -------------------------------
+
+\setcounter{neje}{22}
+\begin{nejer}
+Este ejercicio muestra que las medidas $\mu_0, \mu_1$ en el Teorema 3.15 no necesariamente coinciden. Sea $(X, d)$ el espacio métrico dado por $X \coloneq \mathbb{R}^2$ y
+$$
+d((x_1, y_1), (x_2, y_2)) \coloneq |y_1 - y_2| + \begin{cases} 0 & \text{si } x_1 = x_2, \\ 1 & \text{si } x_1 \neq x_2. \end{cases}
+$$
+Sea $\mathcal{B} \subseteq 2^X$ la $\sigma$-álgebra de Borel de $(X, d)$.
+\begin{enumerate}[label = (\roman*), leftmargin=1.5em]
+\item Pruebe que $(X, d)$ es localmente compacto.
+\item Pruebe que para cada función continua con soporte compacto $f \colon X \to \mathbb{R}$ existe un conjunto finito $S_f \subseteq \mathbb{R}$ tal que $\text{supp}(f) \subseteq S_f \times \mathbb{R}$.
+\item Defina el funcional lineal positivo $\Lambda \colon C_c(X) \to \mathbb{R}$ mediante
+$$
+\Lambda(f) \coloneq \sum_{x \en S_f} \int_{-\infty}^\infty f(x, y) \dd{y}.
+$$
+Sea $\mu \colon \mathcal{B} \to [0, \infty]$ una medida de Borel tal que
+$$
+\int_X f \dd{\mu} = \Lambda(f) \quad \text{para todo} \quad f \en C_c(X).
+$$
+Pruebe que todo subconjunto de $X$ de un solo elemento tiene medida cero.
+\item Sea $\mu$ como en (iii) y sea $E \coloneq \mathbb{R} \times \set{0}$. Este conjunto es cerrado. Si $\mu$ es regular interior, pruebe que $\mu(E) = 0$. Si $\mu$ es regular exterior, pruebe que $\mu(E) = \infty$.
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+Para simplificar la notación, definamos $\delta(x,x_0) = 1$ cuando $x\neq x_0$ y $\delta(x,x_0) = 0$ cuando $x=x_0$. De este modo, 
+\[
+d\bigl((x_1, y_1), (x_2, y_2)\bigr) = |y_1 - y_2| + \delta(x,x_0)
+\]
+Por otro lado, sea $(x_0,y_0)\en\mathbb{R}^2$ arbitrario. Afirmamos que la bola $B \coloneq B_{r}(x_0,y_0)$ coincide con $\set{x_0}\times(y_0-r,y_0+r)$, cuando $0<r<1$. En efecto, si $(x,y)\en B$ entonces $\abs{y-y_0} + \delta({x,x_0}) < r$, por lo tanto $\delta(x,x_0) < r < 1$, así que forzosamente $\delta(x,x_0)=0$ y $x=x_0$; luego, al sustituir esto, obtenemos $\abs{y-y_0} < r$. Es decir, $B \subseteq \set{x_0} \times (y_0-r,y_0+r)$, mientras que la otra desigualdad es trivial: si $y\en(y_0-r,y_0+r)$, entonces $d((x_0,y),(x_0,y_0)) = \abs{y-y_0} < r$, y así $(x_0,y)\en B$.\par
+Por definición 
+\[\mathscr{B} = \set[\big]{\,B_{r}(x,y) = \set{x} \times (y-r,y+r) \,\given\, (x,y)\en \mathbb{R}^2,\, 0<r<1\,}\] 
+es base para la topología de $(\mathbb{R}^2,d)$; sin embargo, los singletons son base de la topología discreta de $\mathbb{R}$ y los intervalos $(y-r,y+r)$ lo son para la topología usual de $\mathbb{R}$, se sigue que $\mathscr{B}$ es base para la topología producto de estas últimas. En otras palabras, la topología de $(\mathbb{R}^2,d)$ es el producto de $\mathbb{R}$ discreto con $\mathbb{R}$ usual, ya que tienen la misma base $\mathscr{B}$.
+\begin{enumerate}[label=(\roman*),leftmargin=1.5em]
+%-------------------------------------------------
+\item % Inciso (i)
+Es bien sabido que el producto de \emph{dos} espacios loc. compactos es loc. compacto (para cada pareja $(x,y)$, $U \times V$ será entorno compacto de $(x,y)$ siempre que $U$ lo sea de $x$ y $V$ de $y$). Luego, como $\mathbb{R}$ discreto es loc. compacto (los singletons son entornos compactos) y $\mathbb{R}$ usual es loc. compacto, se sigue que su producto, $(\mathbb{R}^2,d)$, es loc. compacto.
+%-------------------------------------------------
+\item % Inciso (ii)
+Si $K$ es compacto en $(\mathbb{R}^2,d)$, la continuidad de la primer proyección $\pi_1 \colon \mathbb{R}^2 \to \mathbb{R}$ garantiza que $\pi_1(K)$ es compacto en $\mathbb{R}$ discreto. Como los únicos compactos en un espacio discreto son los subconjuntos finitos, $\pi_1(K)$ es finito; sin embargo, es evidente que $K \subseteq \pi_1(K) \times \mathbb{R}$. En particular para $f$ con $\supp(f)$ compacto basta considerar $S_f \coloneq \pi_1(\supp(f))$.
+%-------------------------------------------------
+\item % Inciso (iii)
+Sea $(x_0,y_0)\en\mathbb{R}^2$. Para cada $n\en\mathbb{N}$ ya vimos que $U_n\coloneq \set{x_0} \times (y_0-\frac{1}{2n},y_0+\frac{1}{2n})$ es entorno abierto de $(x_0,y_0)$, pero $(\mathbb{R}^2,d)$ es localmente compacto (y Hausdorff por ser métrico), por lo que el lema de Urysohn garantiza que existe un mapeo $f_n \en C_c(X)$ tal que
+\[
+0 \leq f_n \leq 1,
+\qquad
+\supp(f_n) \subseteq U_n
+\qquad\text{y}\qquad
+f_n|_{\set{(x_0,y_0)}} \equiv 1
+\]
+como $\supp(f_n) \subseteq \set{x_0} \times \mathbb{R}$, por lo visto en (ii) tenemos $S_{f_n} = \set{x_0}$ y $\Lambda(f_n) = \int_{\mathbb{R}} f_n(x_0,y) \dd{y}$, pero por construcción $f_n(x_0,y) \le \chi_{(y_0-\frac{1}{2n},y_0+\frac{1}{2n})}(y)$, por lo cual
+\[
+\Lambda(f_n) 
+\le \int^\infty_{-\infty} \chi_{(y_0-\frac{1}{2n},y_0+\frac{1}{2n})}(y) \dd{y}
+= \frac{1}{n}
+\]
+Por otro lado, para todo $n\en\mathbb{N}$, $\chi_{\set{(x_0,y_0)}} \le f_n$ de donde (notemos que $\set{(x_0,y_0)}\en\mathcal{B}$ por ser cerrado, gracias a que el espacio es Hausdorff):
+\[
+\mu(\set{(x_0,y_0)}) 
+= \int\chi_{\set{(x_0,y_0)}} \dd{\mu} \le \int f_n \dd{\mu} = \Lambda(f_n) \le \frac{1}{n} 
+\]
+al tomar $n\to\infty$ se sigue que $\mu(\set{(x_0,y_0)}) =0 $.
+%-------------------------------------------------
+\item % Inciso (iv)
+\emph{Supongamos que $\mu$ es regular interior}:\\
+Si $K\subseteq E$ es compacto entonces $K \subseteq \pi_1(K) \times \set{0}$ donde, por lo visto en (ii), $\pi_1(K)$ es finito. Se sigue que $K$ es finito, así que por (iii), $\mu(K) = 0$ (es unión finita de conjuntos de medida cero). Por lo tanto, la regularidad interior implica ($E\en\mathcal{B}$ por ser producto de cerrados):
+\[
+\mu(E) = \sup\set{\mu(K) \given K\subseteq E \text{ es compacto}} = \sup\set{0} = 0
+\]
+\\
+\emph{Supongamos que $\mu$ es regular exterior}:\\
+Sea $U \supseteq E$ abierto arbitrario. Como $(x,0) \en E \subseteq U$ para cada $x\en\mathbb{R}$, del hecho de que $\mathscr{B}$ es base, se sigue que existe $I_x = (-r_x,r_x)$, con $0 < r_x< 1$, tal que $\set{x} \times I_x \subseteq U$. Luego, tenemos:
+\[
+\mathbb{R} = \bigcup_{n\en\mathbb{N}} X_n
+\quad\text{donde}\quad
+X_n \coloneq \set[\big]{x\en\mathbb{R} \given r_x > \tfrac{1}{n}}
+\]
+Como esta unión es contable y $\mathbb{R}$ es incontable, se sigue que existe $N\en\mathbb{N}$ tal que $X_N$ es infinito (de otro modo, $\mathbb{R}$ sería unión contable de conjuntos finitos).\par
+Ahora bien, sean $k\en\mathbb{N}$ arbitrario y $x_1,\dots,x_k\en X_N$. Como $\set{x_k} \times [-\nicefrac{1}{N},\nicefrac{1}{N}] \subseteq \set{x_k} \times I_{x_k} \subseteq U$, se sigue que el compacto $C_k \coloneq \set{x_1,\dots,x_k} \times [-\nicefrac{1}{N},\nicefrac{1}{N}]$ está contenido en $U$. Luego, por lema de Urysohn, existe un mapeo $f \en C_c(X)$ tal que
+\[
+0 \leq f \leq 1,
+\qquad
+\supp(f) \subseteq U
+\qquad\text{y}\qquad
+f|_{C_k} \equiv 1
+\]
+por construcción, $\supp(f) \supseteq C_k$, así que $S_{f} \supseteq \set{x_1,\dots,x_k}$, por lo cual
+\[
+\Lambda(f) \ge \sum^k_{i=1} \int^\infty_{-\infty}f(x_k,y) \dd{y}
+\]
+no obstante, también $f(x_k,y) \ge \chi_{[-\nicefrac{1}{N},\nicefrac{1}{N}]}(y)$, así 
+\[
+\int^\infty_{-\infty}f(x_k,y) \dd{y} 
+\ge \int^\infty_{-\infty}\chi_{[-\nicefrac{1}{N},\nicefrac{1}{N}]}(y) \dd{y} 
+= \frac{2}{N}
+\] 
+Por tanto: $\Lambda(f) \ge \frac{2k}{N}$. Asimismo, $\chi_U \ge f$, en consecuencia:
+\[
+\mu(U) 
+= \int_X \chi_U \dd{\mu}
+\ge \int_X f \dd{\mu}
+= \Lambda(f)
+\ge \frac{2k}{N}
+\]
+Como $k\en\mathbb{N}$ es arbitrario, $\mu(U) = \infty$. Finalmente, por regularidad exterior de $\mu$:
+\[
+\mu(E) 
+= \inf\set[\big]{ \mu(U) \given U\supseteq E \text{ es abierto} }
+= \inf\set{\infty} = \infty
+\]
+\end{enumerate}
+\end{sol}

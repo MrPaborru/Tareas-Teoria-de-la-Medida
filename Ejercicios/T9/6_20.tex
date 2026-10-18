@@ -1,0 +1,308 @@
+%------------------------------ Ejercicio 6.20 -------------------------------
+\setcounter{neje}{19}
+\begin{nejer}
+Sea $I = [a, b] \subseteq \mathbb{R}$ un intervalo compacto y sea $\mathcal{B} \subseteq 2^I$ la $\sigma$-álgebra de Borel. Se dice que una función $f \colon I \to \mathbb{R}$ es de variación acotada si
+$$
+V(f) \coloneq \sup_{a=t_0 <\cdots < t_\ell = b} \sum_{i=1}^\ell |f(t_i) - f(t_{i-1})| < \infty.
+$$
+Denote por $\text{BV}(I)$ al conjunto de todas las funciones $f \colon I \to \mathbb{R}$ de variación acotada. Este es un espacio vectorial real. Las funciones de variación acotada tienen a lo sumo una cantidad numerable de discontinuidades y los límites por la izquierda y por la derecha existen en todas partes. Pruebe lo siguiente.
+\begin{enumerate}[label = (\roman*), leftmargin=1.8em]
+    \item Toda función monótona $f \colon I \to \mathbb{R}$ es de variación acotada.
+    \item Sea $f \en \text{BV}(I)$ continua por la derecha. Entonces existen funciones monótonas continuas por la derecha $f^\pm \colon I \to \mathbb{R}$ tales que $f = f^+ - f^-$.
+    
+    \emph{Sugerencia.} Defina
+    $$
+    F(x) \coloneq V(f|_{[a,x]}) = \sup_{a=t_0 <\cdots < t_\ell = x} \sum_{i=1}^\ell |f(t_i) - f(t_{i-1})|
+    $$
+    para $a \le x \le b$. Pruebe que $F$ es continua por la derecha y que $F \pm f$ son monótonas.
+    \item Si $f$ es continua, entonces la función $F$ en (ii) es continua.
+    \item Sea $f \colon I \to \mathbb{R}$ continua por la derecha. Entonces $f \en \text{BV}(I)$ si y solo si existe una medida de Borel con signo $\lambda = \lambda_f \colon \mathcal{B} \to \mathbb{R}$ tal que $\lambda(\{a\}) = 0$ y
+   \begin{equation}\label{eq:cond}
+    f(x) - f(a) = \lambda([a, x]), \qquad \forall x\en[a,b].
+    \end{equation}
+    \emph{Sugerencia.} Asuma que $f$ es monótona. Para $h \en C(I)$ defina
+    $$
+    \Lambda_f(h) \coloneq \int_a^b h \dd{f} \coloneq \sup_{a=t_0 <\cdots < t_\ell = b} \sum_{i=1}^\ell \left( \inf_{[t_{i-1}, t_i]} h \right) (f(t_i) - f(t_{i-1})).
+    $$
+    Pruebe que $\Lambda_f \colon C(I) \to \mathbb{R}$ es un funcional lineal positivo. Use el teorema de representación de Riesz (Teorema 3.15) para encontrar una medida de Borel $\lambda_f \colon \mathcal{B} \to [0, \infty)$ tal que $\Lambda_f(h) = \int_I h \dd{\lambda_f}$ para toda $h \en C(I)$. Use el hecho de que $f$ es continua por la derecha para probar que $\lambda_f$ satisface la \cref{eq:cond}.
+    \item Si $f \en \text{BV}(I)$ es continua por la derecha y $\lambda_f$ es como en (iv), entonces $V(f) = |\lambda_f|(I)$.
+    \item Toda función absolutamente continua $f \colon I \to \mathbb{R}$ tiene variación acotada.
+\end{enumerate}
+\end{nejer}
+\clearpage
+\begin{sol}
+\emph{Antes de resolver el ejercicio, establezcamos un lema útil}:
+\begin{tcolorbox}[colback=white, boxrule=0.5pt, fontupper=\small,arc=0.5mm]
+\begin{lema}[Aditividad]\label{lema:ad}
+Para cada $a\le x\le y\le b$ denotaremos $V^y_x(f) \coloneq V(f|_{[x,y]})$. Afirmamos que, si $a\le x\le y\le z\le  b$, entonces $V^z_x(f) = V^y_x(f) + V^z_y(f)$.
+\end{lema}
+\end{tcolorbox}
+Para probar el lema notemos que, dada cualquier partición $\set{t_0<\cdots< t_\ell}$ de $[x,z]$, existe un entero $1\le k \le \ell$ tal que $t_{k-1} \le y \le t_k$. Luego, la desigualdad triangular garantiza que $|f(t_k)-f(t_{k-1})| \leq \abs{f(y)-f(t_{k-1})} + \abs{f(t_k)-f(y)}$, por lo cual:  
+{\thickmuskip=10mu
+\begin{align*}
+\sum^\ell_{i=1}\abs{f(t_i)-f(t_{i-1})}
+\leq{}&\left(\sum^{k-1}_{i=1}\abs{f(t_i)-f(t_{i-1})} + \abs{f(y)-f(t_{k-1})}\right)\\ 
+&+ \left(\abs{f(t_k)-f(y)} + \sum^\ell_{i=k+1}\abs{f(t_i)-f(t_{i-1})}\right)
+\end{align*}
+}%
+Como $\set{t_0<\cdots<t_{k-1} \le y}$ es partición de $[x,y]$, el primer sumando es a lo sumo $V^y_x(f)$, y como $\set{y\le t_{k}<\cdots<t_\ell}$ es partición de $[y,z]$, el segundo sumando es a lo sumo $V^z_y(f)$. Luego, se sigue que $\sum^\ell_{i=1}\abs{f(t_i)-f(t_{i-1})} \leq V^y_x(f) + V^z_y(f)$, así que al tomar supremo sobre la partición de $[x,z]$ obtenemos $V^z_x(f) \leq V^y_x(f) + V^z_y(f)$.\par
+Recíprocamente, si $\set{t_0<\cdots<t_k}$ partición arbitraria de $[x,y]$ y $\set{s_0 < \cdots< s_m}$ partición arbitraria de $[y,z]$, entonces la unión, $\set{t_0<\cdots<t_k = s_0 < \cdots< s_m}$, es partición de $[x,z]$, así:
+\[
+\sum^k_{i=1}\abs{f(t_i)-f(t_{i-1})} + \sum^m_{i=1}\abs{f(s_i)-f(s_{i-1})} \;\le\; V^z_x(f)
+\]
+al tomar supremo, primero respecto a la partición de $[x,y]$ y luego sobre a la partición de $[y,z]$, concluimos $V^y_x(f) + V^z_y(f) \leq V^z_x(f)$. Esto finaliza la prueba del lema.
+\begin{enumerate}[label=(\roman*),leftmargin=1.8em]
+%--------------------------------------------------
+\item % (i)
+Dada cualquier partición $\set{t_0<\cdots<t_\ell}$ de $[a,b]$ se cumple, por monotonía de $f$, que $|f(t_i) - f(t_{i-1})| = f(t_i) - f(t_{i-1})$, así que obtenemos una suma telescópica:
+\[
+\sum_{i=1}^\ell |f(t_i) - f(t_{i-1})|
+\;=\; \sum_{i=1}^\ell f(t_i) - f(t_{i-1})
+\;=\; f(t_\ell)-f(t_0)
+\;=\; f(b)-f(a)
+\]
+al tomar supremo sobre las particiones de $[a,b]$, obtenemos $V(f) = f(b)-f(a) < \infty$.
+%--------------------------------------------------
+\item % (ii)
+Definimos la función $F \colon I  \to \mathbb{R}$ tal que $F(x) \coloneq V^x_a(f)$ (es finito ya que $f\en BV(I)$). Entonces, si definimos $f^+\coloneq \frac12(F+f)$ y $f^-\coloneq \frac12(F-f)$, es inmediato que $f = f^+ -f^-$. Solo faltaría probar que $f^\pm$ es monótona y continua por la derecha.\par
+\medskip
+\emph{Primero probemos que $f^\pm$ es monótona}:\\
+Sean $x \le y$ en $I$. Por \cref{lema:ad} tenemos $F(y) = V^y_x(f) + F(x)$, así que $F(y) - F(x) = V^y_x(f)$; sin embargo, $\set{x,y}$ es (trivialmente) partición de $[x,y]$, así que 
+{\thickmuskip=10mu
+\[\abs{f(y) - f(x)} \leq V^y_x(f) = F(y) - F(x)\]
+}%
+Es decir, $\mp f(y) \pm f(x) = \mp\big(f(y)-f(x)\big) \le F(y) - F(x)$, de donde $F(x) \pm f(x) \le  F(y) \pm f(y)$. Al multiplicar por $\frac12$, esto prueba que $f^{\pm}(x) \le f^{\pm}(y)$, así que $f^{\pm}$ es monótona.\par
+\medskip
+\emph{Finalmente, probemos que $f^{\pm}$ es continua por la derecha}:\\
+Como ya tenemos que $f$ es continua por la derecha y $f^\pm= \frac12(F\pm f)$, basta con probar que $F$ también es continua por la derecha. En efecto, fijemos $c\en I$ arbitrario y sea $\varepsilon>0$. Por un lado, existe $\delta_1>0$ tal que para cualquier $x\en I$
+\[
+c \le x <  c+\delta_1
+\quad\implies\quad
+\abs{f(x) - f(c)} < \frac{\varepsilon}{2}
+\]
+Luego, fijemos un $x_0 \en [c,c+\delta_1)$ (por ejemplo, $x_0\coloneq c+\nicefrac{\delta_1}{2}$). Por definición de supremo, existe una partición $\set{t_0<\cdots<t_\ell}$ de $[c,x_0]$ tal que 
+\begin{equation}\label{eq:estvar1} 
+V_c^{x_0}(f) < \sum^\ell_{i=1}\abs{f(t_i) - f(t_{i-1})} + \frac{\varepsilon}{2}
+\end{equation}
+así que damos $\delta_2\coloneq t_1-t_0 = t_1 - c$ y $\delta \coloneq \min\set{\delta_1,\delta_2}$. Por lo tanto, si tomamos cualquier $x\en [c,c+\delta)$, tenemos que $x\en [c,c+\delta_2)$, por lo que $c \le x < t_1$; además, por desigualdad triangular $\abs{f(t_1)-f(t_0)} \le \abs{f(x)-f(t_0)} + \abs{f(t_1)-f(x)}$, y así, (\ref{eq:estvar1}) se convierte en%
+{\thickmuskip = 10mu
+\begin{equation}\label{eq:estvar2}
+V_c^{x_0}(f) 
+< \abs{f(x)-f(t_0)} + \abs{f(t_1)-f(x)} + \sum^\ell_{i=2}\abs{f(t_i) - f(t_{i-1})} + \frac{\varepsilon}{2}
+\end{equation}
+}%
+Finalmente, como $x\en[c,c+\delta_1)$, tenemos $\abs{f(x)-f(t_0)} < \frac{\varepsilon}{2}$, y como $\set{x<t_1<\cdots<t_\ell}$ es partición de $[x,x_0]$, $\abs{f(t_1)-f(x)} + \sum^\ell_{i=2}\abs{f(t_i) - f(t_{i-1})} \le V^{x_0}_x(f)$. Por consiguiente, (\ref{eq:estvar2}) se convierte en $V_c^{x_0}(f) < V^{x_0}_x(f)+\varepsilon$; no obstante, por \cref{lema:ad}, $V_c^{x_0}(f) - V^{x_0}_x(f) = V^x_c(f)$, por lo que acabamos de probar $V^x_c(f)<\varepsilon$, es decir, recordando que $F(x) - F(c)  = V^x_c(f)$, acabamos de probar que 
+\[
+x\en[c,c+\delta)
+\quad\implies\quad
+0\le F(x) - F(c) < \varepsilon
+\]
+
+
+Como $\varepsilon>0$ es arbitrario al igual que $c\en I$, se sigue que $F$ es continua por la derecha. 
+
+%--------------------------------------------------
+\item % (iii)
+\emph{Probemos que si $f$ es continua por la izquierda, también lo es $F$}:\\
+Nos apoyaremos en lo ya probado en (ii). Definimos la función $g \colon [-b,-a] \to \mathbb{R}$ tal que $g(x) = f(-x)$. Como $f$ es continua por la izquierda, $g$ es continua por la derecha; además, para todos $-b \le x \le y \le -a$ se tiene $a \le -y \le -x \le b$, y las particiones $\set{t_0<\cdots<t_\ell}$ de $[x,y] \subseteq [-b,-a]$ se corresponden biunívocamente (vía multiplicación por $-1$) con aquellas de $[-y,-x] \subseteq [a,b]$, de modo que
+{\thickmuskip=10mu
+\[
+\sum^\ell_{i=1} \abs{g(t_i)-g(t_{i-1})}
+= \sum^\ell_{i=1} \abs{f(-t_i)-f(-t_{i-1})}
+\]
+}%
+por lo tanto $V^y_x(g) = V^{-x}_{-y}(f)$. En particular, $V(g) = V(f) < \infty$, así que $g\en BV([-b,-a])$ y lo probado en (ii) garantiza que $G(x) = V^x_{-b}(g)$ es continua por la derecha. Luego, por \cref{lema:ad}, 
+$V^{-a}_{-b}(g) - V^x_{-b}(g) = V^{-a}_{x}(g) = V^{-x}_{a}(f)$, es decir, $V(g) - G(x) = F(-x)$. Esto garantiza que, al igual que $G(x)$, $F(-x)$ es continua por la derecha, así que $F(x)$ es continua por la izquierda.\par
+Finalmente, si $f$ es continua, lo es por izquierda y por derecha, así que lo recién probado y (ii) garantizan que $F$ es continua por izquierda y derecha; en otras palabras, $F$ es continua.
+
+%--------------------------------------------------
+\item % (iv)
+\emph{Construyamos la integral de Riemann-Stieltjes con integrador $f$ monótono}:\\
+Recordemos de (i) que $V(f) = f(b)-f(a)<\infty$. Definamos entonces, para cada $h\en C(I)$, la \emph{integral de Riemann-Stieltjes respecto a $f$} como
+\[
+\Lambda_f(h) \coloneq \int_a^b h \dd{f} \coloneq \sup_{a=t_0 <\cdots < t_\ell = b} \sum_{i=1}^\ell \left( \inf_{[t_{i-1}, t_i]} h \right) (f(t_i) - f(t_{i-1})).
+\]
+Denotemos $\mathcal{P}_{a,b}$ al conjunto de particiones de $[a,b]$ y, si $P=\set{t_0<\cdots<t_\ell}\en\mathcal{P}_{a,b}$, denotemos $S_f(P,h)$ a la correspondiente suma de Riemann $\sum^\ell_{i=1} m_i(h)\cdot \Delta f_i$ con $m_i(h) \coloneq \inf_{[t_{i-1}, t_i]} h$ y $\Delta f_i \coloneq f(t_i) - f(t_{i-1})$. Es trivial que si $P,Q\en\mathcal{P}_{a,b}$ entonces $P\subseteq Q$ implica $S_f(P,h) \leq S_f(Q,h)$.
+
+Notemos que, al ser $h$ continua y $I$ compacto, $\sup_I h < \infty$. Luego, para cualquier partición $a=t_0 <\cdots < t_\ell = b$, tenemos
+{\thickmuskip=10mu
+\[
+\sum_{i=1}^\ell \left( \inf_{[t_{i-1}, t_i]} h \right) (f(t_i) - f(t_{i-1}))
+\le (\sup\nolimits_I h)\sum_{i=1}^\ell (f(t_i) - f(t_{i-1}))
+= {\sup\nolimits_I h} \cdot (f(b)-f(a))
+\]
+}%
+Por lo tanto, $\Lambda_f(h) \le {\sup_Ih} \cdot (f(b)-f(a)) < \infty$, así que la integral de Riemann-Stieltjes define una función $\Lambda_f \colon C(I) \to \mathbb{R}$. Probemos que $\Lambda_f$ es funcional lineal positivo.\par
+En efecto, la positividad es inmediata: si $h\ge0$ entonces para cualquier $P=\set{t_0<\cdots<t_\ell}$ tenemos $\inf_{[t_{i-1},t_i]}h \ge 0$ y (por monotonía) $f(t_i) - f(t_{i-1}) \ge 0$, así que $\Lambda_f(h)\ge S_f(P,h) \ge0$.
+Para la linealidad, sean $h,g\en C(I)$ y $\alpha\en\mathbb{R}$. Podemos suponer s.p.g. que $\alpha\ge0$ (pues si $\alpha<0$, basta con trabajar con $-g\en C(I)$ y $-\alpha>0$, ya que $h+\alpha g = h + (-\alpha)(-g)$). Luego, probemos que $\Lambda_f(h+\alpha g) = \Lambda_f(h) + \alpha\Lambda_f(g)$:
+\begin{itemize}[leftmargin=1.8em]
+\item[($\ge$)] 
+Es propiedad elemental del ínfimo que:
+\[
+\inf\nolimits_{J}(h+\alpha g)
+\ge
+\inf\nolimits_{J}h
++
+\alpha\inf\nolimits_{J}g,
+\qquad \forall J \subseteq I
+\]
+así que, dadas $P,Q\en\mathcal{P}_{a,b}$ arbitrarias, podemos tomar $R \coloneq P \cup Q$, así $Q\subseteq R$ y $P\subseteq R$, de donde $S_f(P,h) \leq S_f(R,h)$ y  $S_f(Q,g) \leq S_f(R,g)$. Luego, poniendo $R = \set{t_0<\cdots<t_\ell}$, ya vimos que $m_i(h+\alpha g) \ge m_i(h) + \alpha m_i(g)$ con $1\le i \le \ell$. Multiplicando esto por $\Delta f_i \ge 0$ y sumando, nos da $S_f(R,h+\alpha g) \ge S_f(R,h) + \alpha S_f(R,g)$, por consiguiente:
+{\thickmuskip=10mu\mathsurround=0pt%
+\[
+\Lambda_f(h+\alpha g)
+\ge S_f(R,h+\alpha g)
+\ge S_f(R,h) + \alpha S_f(R,g)
+\ge S_f(P,h) + \alpha S_f(Q,g)
+\]
+% \begin{align*}
+% \Lambda_f(h+\alpha g)
+% &\ge \sum_{i=1}^\ell
+% m_i(h+\alpha g) \Delta f_i
+% \ge
+% \sum_{i=1}^\ell
+% m_i(h) \Delta f_i
+% +
+% \alpha
+% \sum_{i=1}^\ell
+% m_i(g) \Delta f_i\\
+% &= S_f(R,h) + \alpha S_f(R,g)
+% \ge S_f(P,h) + \alpha S_f(Q,g)
+% \end{align*}
+}%
+Tomando supremo sobre $P\en\mathcal{P}_{a,b}$ y luego sobre $Q\en\mathcal{P}_{a,b}$: $\Lambda_f(h+\alpha g)\ge\Lambda_f(h)+\alpha\Lambda_f(g)$.
+\item[($\le$)] 
+Sea $\varepsilon>0$ arbitrario. Como $h$ y $g$ son continuas en el compacto $I$, son uniformemente continuas, así que existe $\delta>0$ tal que para cualesquiera $x,y\in I$ con $\abs{x-y}<\delta$ se tiene $\abs{h(x)-h(y)}<\varepsilon$ y $\abs{g(x)-g(y)}<\varepsilon$.
+Fijemos una partición arbitraria $Q\in\mathcal{P}_{a,b}$. Siempre podemos agregar puntos a $Q$ para construir una partición $P=\{t_0<\dots<t_\ell\} \supseteq Q$ cuyos intervalos $I_i\coloneq[t_{i-1},t_i]$ tienen longitud menor a $\delta$. Luego, si denotamos $M_i(-)=\sup_{I_i}(-)$, por construcción, $M_i(h)-m_i(h)<\varepsilon$ y $M_i(g)-m_i(g)<\varepsilon$.
+
+Ahora notemos que, por propiedad de los ínfimos/supremos:%
+\footnote{
+    En efecto, para todo $x\en J$ se cumple $h(x) + \alpha g(x) \leq h(x) + \alpha \sup_J(g)$, así, al tomar ínfimos, se sigue $\inf_J(h+\alpha g) \le \inf_{x\en J}\bigl(h(x) + \alpha \sup_J(g)\bigr) = \inf_J(h) + \alpha\sup_J(g)$.
+} %
+$m_i(h+\alpha g) \le m_i(h) + \alpha M_i(g)$.
+Multiplicando esto por $\Delta f_i \ge 0$ y sumando,%
+{\thickmuskip=10mu
+\begin{equation}\label{eq:cotasum}
+S_f(P, h+\alpha g) \le S_f(P, h) + \alpha \sum^\ell_{i=1} M_i(g)\Delta f_i,
+\end{equation}
+}%
+A su vez, recordando que $M_i(g)-m_i(g)<\varepsilon$ y $\sum_i\Delta f_i = f(b) -f (a) = V(f)$:
+{\thickmuskip=10mu
+\begin{align*}
+\sum^\ell_{i=1} M_i(g)\Delta f_i
+&= \sum_{i=1}^\ell m_i(g)\Delta f_i +\sum_{i=1}^\ell \bigl(M_i(g)-m_i(g)\bigr)\Delta f_i\\
+&< S_f(P,g) + \varepsilon\sum_{i=1}^\ell \Delta f_i = S_f(P,g) + \varepsilon V(f)
+\end{align*}
+}%
+Gracias a esto, (\ref{eq:cotasum}) se convierte en: $S_f(P, h+\alpha g) < S_f(P, h) + \alpha S_f(P,g) + \alpha\varepsilon V(f)$. Sin embargo, como $Q \subseteq P$ tenemos $S_f(Q, h+\alpha g) \le S_f(P, h+\alpha g)$, además, $S_f(P, h) \le \Lambda_f(h)$ y $S_f(P, h)\le \Lambda_f(g)$, por lo que $S_f(Q, h+\alpha g) < \Lambda_f(h) + \alpha\Lambda_f(g) + \alpha\varepsilon V(f)$. Al tomar supremo para $Q\en\mathcal{P}_{a,b}$ se sigue
+{\thickmuskip=10mu
+\[
+\Lambda_f(h+\alpha g) \le \Lambda_f(h) + \alpha\Lambda_f(g) + \alpha\varepsilon V(f)
+\]
+}%
+Como $\varepsilon> 0$ es arbitrario, concluimos $\Lambda_f(h+\alpha g)\le \Lambda_f(h)+\alpha\Lambda_f(g)$.
+\end{itemize}
+Hemos demostrado que $\Lambda_f$ es funcional lineal positivo de $C(I)$.\par
+\medskip
+\emph{Probemos que $f$ es monótona ssi existe una medida Borel $\lambda_f$ que cumple (\ref{eq:cond})}:\\
+Para la suficiencia, supongamos que existe una medida de Borel (por tanto finita, ya que $I$ es compacto) $\lambda_f \colon \mathcal{B} \to [0,\infty)$ tal que $f(x) - f(a) = \lambda_f([a,x])$, para $x\en[a,b]$. Se sigue que $f(x) = f(a) + \lambda_f([a,x])$; luego, como $\lambda_f$ es monótona, se sigue que también $f$.\par
+Para la necesidad, supongamos que $f$ es monótona, por lo visto al inicio la integral de Riemann-Stieltjes $\Lambda_f \colon C(I) \to \mathbb{R}$ es funcional lineal positivo, así que el teorema de representación de Riesz garantiza que existe una medida de Borel $\lambda_f \colon \mathcal{B} \to [0,\infty)$ tal que $\Lambda_f(h) = \int_I h \dd{\lambda_f}$ para toda $h\en C(I)$. Ahora probemos que $\lambda_f$ cumple (\ref{eq:cond}), así que fijemos $x\en[a,b]$ arbitrario. Para esto definamos una sucesión de funciones continuas $h_n\colon I \to [0,1]$ tal que $h_n|_{[a,x]} \equiv1$ y $\supp(h_n) \subseteq [a,x+\nicefrac{1}{n})$ (existe por lema de Urysohn, pero se podría construir explícitamente pegando segmentos). Notemos que $h_n\to\chi_{[a,x]}$ puntualmente y dominada por la función $\lambda_f$-integrable $\chi_I$,%
+\footnote{
+Es obvio, si $y\en [a,x]$ entonces $h_n(y) = 1= \chi_{[a,x]}(y)$ para todo $n\en\mathbb{N}$; asimismo, si $y\en(x,b]$ entonces existe $N\en\mathbb{N}$ tal que $x+\nicefrac{1}{n} < y$ para todo $n\ge N$, pero $\supp(h_n) \subseteq [a,x+\nicefrac{1}{n})$, así que $h_n(y) = 0 = \chi_{[a,x]}$ para todo $n\ge N$. Además, $h_n \le \chi_I$ donde $\int \chi_I \dd{\lambda_f} = \lambda_f(I) < \infty$ ya que $I$ es compacto y $\lambda_f$ de Borel.
+} %
+así que el teorema de convergencia dominada implica (también usando que $\int h_n\dd{\lambda_f} = \Lambda_f(h_n)$ ya que $h_n\en C(I)$):
+{\thickmuskip=10mu
+\[
+\lambda_f([a,x]) 
+= \int_I \chi_{[a,x]} \dd{\lambda_f}
+= \lim_{n\to\infty}\int_I h_n \dd{\lambda_f}
+= \lim_{n\to\infty}\Lambda_f(h_n)
+\]
+}%
+No obstante, ya que $\supp(h_n) \subseteq [a,x+\nicefrac{1}{n})$, es obvio que $\Lambda_f(h_n) = \int_I h_n \dd{f} = \int^{x+\frac{1}{n}}_a h_n \dd{f}$, pero vimos al inicio que esta integral es acotada por $(\sup_{[a,x+\frac{1}{n})} h_n) \cdot V^{x+\frac{1}{n}}_a(f) = f(x+\nicefrac{1}{n}) - f(a)$; asimismo, como $h_n|_{[a,x]} \equiv1$, es sencillo notar que $\Lambda_f(h_n) \ge V^x_a(f) = f(x) - f(a)$.%
+\footnote{
+    La función continua $1-h_n \colon I \to [0,1]$ se anula en $[a,x]$ por lo que $\supp(1-h_n) \subseteq (x,b]$; luego, análogo a lo hecho para $h_n$, tenemos $\Lambda_f(1-h_n) = \int^b_x 1-h_n \dd{f} \le \sup(1-h_n)\cdot V^b_x(f) = V^b_x(f)$. Por linealidad $\Lambda_f(1) -\Lambda_f(h_n) = \Lambda_f(1-h_n)$ y se sigue directo de la definición que $\Lambda_f(1) = V(f)$, por lo que $V(f) -\Lambda_f(h_n)\le V^b_x(f)$. Por el \cref{lema:ad} concluimos que $V^x_a(f) = V(f) -V^b_x(f) \le \Lambda_f(h_n)$.
+ }
+Por tanto:
+{\thickmuskip=10mu
+\[
+f(x) - f(a) \le \Lambda_f(h_n) \le f(x+\nicefrac{1}{n}) - f(a)
+\]
+}
+al tomar $n\to\infty$, la continuidad derecha de $f$ garantiza que $\lim_{n\to\infty}f(x+\nicefrac{1}{n}) = f(x)$, así que esta última desigualdad se convierte en
+{\thickmuskip=10mu
+\[
+\lambda_f([a,x]) = \lim_{n\to\infty} \Lambda_f(h_n) = f(x) - f(a)
+\]
+}
+En particular, para $x=a$ se tiene $\lambda_f(\set{a}) = \lambda_f([a,a]) = f(a)-f(a) = 0$.\par
+\medskip
+\emph{Finalmente, probemos lo solicitado}:\\
+Para la suficiencia, supongamos que existe una medida de Borel con signo $\lambda_f\colon \mathcal{B} \to \mathbb{R}$ tal que $f(x)-f(a) = \lambda_f([a,x])$, de esto se sigue $f(x) = f(a) + \lambda_f([a,x])$; sin embargo, el teorema de descomposición de Jordan garantiza que existen únicas medidas $\lambda^+_f,\lambda^-_f\colon \mathcal{B} \to [0,\infty)$ (al ser finitas se sigue que son de Borel) con $\lambda_f = \lambda^+_f - \lambda^-_f$ y $\abs{\lambda_f}=\lambda^+_f + \lambda^-_f$. Como ya sabemos (por monotonía de $\lambda^+_f,\lambda^-_f$) que las funciones $x\mapsto\lambda^+_f([a,x])$ y $x \mapsto \lambda^+_f([a,x])$ son monótonas (al igual que $x\mapsto f(a)$), (i) implica que son de variación acotada, pero el ejercicio ya supone que $BV(I)$ es espacio vectorial, esto implica que la combinación lineal
+\[
+f(x) = f(a) + \lambda_f([a,x]) = f(a) + \lambda^+_f([a,x]) -\lambda^-_f([a,x])
+\]
+es de variación acotada.\par
+
+Para la necesidad supongamos $f\en BV(I)$. Entonces (ii) garantiza que existen funciones monótonas y continuas por la derecha $f^+,f^-$ con $f= f^+ - f^-$, así que lo probado anteriormente implica que existen medidas de Borel $\lambda^+_f,\lambda^-_f \colon \mathcal{B} \to [0,\infty)$ que cumplen, para $x\en[a,b]$:
+\begin{equation}\label{eq:repporsig}
+f^+(x) - f^+(a) = \lambda^+_f([a,x])
+\qquad\text{y}\qquad
+f^-(x) - f^-(a) = \lambda^-_f([a,x])
+\end{equation}
+pero $\lambda_f \coloneq \lambda^+_f-\lambda^-_f$ es una medida con signo (por tanto de Borel, ya que es finita). Finalmente, restando las dos ecuaciones en (\ref{eq:repporsig}) se concluye 
+\[
+f(x) - f(a) = \lambda_f([a,x]),
+\qquad\forall x\en[a,b]
+\]
+En particular, para $x=a$ se tiene $\lambda_f(\set{a}) = \lambda_f([a,a]) = f(a) - f(a) = 0$.
+%--------------------------------------------------
+\item % (v)
+% Supongamos $f\en BV(I)$ continua por la derecha y sea $\lambda_f\colon\mathcal{B} \to \mathbb{R}$ como en el inciso anterior. Es decir, fue definida por $\lambda_f = \lambda^+_f - \lambda^-_f$ donde las medidas $\lambda^+_f$ y $\lambda^-_f$ satisfacen (\ref{eq:cond}) para $f^+ = \frac12(F+f)$ y $f^- = \frac12(F-f)$, respectivamente. En particular, para $x=b$ se cumple:
+Sigamos donde terminó el inciso (iv). Recordemos que $f^+,f^-$ se definieron por $f^+ = \frac12(F+f)$ y $f^- = \frac12(F-f)$, por lo cual $F = f^+ + f^-$. Entonces al sumar las ecuaciones en (\ref{eq:repporsig}) obtenemos (recordando $F(a) = V^a_a(f) = 0$)
+\begin{equation}\label{eq:varf}
+F(x)=F(x) - F(a) = \lambda^+_f([a,x])+ \lambda^-_f([a,x])
+\end{equation}
+Solo faltaría probar que $\abs{\lambda_f}([a,x]) = \lambda^+_f([a,x]) + \lambda^-_f([a,x])$. En efecto, por un lado el hecho de que $\lambda_f = \lambda^+_f - \lambda^-_f$ implica que $\abs{\lambda_f} \leq \lambda^+_f + \lambda^-_f$.%
+\footnote{
+    Sea $A\en\mathcal{A}$. Como $\lambda_f = \lambda^+_f- \lambda^-_f$ y estas son no negativas, $\lambda_f \le \lambda^+_f$ y $-\lambda_f \le \lambda^-_f$. Entonces dados $E,F\en\mathcal{A}$ con $A = E \dotcup F$ se tiene $\lambda_f(E) - \lambda_f(F) \leq \lambda^+_f(E) + \lambda^-_f(F) \le \lambda^+_f(A) + \lambda^-_f(A)$, así que al tomar supremos $\abs{\lambda_f}(A) \le \lambda^+_f(A) + \lambda^-_f(A)$.
+}
+Por otro lado, sea $P = \set{t_0<\cdots<t_\ell}\en\mathcal{P}_{a,x}$. Gracias a que $\lambda_f$ cumple \eqref{eq:cond} y a la aditividad de $\lambda_f$ tenemos
+\[
+\lambda_f((t_{i-1},t_i]) = \lambda_f([a,t_i]) - \lambda_f([a,t_{i-1}]) = f(t_i) - f(t_{i-1})
+\]
+Por lo tanto, gracias a que $|\lambda_f(-)| \le |\lambda_f|(-)$ y a la aditividad de $|\lambda_f|$:
+{\thickmuskip=10mu
+\[
+\sum^\ell_{i=1}\abs{f(t_i) - f(t_{i-1})} 
+= \sum^\ell_{i=1}\abs{\lambda_f((t_{i-1},t_i])}
+\le \sum^\ell_{i=1}\abs{\lambda_f}((t_{i-1},t_i])
+=\abs{\lambda_f}((a,x])
+\le \abs{\lambda_f}([a,x])
+\]
+}%
+al tomar supremo para $P\en\mathcal{P}_{a,x}$ concluimos $F(x) \le \abs{\lambda_f}([a,x])$. Sin embargo, ya teníamos que $\abs{\lambda_f}([a,x]) \leq (\lambda^+_f + \lambda^-_f)([a,x]) = F(x)$. Por tanto $F(x) = \abs{\lambda_f}([a,x])$; en particular, para $x=b$ esto implica $V(f) = F(b) = \abs{\lambda_f}(I)$. 
+%--------------------------------------------------
+\item % (vi)
+Si $f$ es absolutamente continua, para cada $\varepsilon \coloneq1 >0$ existe un $\delta > 0$ tal que para cualquier sucesión finita $s_1\le t_1\le s_2\le t_2\leq \cdots \leq s_\ell \leq t_\ell$, se cumple que
+\[
+\sum_{i=1}^\ell (t_i - s_i) < \delta 
+\quad\implies\quad 
+\sum_{i=1}^\ell |f(t_i) - f(s_i)| < 1
+\]
+Ahora, consideremos una partición de $I = [a, b]$ en $N$ sub-intervalos $[a_{j-1}, a_j]$ de modo que cada uno tenga longitud menor que $\delta$.\par
+Fijando un subintervalo $J_j = [a_{j-1}, a_j]$ arbitrario, cualquier partición finita $\{t_0, t_1, \dots, t_\ell\}$ de $J_j$ satisface que la suma de las longitudes de los intervalos disjuntos $(t_{i-1}, t_i)$ es
+{\thickmuskip=10mu
+\[
+\sum_{i=1}^\ell (t_i - t_{i-1}) = a_j - a_{j-1}  < \delta
+\]
+}%
+Por la condición de continuidad absoluta (aplicada a $t_i = t_i$ y $s_i = t_{i-1}$), esto implica que $\sum_{i=1}^\ell |f(t_i) - f(t_{i-1})| < 1$. Tomando el supremo sobre todas las particiones de $J_j$, obtenemos que $V_{a_{j-1}}^{a_j}(f) \le 1$.
+Finalmente, aplicando el \cref{lema:ad}: 
+{\thickmuskip=10mu
+\[
+V(f) = \sum^N_{j=1} V_{a_{j-1}}^{a_j}(f)  \leq N < \infty
+\]
+}%
+Por lo tanto $f\en BV(I)$
+\end{enumerate}
+\end{sol}

@@ -1,0 +1,24 @@
+\setcounter{neje}{28}
+\begin{nejer}[Repetido]
+Sea $(X, \mathcal{A}, \mu)$ un espacio de medida y sea $A_i \en \mathcal{A}$ una sucesión de conjuntos medibles. Pruebe que $\mu(\bigcup_i A_i) \leq \sum_i \mu(A_i)$.
+\end{nejer}
+\begin{sol}
+Para cada $i\en\mathbb{N}$ definimos $B_i \coloneq A_{n}\setminus(A_1\cup\dots\cup A_{n-1})$. Afirmamos que $\bigcup_iA_i= \dot\bigcup_iB_i$:
+\begin{itemize}
+\item Sean $i,k\en\mathbb{N}$ distintos. Podemos suponer, sin perder generalidad, que $i < k$. De esto se sigue $A_i \subseteq A_1 \cup \dots \cup A_k$, por lo cual, $A_i \cap B_k = \varnothing$; sin embargo, $B_i \subseteq A_i$. Por lo tanto, $B_i \cap B_k = \varnothing$.
+
+\item Por un lado, $B_i \subseteq A_i$ para cada $i\en\mathbb{N}$, por lo cual $\bigcup_iB_i \subseteq \bigcup_iA_i$. Probemos la otra contención. Sea $x\en\bigcup_iA_i$ arbitrario, entonces existe $n\en\mathbb{N}$ el menor natural tal que $x\en A_n$. De esto se sigue que $x\en A_n$ y $x\noten A_i$ con $1 \leq i \leq n-1$, por lo que $x \en B_n \subseteq \bigcup_i B_i$. Hemos probado la otra contención.
+\end{itemize}
+Estos dos puntos prueban que $\dot\bigcup_iB_i = \bigcup_iA_i$. Por tanto
+\[
+\mu\Big(\bigcup\nolimits_{i\en\mathbb{N}}A_i\Big)%
+= \mu\Big(\dot\bigcup_{i\en\mathbb{N}}B_i\Big)%
+= \sum_{i\en\mathbb{N}} \mu(B_i)
+\]
+Sin embargo, como $B_i \subseteq A_i$ entonces $\mu(B_i) \leq \mu(A_i)$; por tanto, $\sum_{i\en\mathbb{N}}\mu(B_i) \leq \sum_{i\en\mathbb{N}}\mu(A_i)$. Luego,
+\[
+\mu\Big(\bigcup\nolimits_{i\en\mathbb{N}}A_i\Big)%
+\leq%
+\sum_{i\en\mathbb{N}}\mu(A_i)
+\]
+\end{sol}

@@ -1,0 +1,64 @@
+%------------------------------ Ejercicio 2.31 -------------------------------
+
+\setcounter{neje}{30}
+\begin{nejer}
+Determine los límites de las sucesiones
+$$
+a_n = \int_0^n \left( 1 - \frac{x}{n} \right)^n e^{x/2} \dd{x}, \quad b_n = \int_0^n \left( 1 + \frac{x}{n} \right)^n e^{-2x} \dd{x}, \quad n \en \mathbb{N}.
+$$
+\end{nejer}
+\begin{sol}
+Denotaremos
+\[
+f_n(x) \coloneq \left( 1 - \frac{x}{n} \right)^n \cdot e^{x/2}\cdot \chi_{[0,n]}
+\quad\text{y}\quad
+g_n(x) \coloneq \left( 1 + \frac{x}{n} \right)^n\cdot e^{-2x}\cdot \chi_{[0,n]}
+\]
+Es decir, gracias a que $f_n$ y $g_n$ son Riemann integrables, también son $m$-integrables y además se cumple $a_n = \int_{\mathbb{R}} f_n \dd{m}$ y $b_n = \int_{\mathbb{R}} g_n \dd{m}$.\par
+Por otro lado, sabemos que $1+u \leq e^u$ para todo $u\en\mathbb{R}$, así que evaluando en $u=\pm\frac{x}{n}$ obtenemos
+\[
+1\pm\frac{x}{n} \leq e^{\pm\frac{x}{n}}
+\]
+Luego, cuando $x\en[0,n]$ se tiene $1\pm \frac{x}{n} \ge 0$, por consiguiente:
+\[
+\abs{1\pm\frac{x}{n}}^n = \left(1\pm\frac{x}{n} \right)^n \leq \bigl(e^{\pm\frac{x}{n}}\bigr)^n = e^{\pm x},
+\quad\forall x\en[0,n]
+\]
+Como las exponenciales son siempre positivas, esto se traduce en que $\abs{1\pm\frac{x}{n}}^n\chi_{[0,n]} \leq e^{\pm x}\chi_{[0,\infty]}$ para todo $x\en\mathbb{R}$. Luego, multiplicando por $e^{x/2}$ y $e^{-2x}$, respectivamente:
+\[
+\abs{f_n(x)} \leq e^{-x}\chi_{[0,\infty]} \cdot e^{x/2} = e ^{-x/2}\chi_{[0,\infty]}
+\quad\text{y}\quad
+\abs{g_n(x)} \leq e^x\chi_{[0,\infty]}\cdot e^{-2x} = e^{-x}\chi_{[0,\infty]},
+\qquad\forall x\en \mathbb{R}
+\]
+Más aún, sabemos que $\lim_{n\to\infty}(1\pm\frac{x}{n})^n = e^{\pm x}$ puntualmente, y por prop. arquimediana también $\lim_{n\to\infty} \chi_{[0,n]} = \chi_{[0,\infty]}$ puntualmente. Como el límite (puntual) de un producto es el producto de los límites (puntuales):
+\[
+\lim_{n\to\infty} f_n = e^{-x} \cdot e^{x/2}\cdot\chi_{[0,\infty]} = e ^{-x/2}\chi_{[0,\infty]}
+\quad\text{y}\quad
+\lim_{n\to\infty} g_n = e^x\cdot e^{-2x}\cdot\chi_{[0,\infty]} = e^{-x}\chi_{[0,\infty]}
+\]
+
+Ahora bien, veamos $e^{-x/2}\chi_{[0,\infty]}$ y $e^{-x}\chi_{[0,\infty]}$ son $m$-integrables en $\mathbb{R}$. En efecto, dado $n\en\mathbb{N}$, sabemos que $e^{-x/2}\chi_{[0,n]}$ y $e^{-x}\chi_{[0,n]}$ son Riemann integrables (en particular, $m$-integrables) con integrales:
+\[
+\int^n_0e^{-x/2} \dd{x} = -2e^{-n/2} + 2 
+\quad\text{y}\quad
+\int^n_0 e^{-x} \dd{x} = -e^{-n} +1
+\]
+Como estas funciones son no negativas y convergen monótonamente, el teorema de convergencia monótona garantiza que 
+\[
+\int_{\mathbb{R}}e^{-x/2}\chi_{[0,\infty]} \dd{m} = \lim_{n\to\infty}\int^n_0e^{-x/2} \dd{x} = 2
+\]
+y
+\[
+\int_{\mathbb{R}}e^{-x}\chi_{[0,\infty]} \dd{m} = \lim_{n\to\infty}\int^n_0 e^{-x} \dd{x} = 1
+\]
+Esto prueba que $e^{-x/2}\chi_{[0,\infty]}$ y $e^{-x}\chi_{[0,\infty]}$ son $m$-integrables.\par
+Ya probamos que $f_n$ y $g_n$ son dominadas, respectivamente, por $e^{-x/2}\chi_{[0,\infty]}$ y $e^{-x}\chi_{[0,\infty]}$, y además convergen puntualmente a ellas. Entonces el teorema de convergencia dominada garantiza:
+\[
+\lim_{n\to\infty}a_n = \lim_{n\to\infty}\int_{\mathbb{R}} f_n \dd{m} = \int_{\mathbb{R}} e^{-x/2}\chi_{[0,\infty]} \dd{m} = 2
+\]
+y
+\[
+\lim_{n\to\infty}b_n = \lim_{n\to\infty}\int_{\mathbb{R}} g_n \dd{m} = \int_{\mathbb{R}} e^{-x}\chi_{[0,\infty]} \dd{m} = 1
+\]
+\end{sol}

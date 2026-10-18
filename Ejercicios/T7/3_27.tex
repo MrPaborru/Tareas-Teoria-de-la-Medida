@@ -1,0 +1,23 @@
+%------------------------------ Ejercicio 3.27 -------------------------------
+\setcounter{neje}{26}
+\begin{nejer}
+Recuerde que la recta de Sorgenfrey es el espacio topológico $(\mathbb{R}, \mathcal{U})$, donde $\mathcal{U} \subseteq 2^\mathbb{R}$ es la topología más pequeña que contiene todos los intervalos semiabiertos $[a, b)$ con $a < b$. Pruebe que la $\sigma$-álgebra de Borel de $(\mathbb{R}, \mathcal{U})$ coincide con la $\sigma$-álgebra de Borel de la topología estándar en $\mathbb{R}$.
+\end{nejer}
+\begin{sol}
+Denotemos $\mathcal{B}$ a la $\sigma$-álgebra de Borel de la topología estándar y $\mathcal{B}_\mathcal{U}$ a la de $\mathcal{U}$.
+Para cualquier intervalo $(a,b) \subseteq \mathbb{R}$ tenemos que $(a,b) = \bigcup_{n\en\mathbb{N}} [a-\nicefrac{1}{n},b)$, por lo que $(a,b) \en \mathcal{B}_{\mathcal{U}}$. Luego, si $U\subseteq\mathbb{R}$ es abierto estándar, sabemos que es unión numerable de básicos $U = \bigcup_{n\en\mathbb{N}}(a_n,b_n)$, pero acabamos de probar que $(a_n,b_n) \en \mathcal{B}_\mathcal{U}$, por lo que $U\en\mathcal{B}_\mathcal{U}$. Como todo abierto estándar está en $\mathcal{B}_\mathcal{U}$, se sigue que $\mathcal{B} \subseteq \mathcal{B}_\mathcal{U}$.%
+\footnote{
+Ya que $\mathcal{B}$ se define como la $\sigma$-álgebra más chica que contiene a la topología estándar.
+}\par
+\medskip
+Para la contención recíproca, probemos que todo $U\en\mathcal{U}$ se puede poner como $U = \mathring{U} \cup N$ donde $\mathring{U}$ es abierto estándar y $N$ es contable.%
+\footnote{
+    Nótese que, a pesar de que todo abierto básico de $\mathcal{U}$ está obviamente en $\mathcal{B}$, esto no garantiza directamente que $\mathcal{U}\subseteq \mathcal{B}$, puesto que $\mathcal{U}$ no es segundo numerable. En su lugar, habría que probar que todo abierto de Sorgenfrey cumple la propiedad de Lindelöf (y de ahí, se pondría como unión contable de básicos), lo cual es más complicado de probar que el resultado que aquí enuncio.
+}
+En efecto, tomemos (evidentemente) $\mathring{U}$ como el interior en la top. estándar de $U$ y probemos que $N \coloneq U \setminus\mathring{U}$ es contable. Para todo $x\en N$, como $x\en U\en\mathcal{U}$, existe $a_x>x$ tal que $[x,a_x) \subseteq U$, de lo cual se sigue que $(x,a_x) \subseteq \mathring{U}$; sin embargo, por densidad de $\mathbb{Q}$, existe $r_x\en \mathbb{Q} \cap (x,a_x)$, así que $(x,r_x) \subseteq \mathring{U}$ y $x<r_x$. Definimos entonces la función $R \colon N \to \mathbb{Q}$ de modo que $R(x) = r_x$.\par
+% \footnote{
+%     Notemos que, en general, se requeriría axioma de elección para asegurar la existencia de $R$; no obstante, en este caso se puede evitar ya que $\mathbb{Q}$ tiene un buen orden inducido por su biyección conocida con $\mathbb{N}$; luego, basta definir $R(x)$ como el menor racional (con dicho buen orden) que cumple $(x,R(x)) \subseteq \mathring{U}$ y $x < R(x)$.
+% }\par
+Notemos que $R$ es inyectiva: si $x,y\en N$ cumplen $R(x) = R(y)$, entonces forzosamente $x=y$, pues de no ser así, podemos suponer s.p.g. $x<y$, de donde tendríamos $x < y < R(y) = R(x)$, es decir, $y\en (x,R(x)) \subseteq \mathring{U}$. Esto contradice que $y\en N=U \setminus \mathring{U}$, por lo que $x=y$ y $R$ es inyectiva. Como $R$ es inyección, se sigue que $N$ es contable.\par
+Finalmente, como $\mathring{U},N \en \mathcal{B}$ (sabemos que los singletons están en $\mathcal{B}$, así que los conjuntos contables también, al ser unión contable de singletons), se sigue que $U\en\mathcal{B}$. Como $U\en\mathcal{U}$ es arbitrario, esto prueba que $\mathcal{U} \subseteq \mathcal{B}$, así que por definición $\mathcal{B}_\mathcal{U} \subseteq\mathcal{B}$. Gracias a esto y a la contención probada al inicio, concluimos que $\mathcal{B}_\mathcal{U} = \mathcal{B}$. 
+\end{sol}

@@ -1,0 +1,46 @@
+%------------------------------ Ejercicio 4.44 -------------------------------
+\setcounter{neje}{43}
+\begin{nejer}
+Sea $(X, \mathcal{A}, \mu)$ un espacio de medida, elija números reales $1 \le r < {\p} < s < \infty$, y sea $0 < \lambda < 1$ tal que
+$$
+\frac{\lambda}{r} + \frac{1 - \lambda}{s} = \frac{1}{{\p}}.
+$$
+Pruebe que toda función medible $f \colon X \to \mathbb{R}$ satisface la desigualdad
+$$
+\|f\|_{\p} \le \|f\|_r^\lambda \|f\|_s^{1-\lambda}.
+$$
+Deduzca que $\mathcal{L}^r(\mu) \cap \mathcal{L}^s(\mu) \subseteq \mathcal{L}^{\p}(\mu)$.
+\end{nejer}
+\begin{sol}
+Notemos que
+\[
+\frac{1}{\frac{r}{\p\lambda}} + \frac{1}{\frac{s}{\p(1-\lambda)}} = \frac{\p\lambda}{r} + \frac{\p(1-\lambda)}{s} = 1
+\]
+Como ambos sumandos son positivos, $\frac{1}{\frac{r}{\p\lambda}} < 1$ y $\frac{1}{\frac{s}{\p(1-\lambda)}} < 1$, de donde $\frac{r}{\p\lambda} > 1$ y $\frac{s}{\p(1-\lambda)} > 1$. Luego, aplicando desigualdad de Hölder a las funciones medibles no negativas $\abs{f}^{\p\lambda}$ y $\abs{f}^{\p(1-\lambda)}$:
+\begin{align*}
+\int_X \abs{f}^{\p} \dd{\mu}
+&\;=\; \int_X \abs{f}^{\p\lambda}\abs{f}^{\p(1-\lambda)} \dd{\mu}
+\;\leq\; \left( 
+        \int_X \big(\abs{f}^{\p\lambda}\big)^{\frac{r}{\p\lambda}} \dd{\mu} 
+    \right)^{\frac{\p\lambda}{r}} \left(  
+        \int_X \big(\abs{f}^{\p(1-\lambda)}\big)^{\frac{s}{\p(1-\lambda)}} \dd{\mu}
+    \right)^{\frac{\p(1-\lambda)}{s}}\\
+&\;=\; \left( 
+        \int_X \abs{f}^{r} \dd{\mu} 
+    \right)^{\frac{\p\lambda}{r}} \left(  
+        \int_X \abs{f}^{s} \dd{\mu}
+    \right)^{\frac{\p(1-\lambda)}{s}}
+\end{align*}
+Elevando a $1/\p$ esta última desigualdad (ya que $x \mapsto x^{1/\p}$ es monótona en $\mathbb{R}_{\ge0}$):
+\[
+\norm{f}_{\p} 
+\;=\; \left(\int_X \abs{f}^{\p} \dd{\mu}\right)^{\frac{1}{\p}} 
+\;\leq\; \left( 
+        \int_X \abs{f}^{r} \dd{\mu} 
+    \right)^{\frac{\lambda}{r}} \left(  
+        \int_X \abs{f}^{s} \dd{\mu}
+    \right)^{\frac{(1-\lambda)}{s}}\!\!
+\;=\; \norm{f}^\lambda_r \norm{f}^{1-\lambda}_s
+\]
+De esto se deduce que, si $f\en \mathcal{L}^r(\mu) \cap \mathcal{L}^s(\mu)$, entonces $\norm{f}_r,\norm{f}_s < \infty$, así que por lo recién probado, $\norm{f}_{\p} \leq \norm{f}^\lambda_r \norm{f}^{1-\lambda}_s < \infty$, de donde $f\en\mathcal{L}^{\p}(\mu)$. En otras palabras, $\mathcal{L}^r(\mu) \cap \mathcal{L}^s(\mu) \subseteq \mathcal{L}^{\p}(\mu)$.
+\end{sol}

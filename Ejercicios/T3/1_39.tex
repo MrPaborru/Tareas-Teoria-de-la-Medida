@@ -1,0 +1,22 @@
+\setcounter{neje}{38}
+\begin{nejer}
+Sea $\mu\colon 2^{\mathbb{N}} \to [0, \infty]$ la medida de conteo en los números naturales. Muestre que en este caso la ecuación (1.18) en la parte (ii) del Teorema 1.38 es equivalente a la fórmula
+$$
+\sum_{i=1}^{\infty} \Bigg( \sum_{j=1}^{\infty} a_{ij} \Bigg) = \sum_{j=1}^{\infty} \Bigg( \sum_{i=1}^{\infty} a_{ij} \Bigg)
+$$
+para cada aplicación $\mathbb{N} \times \mathbb{N} \to [0, \infty]: (i, j) \mapsto a_{ij}$.
+\end{nejer}
+\begin{sol}
+La función $a \colon \mathbb{N} \times\mathbb{N} \to [0,\infty]$ se puede interpretar como una función $\alpha \colon \mathbb{N} \to [0,\infty]^\mathbb{N}$ (i.e., una sucesión de sucesiones), tal que $\alpha_i \colon \mathbb{N} \to [0,\infty]$ satisface $\alpha_i(j) = a_{i,j}$; en particular, cada $\alpha_i$ es una función medible no negativa resp. a $(\mathbb{N},2^\mathbb{N})$. Luego, el teorema 1.38 dice que
+\[
+\int_\mathbb{N} \sum^\infty_{i=1}\alpha_i \dd{\mu} = \sum^\infty_{i=1} \int_\mathbb{N}\alpha_i \dd{\mu}
+\]
+No obstante, en la segunda tarea ya probamos que $\int_\mathbb{N}f \dd{\mu} = \sum^\infty_{j=1} f(j)$ respecto a la medida de conteo, por lo tanto lo anterior se convierte en
+\[
+\sum^\infty_{j=1} \biggl(\sum^\infty_{i=1}\alpha_i \biggr)(j) = \sum^\infty_{i=1} \sum^\infty_{j=1}\alpha_i(j)
+\]
+es decir,
+\[
+\sum^\infty_{j=1} \sum^\infty_{i=1} a_{i,j} = \sum^\infty_{i=1} \sum^\infty_{j=1} a_{i,j}
+\]
+\end{sol}

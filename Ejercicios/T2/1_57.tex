@@ -1,0 +1,103 @@
+\setcounter{neje}{56}
+\begin{nejer}
+Sea $X$ un conjunto incontable y sea $\mathcal{A} \subseteq 2^X$ el conjunto de todos los subconjuntos $A \subseteq X$ tales que $A$ o $A^c$ es contable. Defina
+\[
+\mu(A)%
+\coloneq \begin{cases} 
+0 & \text{si } A \text{ es contable,} \\
+1 & \text{si } A^c \text{ es contable.}
+\end{cases}
+\]
+con $A \en \mathcal{A}$. Demuestre que $(X, \mathcal{A}, \mu)$ es un espacio de medida. Describa las funciones medibles y sus integrales. (Ver Ejemplos 1.4 y 1.32)
+\end{nejer}
+\begin{sol}
+\emph{Primero veamos que $\mathcal{A}$ es una $\sigma$-álgebra}:
+\begin{enumerate}[label=(\roman*)]
+\item $X \en \mathcal{A}$ gracias a que $X^c = \varnothing$ es contable.
+
+\item Si $A \en \mathcal{A}$ entonces ya sea $A$ o $A^c$ es contable, esto significa que ya sea $A^c$ o $(A^c)^c$ es contable, lo cual equivale a que $A^c \en \mathcal{A}$.
+
+\item Supongamos que $\set{A_i}^\infty_{i=1}$ es una familia contable de elementos de $\mathcal{A}$. Se sigue por definición que, para cada $i\en\mathbb{N}$, ya sea $A_i$ o $A_i^c$ es contable. Luego, hay dos posibilidades:
+\begin{itemize}
+    \item Si $A_i$ es contable para cada $i\en\mathbb{N}$, entonces $\bigcup^\infty_{i=1}A_i$ es unión contable de conjuntos contables, así que el \emph{axioma de elección contable} implica que $\bigcup^\infty_{i=1}A_i$ es contable, i.e., $\bigcup^\infty_{i=1}A_i \en \mathcal{A}$. 
+
+    \item Si existe $k\en\mathbb{N}$ tal que $A_k$ es incontable, entonces forzosamente $A_k^c$ es contable (recordemos que $A_k \en \mathcal{A}$). Ahora bien, ya tenemos $A_k \subseteq \bigcup^\infty_{i=1}A_i$, por lo cual
+    \[
+    \Big(\bigcup^\infty_{i=1}A_i\Big)^c \subseteq A^c_k
+    \]
+    Sin embargo, ya teníamos que $A^c_k$ es contable, por lo tanto $\big(\bigcup^\infty_{i=1}A_i\big)^c$ es contable. Se sigue que $\bigcup^\infty_{i=1}A_i \en \mathcal{A}$. 
+\end{itemize}
+En cualquier caso, hemos probado que $\bigcup^\infty_{i=1}A_i\en\mathcal{A}$.
+\end{enumerate}
+Los incisos (i), (ii) y (iii) implican que $\mathcal{A}\subseteq2^X$ es una $\sigma$-álgebra y $(X,\mathcal{A})$ es un espacio medible.\vspace{1em}\\
+\emph{Veamos que $\mu$ es una medida sobre $(X,\mathcal{A})$}:\\
+Primero probemos que $\mu$ está bien definida gracias a que $X$ es incontable. En efecto, por un lado, la definición de $\mathcal{A}$ implica que $\mu$ está definida en todo elemento de $\mathcal{A}$; por otro lado, $A$ y $A^c$ no pueden ser simultáneamente contables, ya que si lo fueran entonces $X = A \cup A^c$ sería también contable, lo que contradice la hipótesis. Esto prueba que $\mu \colon \mathcal{A} \to \ubar{\mathbb{R}}$ es una función bien definida. Ahora bien:
+\begin{enumerate}[label=(\alph*)]
+\item Supongamos que $\set{A_i}^\infty_{i=1}$ es una familia contable de elementos en $\mathcal{A}$ disjuntos a pares. De forma análoga al inciso (iii) vista antes, hay dos posibilidades:
+\begin{itemize}
+    \item Si $A_i$ es contable para cada $i\en\mathbb{N}$, ya vimos que $\bigcup^\infty_{i=1}A_i$ es contable. Por consiguiente, $\mu(A_i) = 0$ para cada $i\en\mathbb{N}$ y $\mu\big(\bigcup^\infty_{i=1}A_i\big) = 0$. Se sigue que
+    \[
+    \mu\Big( \bigcup^\infty_{i=1}A_i \Big) = 0 = \sum^\infty_{i=1} 0 = \sum^\infty_{i=1}\mu(A_i)
+    \]
+
+    \item Si existe $k\en\mathbb{N}$ tal que $A_k$ es incontable, ya vimos que $A^c_k$ y $\big(\bigcup^\infty_{i=1}A_i\big)^c$ son contables, de donde se sigue que $\mu\big(\bigcup^\infty_{i=1}A_i\big)=\mu(A_k)=1$. Por otro lado, como los $A_i$ son disjuntos a pares, tenemos que $A_i \cap A_k = \varnothing$ para cualquier $i \en \mathbb{N}\setminus\set{k}$, es decir, $A_i \subseteq A_k^c$ siempre que $i \en \mathbb{N}\setminus\set{k}$. Como $A_k^c$ es contable, esto último implica que forzosamente $A_i$ es contable para cada $i \en \mathbb{N}\setminus\set{k}$, así que $\mu(A_i) = 0$ para todo $i \en \mathbb{N}\setminus\set{k}$. Hemos probado $\mu(A_i) = \delta_{i,k}$, donde $\delta_{i,k}$ es la delta de Kronecker, por tanto:
+    \[
+    \mu\Big( \bigcup^\infty_{i=1}A_i \Big) = 1 = \sum^\infty_{i=1} \delta_{i,k} = \sum^\infty_{i=1}\mu(A_i)
+    \]
+\end{itemize}
+En cualquier caso, hemos probado que $\mu(\bigcup^\infty_{i=1}A_i) = \sum^\infty_{i=1}\mu(A_i)$.
+
+\item Ya sabemos que $\varnothing\en\mathcal{A}$; además, $\varnothing$ es contable, así que $\mu(\varnothing) = 0 < \infty$.
+\end{enumerate}
+Los incisos (a) y (b) implican que $\mu$ es medida sobre $(X,\mathcal{A})$, i.e., $(X,\mathcal{A},\mu)$ es espacio de medida.\vspace{1em}\\
+\emph{Describamos las funciones medibles y sus integrales}:\\
+Sea $f \colon X \to \ubar{\mathbb{R}}$ una función medible. A continuación, probaremos que $f$ es necesariamente constante en un conjunto co-contable (i.e., de complemento contable). En efecto, como la familia $\mathcal{I} \coloneq \set[\big]{[k-1,k] \given k\en\mathbb{Z}} \cup \set[\big]{\set{-\infty},\set\infty}$ cubre a $\ubar{\mathbb{R}}$ y la imagen inversa preserva uniones, se sigue
+\[
+\bigcup_{I\en\mathcal{I}} f^{-1}(I) = f^{-1}\Big(\bigcup_{I\en\mathcal{I}} I\Big) = f^{-1}(\ubar{\mathbb{R}}) = X
+\]
+como $\mathcal{I}$ es contable y $X$ es incontable, tiene que existir algún $I_0\en\mathcal{I}$ de modo que $f^{-1}(I_0)$ es incontable (de no ser así, $X$ sería unión contable de conjuntos contables). Ahora hay tres posibilidades para $I_0$:
+\begin{itemize}
+\item Si $I_0 = \set{\infty}$ entonces, gracias a que $\set{\infty}$ y $f$ son medibles, $J_0 = f^{-1}\big(\set{\infty}\big)\en\mathcal{A}$. Sin embargo, $J_0$ es incontable, así que $J_0^c$ tiene que ser contable. Por definición, $f$ es constante en $J_0$ de valor $\infty$, donde $J^c_0$ es contable.
+
+\item Si $I_0 = \set{-\infty}$, de forma análoga se sigue que $f$ es constante en $J_0 \coloneq f^{-1}\big(\set{-\infty}\big)$ de valor $-\infty$, donde $J^c_0$ es contable.
+
+\item Si $I_0 = [k-1,k]$ para algún $k\en\mathbb{Z}$, se tiene que $f^{-1}(I_0)$ es incontable. Ahora construiremos, inductivamente, una sucesión $I_n$ de intervalos (cerrados) encajados con longitud $2^{-n}$ y tales que $f^{-1}(I_n)$ es incontable.\par
+En efecto, partimos de $I_0 = [k-1,k]$ y supongamos definido $I_n = [a_n,b_n]$ de modo que $f^{-1}(I_n)$ es incontable y $I_n$ tiene longitud $2^{-n}$. Como $I_n = [a_n,\frac{a_n+b_n}{2}] \cup [\frac{a_n+b_n}{2},b_n]$ se sigue que
+\begin{equation}\label{eq:regula}
+f^{-1}(I_n) = f^{-1}\big([a_n,\tfrac{a_n+b_n}{2}]\big) \cup f^{-1}\big([\tfrac{a_n+b_n}{2},b_n]\big)
+\end{equation}
+pero $f^{-1}(I_n)$ es incontable, así que alguno de los dos conjuntos en la unión de (\ref{eq:regula}) es incontable (de otro modo, $f^{-1}(I_n)$ sería unión de dos contables). Pongamos $I_{n+1}$ como aquel conjunto de (\ref{eq:regula}) con $f^{-1}(I_{n+1})$ incontable. Luego, es inmediato que $I_{n+1} \subseteq I_n$ tiene longitud $2^{-n-1}$ (pues es una mitad de $I_n$).\par
+Esto define, por definición recursiva, la sucesión $\set{I_n}^\infty_{n=0}$ buscada. Sin embargo, el teorema de intervalos encajados implica que $\bigcap^\infty_{n=0} I_n = \set{a}$ para algún $a \en I_0$. De esto se sigue que 
+\[
+f^{-1}\big(\set{a}\big) = f^{-1}\Big(\bigcap^\infty_{n=0} I_n\Big) = \bigcap^\infty_{n=0} f^{-1}(I_n)
+\]
+Como cada $I_n$ es medible (pues es cerrado), se sigue que $f^{-1}(I_n)\en\mathcal{A}$, pero $f^{-1}(I_n)$ es incontable, así que forzosamente $f^{-1}(I_n)^c$ es contable. Se sigue, de las leyes de Morgan, que 
+\[
+f^{-1}\big(\set{a}\big)^c = \bigcup^\infty_{n=0} f^{-1}(I_n)^c
+\]
+Esto implica que $f^{-1}\big(\set{a}\big)^c$ es contable, gracias a ser unión contable de conjuntos contables. Se sigue, por definición, que $f$ es constante en $J_0 \coloneq f^{-1}\big(\set{a}\big)$ con valor $a$, y $J^c_0$ es contable.
+\end{itemize}
+En cualquier caso, hemos demostrado que $f$ es constante en un conjunto co-contable. Recíprocamente, supongamos que $f \colon X \to \ubar{\mathbb{R}}$ es constante en un conjunto co-contable y probemos que $f$ es medible. Con este fin, primero supongamos que $f$ es no negativa:\par
+Sea $a\en[0,\infty]$ tal que $J_0 \coloneq f^{-1}(\set{a})$ es co-contable, i.e., podemos enumerar%
+\footnote{
+    Con posibles repeticiones.
+}
+$J^c_0 = \set{x_i \given i\en\mathbb{N}}$. Definimos, para cada $n\en\mathbb{N}$, el conjunto $J_n \coloneq J_0 \cup \set{x_1,\dots,x_n}$ y la función $f_n = f\chi_{J_n}$. Cada $f_n$ es simple, ya que $\im(f_n) = f(J_n) \cup \set{0} = \set{a} \cup \set{f(x_1),\dots, f(x_2)} \cup \set0$; además, la sucesión $\set{f_n}^\infty_{n=0}$ es monótona, ya que $f_n|_{J_n} = f|_{J_n} = f_{n+1}|_{J_n}$ y $f_n|_{J^c_n} = 0 \leq f_{n+1}|_{J^c_n}$, es decir, $f_n \leq f_{n+1}$; más aún, también tenemos que $f_n \to f$ gracias a que $f_n(x) = f(x)$ para cada $x\en J_0$ y $f_n(x_k) = f(x_k)$ para cada $n \geq k$. Por otro lado, también se cumple, por definición, que
+\[
+    \int_X f_n \dd{\mu}%
+    \;=\; { a\underbrace{\mu(J_0)}_{\mathclap{\substack{=1 \\ \text{ya que $J^c_0$ es contable}}}} }%
+    \;+\; { \sum^n_{i=1}f(x_k)\underbrace{\mu(\set{x_k})}_{\mathclap{\substack{=0 \\ \text{ya que $\set{x_k}$ es contable}}}} }%
+    \;+\; { 0\mu(J^c_n) }%
+    \;=\; a,%
+    \quad\forall n\en\mathbb{N}_0
+\]
+Finalmente, el teorema de convergencia monótona implica que $f$ es medible por ser límite de una sucesión monótona de funciones medibles (más aún: simples), y $\int_Xf \dd{\mu} = \lim_{n\to\infty}\int_X f_n \dd{\mu} = a$.\par
+Ahora bien, si $f\colon X \to \ubar{\mathbb{R}}$ es cualquier función con $J_0 = f^{-1}(\set{a})$ co-contable, para algún $a\en\ubar{\mathbb{R}}$, entonces se tiene $f = f^+ - f^-$ donde $f^+ = \max\set{f,0}$ y $f^-=\max\set{-f,0}$ son funciones no negativas. Podemos suponer, sin perder generalidad, que $a \geq 0$ (en caso contrario, basta tomar $-f$). Así que, para cada $x\en J_0$, se tiene $f(x) = a \geq 0$ por lo que $f^+(x) = a$ y $f^-(x) =0$, en otras palabras, $J_0 \subseteq (f^+)^{-1}(\set{a})$ y $J_0 \subseteq (f^-)^{-1}(\set{0})$, lo que ese traduce en
+\begin{equation}\label{eq:preim}
+(f^+)^{-1}(\set{a})^c \subseteq J^c_0%
+\quad\text{y}\quad
+(f^-)^{-1}(\set{0})^c \subseteq J^c_0
+\end{equation}
+Como $J^c_0$ es contable, también lo serán $(f^+)^{-1}(\set{a})^c$ y $(f^-)^{-1}(\set{0})^c$, así que $f^+$ y $f^-$ son constantes de valor $a$ y $0$, respectivamente, en un conjunto co-contable. Por consiguiente, lo recién probado implica que $f^+$ y $f^-$ son medibles con $\int_Xf^+\dd{\mu} = a$ y $\int_Xf^-\dd{\mu} = 0$. De esto se concluye que $f$ es medible por ser suma de funciones medibles, y $\int_Xf\dd{\mu} = \int_Xf^+\dd{\mu} - \int_Xf^-\dd{\mu} = a$.\par
+Hemos probado que las funciones medibles son exactamente aquellas funciones constantes en un conjunto co-contable, y su integral es igual a dicho valor constante.
+\end{sol}

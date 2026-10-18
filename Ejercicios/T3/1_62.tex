@@ -1,0 +1,89 @@
+\setcounter{neje}{61}
+\begin{nejer}
+Sea $(X, \mathcal{A})$ un espacio medible y sea $\mu_n\colon \mathcal{A} \to [0, \infty]$ una sucesión de medidas. Muestre que la fórmula
+$$
+\mu(A) \coloneq \sum_{n=1}^{\infty} \mu_n(A)
+$$
+para $A \en \mathcal{A}$ define una medida $\mu\colon \mathcal{A} \to [0, \infty]$. Sea $f\colon X \to \mathbb{R}$ una función medible. Muestre que $f$ es $\mu$-integrable si y solo si
+$$
+\sum_{n=1}^{\infty} \int_X |f| \dd{\mu_n} < \infty.
+$$
+Si $f$ es $\mu$-integrable, pruebe que
+$$
+\int_X f \dd{\mu} = \sum_{n=1}^{\infty} \int_X f \dd{\mu_n}.
+$$
+\end{nejer}
+\begin{sol}
+\emph{Veamos que $\mu$ es medida}:\\
+Por un lado, como cada $\mu_n$ es medida, $\mu_n(\varnothing) = 0$, por lo cual, $\mu(\varnothing) = \sum\mu_n(\varnothing) = 0$. Por otro lado, sea $\set{A_k}_{k\en\mathbb{N}}$ una familia contable de conjuntos de $\mathcal{A}$ disjuntos a pares. Entonces, aplicando la $\sigma$-aditividad de cada $\mu_n$:
+\[
+\mu\biggl( \bigcup^\infty_{k=1} A_k\biggr)
+= \sum^\infty_{n=1}\mu_n\biggl( \bigcup^\infty_{k=1} A_k\biggr)
+= \sum^\infty_{n=1}\sum^\infty_{k=1} \mu_n(A_k)
+\]
+Sin embargo, en el \myref{nejer:1.39} ya vimos que podemos conmutar estas dos series (Fubini para series), así
+\[
+\mu\biggl( \bigcup^\infty_{k=1} A_k\biggr)
+= \sum^\infty_{n=1}\sum^\infty_{k=1} \mu_n(A_k)
+= \sum^\infty_{k=1}\sum^\infty_{n=1} \mu_n(A_k)
+= \sum^\infty_{k=1} \mu(A_k)
+\]
+\emph{Veamos que si $g\colon X \to [0,\infty]$ es medible, entonces $\int_X g\dd{\mu} = \sum_n\int_X g \dd{\mu_n}$}:\\
+Si $s = \sum^{m}_{k=1} \alpha_k \chi_{A_k}$ es cualquier función escalonada medible (no negativa), entonces
+\[
+\int_X s \dd{\mu}
+= \sum^m_{k=1} \alpha_k\mu(A_k) 
+= \sum^m_{k=1} \alpha_k \sum^\infty_{n=1} \mu_n(A_k)
+= \sum^m_{k=1} \sum^\infty_{n=1} \alpha_k\mu_n(A_k)
+\] 
+La linealidad del límite garantiza que $\sum^m_{k=1}\sum^\infty_{n=1} \alpha_k\mu_n(A_k) = \sum^\infty_{n=1}\sum^m_{k=1}\alpha_k\mu_n(A_k)$, así que
+\[
+\int_X s \dd{\mu}
+= \sum^\infty_{n=1}\sum^m_{k=1}\alpha_k\mu_n(A_k)
+= \sum^\infty_{n=1} \int_X s \dd{\mu_n}
+\]
+Ahora bien, si $g \colon X \to [0,\infty]$ es cualquier función medible, sabemos que existe una sucesión monótona $s_k$ de funciones escalonadas no negativas tal que $\lim_{n\to\infty}s_k = g$. El teorema de convergencia monótona garantizará que
+\begin{equation}\label{eq:convmon}
+\int_X g \dd{\mu} 
+= \lim_{k\to\infty} \int_X s_k \dd{\mu}
+\quad\text{y}\quad
+\forall n\en\mathbb{N},\;
+\int_X g \dd{\mu_n} 
+= \lim_{k\to\infty} \int_X s_k \dd{\mu_n}
+\end{equation}
+pero ya probamos que $\int_X s_k \dd{\mu} = \sum^\infty_{n=1}\int_X s_k \dd{\mu}$; por lo tanto (\ref{eq:convmon}) implica
+\begin{equation}\label{eq:limsum}
+    \int_X g \dd{\mu} 
+    = \lim_{k\to\infty}\sum^\infty_{n=1}\int_X s_k \dd{\mu_n}
+\end{equation}
+Podemos considerar, para cada $k\en\mathbb{N}$, la función auxiliar $a_k \colon \mathbb{N} \to [0,\infty]$ con $a_k(n) = \int_X s_k \dd{\mu_n}$. Notemos que, gracias a que $s_{k+1} \ge s_k$, se cumple $a_{k+1}(n) = \int_X s_{k+1} \dd{\mu_n} \ge \int_X s_{k} \dd{\mu_n} = a_k(n)$, por lo que $a_k$ es una sucesión monótona de funciones medibles (no negativas) en el espacio de medida de conteo $(\mathbb{N},2^{\mathbb{N}},\mu_c)$. Se sigue, por teorema de convergencia monótona (y lo probado en el \myref{nejer:1.61}), que
+\[
+\lim_{k\to\infty} \sum^\infty_{n=1} a_{k}(n)
+= \lim_{k\to\infty} \int_\mathbb{N} a_{k} \dd{\mu_c}
+= \int_{\mathbb{N}} \lim_{k\to\infty} a_k \dd{\mu_c}
+= \sum^\infty_{n=1} \lim_{k\to\infty} a_k(n)
+\]
+es decir, $\lim_{k\to\infty}\sum^\infty_{n=1}\int_X s_k \dd{\mu_n} = \sum^\infty_{n=1}\lim_{k\to\infty}\int_X s_k \dd{\mu_n}$. Por lo tanto, (\ref{eq:limsum}) se convierte en
+\[
+\int_X g \dd{\mu}
+= \sum^\infty_{n=1}\lim_{k\to\infty}\int_X s_k \dd{\mu_n}
+\]
+Como ya vimos en (\ref{eq:convmon}), $\lim_{k\to\infty}\int_X s_k \dd{\mu_n} = \int_X g \dd{\mu_n}$, entonces hemos probado que
+\[
+\int_X g \dd{\mu}
+= \sum^\infty_{n=1} \int_X g \dd{\mu_n}
+\]
+\emph{Probemos lo último solicitado}:\\
+Si $f\colon X \to \mathbb{R}$ es medible, por definición (y ya que $\abs{f}$ es no negativa) $f$ es $\mu$-integrable si y solo si 
+\[
+\sum^\infty_{n=1} \int_X \abs{f} \dd{\mu_n}=\int_X \abs{f} \dd{\mu} < \infty
+\]
+Además, gracias a que $f^+$ y $f^-$ son no negativas:
+\begin{align*}
+\int_X f \dd{\mu} 
+&= \int_X f^+ \dd{\mu} - \int_X f^- \dd{\mu}\\
+&= \sum^\infty_{n=1} \int_X f^+ \dd{\mu_n} - \sum^\infty_{n=1}\int_X f^- \dd{\mu_n}\\
+&= \sum^\infty_{n=1} \biggl( \int_X f^+ \dd{\mu_n} - \int_X f^- \dd{\mu_n} \biggr)\\
+&= \sum^\infty_{n=1} \int_X f \dd{\mu_n}
+\end{align*}
+\end{sol}

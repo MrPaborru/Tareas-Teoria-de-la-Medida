@@ -1,0 +1,303 @@
+%------------------------------ Ejercicio 7.47 -------------------------------
+\setcounter{neje}{46}
+\begin{nejer}[Medida de Lebesgue en la esfera] 
+Para $n \en \mathbb{N}$, sea $(\mathbb{R}^n, \mathcal{A}_n, m_n)$ el espacio de medida de Lebesgue, denote la bola unitaria abierta por $B^n \coloneq \{x \en \mathbb{R}^n \mid |x| < 1\}$, y la esfera unitaria por
+$
+S^{n-1} \coloneq \partial B^n = \{x \en \mathbb{R}^n \mid |x| = 1\}.
+$
+Para $A \subseteq S^{n-1}$ defina
+$$
+A^\pm \coloneq \{x \en B^{n-1} \mid (x, \pm \sqrt{1 - |x|^2}) \en A\}.
+$$
+Pruebe que la colección
+$$
+\mathcal{A}_S \coloneq \{A \subseteq S^{n-1} \mid A^+, A^- \en \mathcal{A}_{n-1}\}
+$$
+es una $\sigma$-álgebra y que la aplicación
+$
+\sigma \colon \mathcal{A}_S \to [0, \infty]
+$
+definida por
+$$
+\sigma(A) \coloneq \int_{A^+} \frac{1}{\sqrt{1 - |x|^2}} \dd{m_{n-1}(x)} + \int_{A^-} \frac{1}{\sqrt{1 - |x|^2}} \dd{m_{n-1}(x)}
+$$
+para $A \en \mathcal{A}_S$ es una medida. Pruebe el teorema de Fubini en coordenadas polares como se enuncia a continuación. Úselo para probar que
+$
+\omega_n \coloneq \sigma(S^{n-1}) < \infty.
+$\par\vspace{1em}
+{\scshape Teorema de Fubini para coordenadas polares.}\\ Sea $f \colon \mathbb{R}^n \to \mathbb{R}$ Lebesgue integrable. Para $r \ge 0$ y $x \en S^{n-1}$ defina
+$$
+f^r(x) \coloneq f_x(r) \coloneq f(rx).
+$$
+Entonces existe un conjunto $E \en \mathcal{A}_S$ tal que
+$$
+\sigma(E) = 0 \qquad \text{y} \qquad f_x \en \mathcal{L}^1([0, \infty)) \quad\forall x \en S^{n-1} \setminus E,
+$$
+y existe un conjunto nulo de Lebesgue $N \subseteq [0, \infty)$ tal que
+$$
+f^r \en \mathcal{L}^1(\sigma) \text{ para todo } r \en [0, \infty) \setminus N.
+$$
+Defina $g \colon S^{n-1} \to \mathbb{R}$ y $h \colon [0, \infty) \to \mathbb{R}$ mediante
+$$
+g(x) \coloneq \begin{cases}
+\int_{[0, \infty)} r^{n-1} f_x(r) \dd{m_1(r)} & \text{para } x \en S^{n-1} \setminus E, \\
+0 & \text{para } x \en E,
+\end{cases}
+$$
+$$
+h(r) \coloneq \begin{cases}
+r^{n-1} \int_{S^{n-1}} f^r \dd{\sigma} & \text{para } r \en [0, \infty) \setminus N, \\
+0 & \text{para } r \en N.
+\end{cases}
+$$
+Entonces $g \en \mathcal{L}^1(\sigma)$, $h \en \mathcal{L}^1([0, \infty))$ y
+$$
+\int_{\mathbb{R}^n} f \dd{m_n} = \int_{S^{n-1}} g \dd{\sigma} = \int_{[0, \infty)} h \dd{m_1}.
+$$
+\emph{Sugerencia.} Defina el difeomorfismo
+$$
+\Phi \colon B^{n-1} \times (0, \infty) \to \{x \en \mathbb{R}^n \mid x_n > 0\}
+$$
+mediante $\Phi(x, r) \coloneq (rx, r(1 - |x|^2)^{1/2})$. Pruebe que
+$$
+\det(\dd{\Phi(x, r)}) = (1 - |x|^2)^{-1/2} r^{n-1} \quad \text{para } x \en B^{n-1} \text{ y } r > 0.
+$$
+Use el Teorema 2.17 y el Teorema de Fubini (Teorema 7.30.)
+\end{nejer}
+\begin{sol}
+\emph{Veamos que \(\mathcal{A}_S\) es una \(\sigma\)-álgebra}:\\
+En dimensión $n-1$ denotaremos simplemente $(B^{n-1},\mathcal{A}_{n-1},m_{n-1})$ a la restricción del espacio de medida de Lebesgue a la bola unitaria. Si definimos $\varphi^{\pm} \colon B^{n-1} \to S^{n-1}$ tal que $x \mapsto \bigl(x,\pm \sqrt{1-|x|^2}\bigr)$ entonces $A^\pm = (\varphi^\pm)^{-1}(A)$, por lo cual, por definición de pushforward:
+{\thickmuskip=10mu
+\[
+\mathcal{A}_S = \varphi^+_*(\mathcal{A}_{n-1}) \cap \varphi^-_*(\mathcal{A}_{n-1})
+\]
+}%
+% \begin{itemize}
+% \item \emph{Conjunto total:} \(S^{n-1} \en \mathcal{A}_S\) gracias a que $(S^{n-1})^+ = B^{n-1} \en \mathcal{A}_{n-1}$ y $(S^{n-1})^- = B^{n-1} \en \mathcal{A}_{n-1}.$
+% \item \emph{Complementos:} Si \(A \en \mathcal{A}_S\), entonces \(A^+, A^- \en \mathcal{A}_{n-1}\), pero esta última es $\sigma$-álgebra, por lo cual
+% \[
+% (A^c)^+ = B^{n-1}\setminus A^+\in\mathcal{A}_S
+% \qquad\text{y}\qquad
+% (A^c)^- = B^{n-1}\setminus A^-\in\mathcal{A}_S
+% \]
+% Se sigue que \(A^c \en \mathcal{A}_S\).
+% \item \emph{Cerrado bajo uniones numerables:} Sea \(\{A_k\}_{k \en \mathbb{N}} \subset \mathcal{A}_S\). Entonces
+% \[
+% \bigl(\bigcup_{k} A_k\bigr)^+ = \bigcup_{k} A_k^+ \en \mathcal{A}_{n-1},\qquad
+% \bigl(\bigcup_{k} A_k\bigr)^- = \bigcup_{k} A_k^- \en \mathcal{A}_{n-1},
+% \]
+% de modo que \(\bigcup_k A_k \en \mathcal{A}_S\).
+% \end{itemize}
+Como ya sabemos que el pushforward de una $\sigma$-álgebra es $\sigma$-álgebra y a su vez la intersección de $\sigma$-álgebras es $\sigma$-álgebra, se sigue que $\mathcal{A}_s$ es $\sigma$-álgebra.
+
+\vspace{1em}
+\noindent\emph{Veamos que \(\sigma\) es una medida}:\\
+Como $\frac{1}{\sqrt{1-|x|^2}}$ para $x\en B^{n-1}$ es continua, sabemos que $\lambda \colon \mathcal{A}_{n-1} \to [0,\infty]$ tal que $\lambda(E) = \int_E\frac{\dd{m_{n-1}(x)}}{\sqrt{1-|x|^2}}$ es una medida. Luego, se cumple para todo $A\en\mathcal{A}_S$:
+{\thickmuskip=10mu
+\[
+\sigma(A) 
+= \lambda(A^+) + \lambda(A^-)
+= \lambda\bigl((\varphi^+)^{-1}(A)\bigr) + \lambda\bigl((\varphi^-)^{-1}(A)\bigr)
+= \varphi^+_*\lambda(A) + \varphi^-_*\lambda(A)
+\]
+}%
+Como probamos en el \myref{nejer:1.69}, $\varphi^+_*\lambda$ es medida sobre $\varphi^+_*(\mathcal{A}_{n-1})$ y $\varphi^-_*\lambda$ es medida sobre $\varphi^-_*(\mathcal{A}_{n-1})$, así por lo anterior $\sigma = \varphi^+_*\lambda|_{\mathcal{A}_S} + \varphi^-_*\lambda|_{\mathcal{A}_S}$ es medida sobre $\mathcal{A}_S$.
+% La definición es
+% \[
+% \sigma(A) = \int_{A^+} \frac{1}{\sqrt{1-|x|^2}} \dd{m_{n-1}(x)} + \int_{A^-} \frac{1}{\sqrt{1-|x|^2}} \dd{m_{n-1}(x)}, \quad A \en \mathcal{A}_S.
+% \]
+% Claramente \(\sigma(\emptyset) = 0\) y \(\sigma(A) \ge 0\). Para la \(\sigma\)-aditividad, sea \(\{A_k\}_k\) una sucesión disjunta en \(\mathcal{A}_S\). Entonces \(\{A_k^+\}_k\) y \(\{A_k^-\}_k\) son familias disjuntas (pues la imagen inversa preserva vacuidad de intersecciones). Por la \(\sigma\)-aditividad de la integral respecto a \(m_{n-1}\),
+% {\thickmuskip=10mu
+% \begin{align*}
+% \sigma\Biggl(\bigcup^\infty_{k=1} A_k\Biggr) 
+% &= \int_{\bigcup_kA_k^+} \frac{1}{\sqrt{1-|x|^2}} \dd{m_{n-1}(x)} + \int_{\bigcup_kA_k^-} \frac{1}{\sqrt{1-|x|^2}} \dd{m_{n-1}(x)}\\
+% &= \sum^\infty_{k=1} \int_{A_k^+} \frac{1}{\sqrt{1-|x|^2}} \dd{m_{n-1}(x)} + \sum^\infty_{k=1} \int_{A_k^-} \frac{1}{\sqrt{1-|x|^2}} \dd{m_{n-1}(x)} = \sum^\infty_{k=1} \sigma(A_k).
+% \end{align*}
+% }%
+% Así, \(\sigma\) es una medida en \((S^{n-1}, \mathcal{A}_S)\).
+
+\vspace{1em}
+\noindent\emph{Probemos Fubini para coordenadas esféricas}:\\
+Definimos \(\Phi: B^{n-1} \times \mathbb{R}^+ \to \mathbb{R}^{n-1}\times\mathbb{R}^+\) por
+\[
+\Phi(x,r) \coloneq \bigl(rx, r\sqrt{1-|x|^2}\bigr) = r\varphi^+(x), \quad \forall (x,r) \en B^{n-1}\times\mathbb{R}^+
+\]
+\(\Phi\) es un difeomorfismo con inversa \(\Phi^{-1}(y) = (y'/|y|, |y|)\) para \(y=(y',y_n) \en \mathbb{R}^{n-1}\times\mathbb{R}^+\). 
+Su matriz Jacobiana se escribe por bloques como
+\[
+\dd{\Phi(x,r)}
+= \mqty(\partial_x(rx) & \partial_r(rx) \\ \partial_x\bigl(r\sqrt{1-|x|^2}\bigr) & \partial_r\bigl(r\sqrt{1-|x|^2}\bigr))
+= \mqty(
+r I_{n-1} & x \\
+-\frac{r x^T}{\sqrt{1-|x|^2}} & \sqrt{1-|x|^2}
+)
+\]
+Notemos que, si tomamos matrices $A\en GL_{\p}(\mathbb{R}), B\en M_{q}(\mathbb{R}), C \en M_{q \times\p}(\mathbb{R})$ y $D\en M_{\p\times q}(\mathbb{R})$, entonces podemos factorizar la matriz por bloques 
+\[
+\mqty(A&B\\C&D)%
+= \mqty(I_{\p}&0\\CA^{-1}&I_q) \mqty(A&B\\0&D-CA^{-1}B)
+\]
+Así, usando que el determinante preserva productos, y que el determinante de una matriz triangular por bloques es el producto de los determinantes de la diagonal: $\det\smqty(A&B\\C&D) = \det(A)\det(D-CA^{-1}B)$. Aplicando esto a $\dd{\Phi(x,r)}$:
+{\thickmuskip=10mu
+\begin{align*}
+\det\bigl(\dd{\Phi(x,r)}\bigr)
+&= \det(rI_{n-1})\det(\sqrt{1-|x|^2} - \tfrac{-r x^T}{\sqrt{1-|x|^2}}\cdot\tfrac{1}{r}I_{n-1}\cdot x)\\
+&= r^{n-1}\left(\sqrt{1-|x|^2} + \tfrac{\abs{x}^2}{\sqrt{1-|x|^2}}\right)
+= \frac{r^{n-1}}{\sqrt{1-|x|^2}}
+\end{align*}
+}%
+Similarmente, $\Psi \colon B^{n-1}\times\mathbb{R}^+ \to \mathbb{R}^{n-1}\times\mathbb{R}^-$ tal que $\Psi(x,r) = r\varphi^-(x)$ tiene $\det\bigl(\dd{\Psi(x,r)}\bigr) = \frac{-r^{n-1}}{\sqrt{1-|x|^2}}$.
+\par
+Ahora bien, sea \(f \en \mathcal{L}^1(\mathbb{R}^n)\). Partimos \(\mathbb{R}^n\) en el semiespacio superior \(H^+ \coloneq \mathbb{R}^{n-1}\times\mathbb{R}^+\), el inferior \(H^- \coloneq \mathbb{R}^{n-1}\times\mathbb{R}^-\) y el hiperplano \(H^0\coloneq \mathbb{R}^{n-1}\times\set0\) (\(m_n\)-nulo por 2.26, tarea 5). Aplicamos el teorema 2.17 (cambio de variable) a \(\Phi\) en \(H^+\) y a \(\Psi\) en \(H^-\):
+{\thickmuskip=10mu
+\begin{align*}
+\int_{H^+} f \dd{m_n} 
+&= \int_{B^{n-1}\times\mathbb{R}^+} (f\circ\Phi)\, \abs{\det(\dd{\Phi})} \dd{m_n} 
+=\int_{B^{n-1}\times\mathbb{R}^+} \frac{f\bigl(r\varphi^+(x)\bigr)r^{n-1}}{\sqrt{1-|x|^2}} \dd{m_n(x,r)}
+\\
+\int_{H^-} f \dd{m_n} 
+&= \int_{B^{n-1}\times\mathbb{R}^+} (f\circ\Psi)\, \abs{\det(\dd{\Psi})} \dd{m_n}
+=\int_{B^{n-1}\times\mathbb{R}^+} \frac{f\bigl(r\varphi^-(x)\bigr)r^{n-1}}{\sqrt{1-|x|^2}} \dd{m_n(x,r)}
+\end{align*}
+}%
+Ahora definimos \(F_\pm \colon B^{n-1}\times\mathbb{R}^+ \to \mathbb{R}\) como
+{\thickmuskip=10mu
+\[
+F_\pm(x,r) \coloneqq
+\frac{f\bigl(r\varphi^\pm(x)\bigr)r^{n-1}}{\sqrt{1-|x|^2}}
+\in \mathcal{L}^1(m_n) 
+\]
+}%
+Construyamos $g$ y luego $h$:
+\begin{itemize}
+\item 
+Por el Teorema~7.30 (Fubini–Lebesgue), para cada \(F_\pm\) existe un conjunto $m_{n-1}$-nulo \(A^\pm\subseteq B^{n-1}\) tal que para todo \(x\en B^{n-1}\setminus A^\pm\) la función \(r\mapsto F_\pm(x,r)\) pertenece a \(\mathcal{L}^1(\mathbb{R}^+)\) y la función
+\[
+G_\pm(x)
+\coloneq 
+\begin{cases}
+\int_{\mathbb{R}^+} F_\pm(x,r)\dd{r}, &x\en B^{n-1}\setminus A^\pm\\
+0, &x\en A^\pm
+\end{cases}
+\]
+es $m_{n-1}$-integrable con 
+\[
+\int_{B^{n-1}} G_\pm(x) \dd{m_{n-1}(x)}
+= \int_{B^{n-1}\times\mathbb{R^+}} F_\pm \dd{m_n}
+= \int_{H^\pm} f \dd{m_n}
+\]
+Entonces definimos $g \colon S^{n-1} \to \mathbb{R}$ tal que
+\[
+g(y) \coloneq
+\begin{cases}
+{\sqrt{1-|(\varphi^+)^{-1}(y)|^2}}\;{G_+\bigl((\varphi^+)^{-1}(y)\bigr)}, &y\en S^{n-1} \cap H^+\\
+{\sqrt{1-|(\varphi^-)^{-1}(y)|^2}}\;{G_-\bigl((\varphi^-)^{-1}(y)\bigr)}, &y\en S^{n-1} \cap H^-\\
+0, &y\en S^{n-1}\cap H^0 \eqcolon E^0
+\end{cases}
+\]
+Por pura definición se tiene $g \circ \varphi^{\pm}(x) = \sqrt{1-|x|^2}\;G^\pm(x)$. Además, si ponemos $E^\pm \coloneq \varphi^\pm(A^\pm)$ entonces $E^\pm,E^0\en\mathcal{A}_{S}$,%
+\footnote{
+    En efecto, pues $(\varphi^\pm)^{-1}(E^\pm) = A^\pm \en \mathcal{A}_{n-1}\;,\; (\varphi^\mp)^{-1}(E^\pm) = \varnothing \en \mathcal{A}_{n-1}\;$ y $\;(\varphi^\pm)^{-1}(E^0)=\varnothing\en\mathcal{A}_{n-1}$.
+}
+por lo que $E \coloneq E^+ \cup E^0 \cup E^- \en \mathcal{A}_S$; más aún, es sencillo notar que estos son $\sigma$-nulos,%
+\footnote{
+    Como $A^\pm$ son $m_{n-1}$-nulos y $\lambda \ll m_{n-1}$ (Radon-Nikodým), también son $\lambda$-nulos, pero estos son imágenes inversas de los $E^\pm$ bajo $\varphi^\pm$, así que son $\varphi^\pm_*\lambda$-nulos, por lo que también son $\sigma = \varphi^+_*\lambda + \varphi^-_*\lambda$-nulos. Asimismo, $(\varphi^\pm)^{-1}(E^0) = \varnothing$ son $\lambda$-nulos, así que $E^0$ es $\varphi^\pm_*\lambda$-nulo, y así, es $\sigma$-nulo.
+} 
+por lo que $\sigma(E) = 0$. También se puede verificar muy sencillamente (solo sustituyendo el valor de $G^\pm$, y sacando la raíz del denominador de $F_\pm$ de la integral, ya que no depende de $r$) que $g$ coincide exactamente con aquella proporcionada en el ejercicio, i.e., 
+\[
+g(y) \coloneq \begin{cases}
+\int_{\mathbb{R}^+} r^{n-1} f_y(r) \dd{r} & \text{para } y \en S^{n-1} \setminus E, \\
+0 & \text{para } y \en E,
+\end{cases}
+\]
+solo falta probar que $g$ tiene $\sigma$-integral igual a la de $f$. En efecto, la siguiente cadena de implicaciones surge de Radon-Nikodým ($\tfrac{1}{\sqrt{1-|x|^2}} = \dv{\lambda}{m_{n-1}}$), de 1.69 (tarea 4) y de 1.62 (tarea 3)
+\[
+\tfrac{g \circ \varphi^\pm}{\sqrt{1-|x|^2}} = G_\pm \en \mathcal{L}^1(m_{n-1})
+\quad\implies\quad
+g\circ\varphi^\pm\en\mathcal{L}^1(\lambda)
+\quad\implies\quad
+g\en \mathcal{L}^1(\varphi^\pm_*\lambda)
+\quad\implies\quad
+g\en\mathcal{L}^1(\sigma)
+\]
+de modo que, por las mismas proposiciones mencionadas:
+\begin{align*}
+\int_{S^{n-1}} g \dd{\sigma}
+&= \int_{S^{n-1}} g \dd{\varphi^+_*\lambda} + \int_{S^{n-1}} g \dd{\varphi^-_*\lambda}
+= \int_{B^{n-1}} g \circ \varphi^+ \dd{\lambda} + \int_{B^{n-1}} g\circ\varphi^- \dd{\lambda}\\
+&= \int_{B^{n-1}} G_+ \dd{m_{n-1}} + \int_{B^{n-1}} G_- \dd{m_{n-1}} 
+= \int_{H^+} f \dd{m_n} + \int_{H^-} f \dd{m_n}
+= \int_{\mathbb{R}^n} f \dd{m_n}
+\end{align*}
+\item 
+De modo similar, por Teorema 7.30 existen $N^\pm \subseteq\mathbb{R}^+$ $m_1$-nulos (podemos suponer s.p.g. que son el mismo tomando $N = N^+ \cup N^-$) tales que para $r\en \mathbb{R}^+\setminus N$ la función $x \mapsto F_\pm(x,r)$ está en $\mathcal{L}^1(m_{n-1})$, y la función 
+\[
+K_\pm(r)
+\coloneq
+\begin{cases}
+\int_{B^{n-1}}F_\pm(x,r)\dd{m_{n-1}(x)}, &r\en\mathbb{R}^{+}\setminus N\\
+0, &r\en N
+\end{cases}
+\]
+es $m_1$-integrable con
+\[
+\int_{\mathbb{R}^+} K_\pm \dd{m_1}
+= \int_{B^{n-1}\times\mathbb{R^+}} F_\pm \dd{m_n}
+= \int_{H^\pm} f \dd{m_n}
+\]
+pero entonces si definimos $h \colon \mathbb{R}^+ \to \mathbb{R}$ mediante $h(r) = K_+(r) + K_-(r)$ se tiene
+\[
+\int_{\mathbb{R}^+} h \dd{m_1}
+= \int_{\mathbb{R}^+} K_+ \dd{m_1} + \int_{\mathbb{R}^+} K_- \dd{m_1}
+= \int_{H^+} f \dd{m_n} + \int_{H^-} f \dd{m_n}
+= \int_{\mathbb{R}^n} f \dd{m_n}
+\]
+Solo falta ver que esta $h$ coincide con la que proporciona el ejercicio, lo cual no es tan trivial como el punto anterior. En efecto, es obvio que si $r\en N$ entonces $K_\pm(r) = 0$ y así $h(r) = 0$; recíprocamente, si $r\noten N$ entonces 
+\begin{align*}
+h(r)
+= K_+(r) + K_-(r)
+&= \int_{B^{n-1}}F_+(x,r)\dd{m_{n-1}(x)} + \int_{B^{n-1}}F_-(x,r)\dd{m_{n-1}(x)}
+% &= \int_{B^{n-1}}F_+(r\varphi^+(x))\dd{m_{n-1}(x)} + \int_{B^{n-1}}F_-(r\varphi^-(x))\dd{m_{n-1}(x)}
+\end{align*}
+Ahora, gracias a que se definió $F_\pm(x,r) = \frac{r^{n-1}f^r(\varphi^\pm(x))}{\sqrt{1-|x|^2}}$, tenemos una cadena de implicaciones análoga al punto anterior (recordemos $r$ está fijo), 
+\[
+F_\pm(-,r) \en \mathcal{L}^1(m_{n-1})
+\implies
+r^{n-1}\bigl(f^r\circ\varphi^\pm\bigr)\en \mathcal{L}^1(\lambda)
+\implies
+r^{n-1}f^r\en \mathcal{L}^1(\varphi^\pm_*\lambda)
+\implies
+r^{n-1}f^r\en \mathcal{L}^1(\sigma)
+\]
+de donde se sigue también que
+{\thickmuskip=10mu
+\begin{align*}
+\int_{S^{n-1}} r^{n-1}f^r \dd{\sigma}
+&= \int_{S^{n-1}} r^{n-1}f^r \dd{\varphi^+_*\lambda} + \int_{S^{n-1}} r^{n-1}f^r \dd{\varphi^-_*\lambda}\\
+&= \int_{S^{n-1}} r^{n-1}(f^r\circ\varphi^+) \dd{\lambda} + \int_{S^{n-1}} r^{n-1}(f^r\circ\varphi^-) \dd{\lambda}\\
+&= \int_{B^{n-1}}F_+(x,r)\dd{m_{n-1}(x)} + \int_{B^{n-1}}F_-(x,r)\dd{m_{n-1}(x)}
+= h(r)
+\end{align*}}
+es decir, acabamos de probar que si $r\en\mathbb{R}^+\setminus N$ entonces $h(r) = \int_{S^{n-1}} r^{n-1}f^r \dd{\sigma} = r^{n-1}\int_{S^{n-1}} f^r \dd{\sigma}$. Esto concluye la prueba de Fubini en esféricas.
+\end{itemize}
+
+
+\vspace{1em}
+\noindent\emph{Probemos que \(\omega_n<\infty\)}:\\ 
+Aplicamos Fubini en esféricas a \(f = \chi_{B^n}\). Esta función es medible, acotada y de soporte compacto, luego \(f\in \mathcal{L}^1(\mathbb{R}^n)\) y \(\int f = m_n(B^n)<\infty\). En coordenadas polares,
+\[
+f(rx) = \begin{cases}
+1, & 0\le r<1,\\
+0, & r\ge 1,
+\end{cases}\qquad \forall(x,r)\en S^{n-1}\times\mathbb{R}^+
+\]
+Por tanto,
+\[
+g(x) = \int_0^1 r^{n-1}\dd{r} = \frac{1}{n}\quad \forall x\in S^{n-1}
+\]
+Sustituyendo en la igualdad de integrales,
+\[
+m_n(B^n) = \int_{S^{n-1}} g\dd{\sigma} = \int_{S^{n-1}} \frac{1}{n}\dd{\sigma} = \frac{\sigma(S^{n-1})}{n}
+\]
+Concluimos que \(\omega_n \coloneqq \sigma(S^{n-1}) = n\,m_n(B^n) < \infty\)
+\end{sol}

@@ -1,0 +1,203 @@
+%------------------------------ Ejercicio 6.23 -------------------------------
+\setcounter{neje}{22}
+\begin{nejer}
+Fije dos números reales $a < b$ y pruebe lo siguiente.
+\begin{enumerate}[label = (\roman*)]
+    \item Si $f \colon [a, b] \to \mathbb{R}$ es diferenciable, entonces $f' \colon [a, b] \to \mathbb{R}$ es Borel medible.
+    \item Si $f \colon [a, b] \to \mathbb{R}$ es diferenciable y $\int_a^b |f'(t)| \dd{t} < \infty$, entonces $f$ es absolutamente continua.
+\end{enumerate}
+\emph{Sugerencia.} Fije una constante $\varepsilon > 0$. Por el teorema de Vitali-Carathéodory en el Ejercicio 6.22, existe una función semi-continua inferiormente $g \colon [a, b] \to \mathbb{R}$ tal que
+$$
+g > f', \quad \int_a^b g(t) \dd{t} < \int_a^b f'(t) \dd{t} + \varepsilon.
+$$
+Para $\eta > 0$ defina la función
+$$
+F_\eta \colon [a, b] \to \mathbb{R}
+$$
+mediante
+$$
+F_\eta(x) := \int_a^x g(t) \dd{t} - f(x) + f(a) + \eta(x - a)
+$$
+para $a \le x \le b$. Considere un punto $a \le x < b$. Puesto que $g(x) > f'(x)$ y $g$ es semi-continua inferiormente, encuentre un número $\delta_x > 0$ tal que
+$$
+g(t) > f'(x), \quad \frac{f(t) - f(x)}{t - x} < f'(x) + \eta \quad \text{para } x < t < x + \delta_x.
+$$
+Deduzca que
+$$
+F_\eta(t) > F_\eta(x) \quad \text{para } x < t < x + \delta_x.
+$$
+Puesto que $F_\eta(a) = 0$, existe un elemento maximal $x \en [a, b]$ tal que $F_\eta(x) = 0$. Si $x < b$, se sigue de la discusión anterior que $F_\eta(t) > 0$ para $x < t \le b$. En cualquier caso $F_\eta(b) \ge 0$ y por lo tanto
+$$
+f(b) - f(a) \le \int_a^b g(t) \dd{t} + \eta(b - a) < \int_a^b f'(t) \dd{t} + \varepsilon + \eta(b - a).
+$$
+Puesto que esto se cumple para todo $\eta > 0$ y todo $\varepsilon > 0$, se sigue que
+$$
+f(b) - f(a) \le \int_a^b f'(t) \dd{t}.
+$$
+Reemplace $f$ por $-f$ para obtener la relación $f(b) - f(a) = \int_a^b f'(t) \dd{t}$. Ahora deduzca que
+$$
+f(x) - f(a) = \int_a^x f'(t) \dd{t}
+$$
+para todo $x \en [a, b]$.
+\end{nejer}
+\begin{sol}
+\begin{enumerate}[label = (\roman*)]
+\item Sea $f \colon [a,b]\to\mathbb{R}$ diferenciable. Para cada $n\en\mathbb{N}$ defina
+\[
+\varphi_n(x)
+\coloneq
+n\bigl(f(x+\tfrac1n)-f(x)\bigr),
+\qquad\forall x\en[a,b-\nicefrac{1}{n}]
+\]
+Podemos extender $\varphi_n$ al intervalo completo $[a,b]$ haciendo que sea nula en $(b-\nicefrac{1}{n},b]$, así será continua por trozos y por lo tanto Borel-medible.
+Como $f$ es diferenciable,
+\[
+f'(x)
+=
+\lim_{n\to\infty}
+n\bigl(f(x+\tfrac1n)-f(x)\bigr)
+= \lim_{n\to\infty} \varphi_n(x)
+\]
+para todo $x\en[a,b)$. En consecuencia, $f'$ es el límite puntual de funciones Borel-medibles, y por lo tanto es Borel-medible.
+
+\item Por el inciso anterior $f'$ es medible, ahora supongamos $\int_a^b |f'(t)|\,\dd t < \infty$, i.e., $f'\en\mathcal{L}^1([a,b])$.
+Fijemos $\varepsilon>0$. Por el teorema de Vitali--Carathéodory (Ejercicio 6.22, tarea 9) existe una función semi-continua y acotada inferiormente $g\colon [a,b]\to\mathbb{R}$ tal que $f' < g$
+\[
+\int_a^b g(t)\,\dd t
+<
+\int_a^b f'(t)\,\dd t+\varepsilon.
+\]
+Para cada $\eta>0$ definimos $F_\eta \colon [a,b] \to \mathbb{R}$ tal que
+\[
+F_\eta(x)
+:=
+\int_a^x g(t)\,\dd t
+-
+f(x)
++
+f(a)
++
+\eta(x-a),
+\]
+y fijemos $x\en[a,b)$. Como $g(x)>f'(x)$ y $g$ es semi-continua inf., existe $\delta_1>0$ tal que
+\[
+t\en(x,x+\delta_1)
+\quad\implies\quad
+g(t)>f'(x)
+\]
+Además, gracias a que $f'(x)=\lim_{t\to x^+}\frac{f(t)-f(x)}{t-x}$, existe $\delta_2>0$ tal que
+\[
+t\en(x,x+\delta_2)
+\quad\implies\quad
+\frac{f(t)-f(x)}{t-x}
+<
+f'(x)+\eta
+\]
+Si tomamos $\delta_x:=\min\{\delta_1,\delta_2\}$ entonces para todo $t \en (x,x+\delta_x)$
+\[
+F_\eta(t)-F_\eta(x)
+=
+\int_x^t g(s)\,\dd s
+-
+\bigl(f(t)-f(x)\bigr)
++
+\eta(t-x).
+\]
+Como $g(s)>f'(x)$ para $s\en(x,t) \subseteq (x,x+\delta_1)$,
+\[
+    \int_x^t g(s)\,\dd s
+    >
+    f'(x)(t-x),
+\]
+y a su vez, gracias a que $t \en (x,x+\delta_x) \subseteq (x,x+\delta_2)$:
+\[
+    f(t)-f(x)
+    <
+    (f'(x)+\eta)(t-x).
+\]
+Por lo tanto,
+{\thickmuskip=10mu
+\[
+F_\eta(t)-F_\eta(x)
+>
+f'(x)(t-x)
+-
+(f'(x)+\eta)(t-x)
++
+\eta(t-x)
+=0
+\]
+}%
+Es decir, hemos probado que $F_\eta(t)>F_\eta(x)$ para todo $t\en(x,x+\delta_x)$.
+
+Ahora bien, por la implicación "(iii) $\Rightarrow$ (i)" del teorema 6.19 (TFC), sabemos que el mapeo $x \mapsto \int^x_ag(t)\dd{t}$ es absolutamente continuo, pero $f(x)$ también es continua al ser diferenciable. De esto se sigue que $F_\eta(x)$ es continua, por lo cual
+\[
+E \coloneq F_\eta^{-1}(\set0) \subseteq [a,b]
+\]
+es compacto. Como además $E\neq\varnothing$ gracias a que $F_\eta(a) =0$, existe $x_0\coloneq\max E \en [a,b]$. Ahora afirmamos que $F_\eta(b) \ge0$. Si $x_0 = b$ ya terminamos, puesto que $F_\eta(b) = 0$. Si $x_0<b$, la discusión anterior prueba que
+\[
+t\en(x_0,x_0+\delta_{x_0})
+\quad\implies\quad
+F_\eta(t)>F_\eta(x_0)=0
+\]
+Así, la ausencia de ceros en $(x_0,b]$ (maximalidad de $x_0$), fuerza a que $F_\eta(b) \ge 0$.%
+\footnote{
+De otro modo, $F_\eta(b) < 0$ y $F(x_0+\frac12\delta_{x_0}) >0$ implicaría, por continuidad de $F_\eta$, que existe $t \en (x_0+\frac12\delta_{x_0}, b)$ con $F_\eta(t) = 0$, lo que contradice la maximalidad de $x_0$.
+}
+Entonces
+\[
+    \int_a^b g(t)\,\dd t
+    -
+    f(b)
+    +
+    f(a)
+    +
+    \eta(b-a)
+    \ge 0,
+\]
+es decir,
+\[
+    f(b)-f(a)
+    \le
+    \int_a^b g(t)\,\dd t
+    +
+    \eta(b-a).
+\]
+Recordando que $\int g(t) \dd{t} < \int f'(t)\dd{t} + \varepsilon$:
+\[
+    f(b)-f(a)
+    <
+    \int_a^b f'(t)\,\dd t
+    +
+    \varepsilon
+    +
+    \eta(b-a).
+\]
+Como esto se cumple para cualesquiera $\varepsilon>0$ y $\eta>0$, concluimos que
+\[
+    f(b)-f(a)
+    \le
+    \int_a^b f'(t)\,\dd t.
+\]
+
+Aplicando el mismo razonamiento a $-f$, obtenemos
+\[
+    -(f(b)-f(a))
+    \le
+    -\int_a^b f'(t)\,\dd t,
+\]
+y por lo tanto
+\[
+    f(b)-f(a)
+    =
+    \int_a^b f'(t)\,\dd t.
+\]
+Finalmente aplicando lo recién probado a $f|_{[a,x]}$ para $x \en [a,b]$, se sigue
+\[
+    f(x)-f(a)
+    =
+    \int_a^x f'(t)\,\dd t
+\]
+Por último, la implicación "(iii) $\Rightarrow$ (i)" del teorema 6.19 garantiza que $f$ es absolutamente continua.
+\end{enumerate}
+\end{sol}

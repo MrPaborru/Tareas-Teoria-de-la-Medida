@@ -1,0 +1,32 @@
+%------------------------------ Ejercicio 7.51 -------------------------------
+\setcounter{neje}{50}
+\begin{nejer}
+Sean $(X, \mathcal{A}, \mu)$ y $(Y, \mathcal{B}, \nu)$ dos espacios de medida $\sigma$-finitos y sean $f \en \mathcal{L}^1(\mu)$ y $g \en \mathcal{L}^1(\nu)$. Defina
+$$
+h \colon X \times Y \to \mathbb{R}
+$$
+mediante $h(x, y) \coloneq f(x)g(y)$, para $x \en X,y \en Y$. Pruebe que $h \en \mathcal{L}^1(\mu \otimes \nu)$ y
+$$
+\int_{X \times Y} h \dd{(\mu \otimes \nu)} = \int_X f \dd{\mu} \int_Y g \dd{\nu}
+$$
+\end{nejer}
+\begin{sol}
+Primero notemos que $h$ es medible respecto a $\mathcal{A} \otimes \mathcal{B}$ porque $h = (f \circ \pi_1) \cdot (g \circ \pi_2)$, donde $\pi_1, \pi_2$ son las proyecciones canónicas. Las funciones $f \circ \pi_1$ y $g \circ \pi_2$ son medibles (composición de medibles), así que su producto también lo es.
+Aplicamos el teorema de Fubini para no negativas (7.17) a $|h|$, y linealidad:
+\begin{align*}
+\int_{X \times Y} |h| \dd{(\mu \otimes \nu)}
+&= \int_X \left( \int_Y |f(x)|\,|g(y)| \dd{\nu(y)} \right) \dd{\mu(x)}\\
+&= \int_X |f(x)| \left( \int_Y |g(y)| \dd{\nu(y)} \right) \dd{\mu(x)}
+= \left( \int_X |f| \dd{\mu} \right) \left( \int_Y |g| \dd{\nu} \right)
+\end{align*}
+Como $f \en \mathcal{L}^1(\mu)$ y $g \en \mathcal{L}^1(\nu)$, las integrales $\int_X |f| \dd{\mu}$ y $\int_Y |g| \dd{\nu}$ son finitas, por lo que su producto es finito y por tanto $h \en \mathcal{L}^1(\mu \otimes \nu)$.
+
+Al ser $h$ integrable y los espacios $\sigma$-finitos, podemos usar el teorema de Fubini (7.20) y linealidad para obtener la integral iterada:
+\begin{align*}
+\int_{X \times Y} h \dd{(\mu \otimes \nu)}
+&= \int_X \left( \int_Y f(x) g(y) \dd{\nu(y)} \right) \dd{\mu(x)}\\
+&= \int_X f(x) \left( \int_Y g(y) \dd{\nu(y)} \right) \dd{\mu(x)}
+= \left( \int_X f \dd{\mu} \right) \left( \int_Y g \dd{\nu} \right)
+\end{align*}
+que es lo que se quería probar.
+\end{sol}

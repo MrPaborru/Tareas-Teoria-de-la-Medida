@@ -1,0 +1,117 @@
+%------------------------------ Ejercicio 6.22 -------------------------------
+\setcounter{neje}{21}
+\begin{nejer}
+Pruebe el teorema de Vitali-Carathéodory. Sea $(X, \mathcal{U})$ un espacio de Hausdorff localmente compacto y sea $\mathcal{B} \subseteq 2^X$ su $\sigma$-álgebra de Borel. Sea $\mu \colon \mathcal{B} \to [0, \infty]$ una medida de Borel regular exterior que es regular interior en conjuntos abiertos. Sea $f \en \mathcal{L}^1(\mu)$ y sea $\varepsilon > 0$. Entonces existe una función semi-continua superiormente $u \colon X \to \mathbb{R}$ que está acotada superiormente y una función semi-continua inferiormente $v \colon X \to \mathbb{R}$ que está acotada inferiormente tales que
+$$
+u \le f \le v, \quad \int_X (v - u) \dd{\mu} < \varepsilon.
+$$
+\emph{Sugerencia.} Asuma primero que $f \ge 0$. Use el Teorema 1.26 para encontrar una sucesión de conjuntos medibles $E_i \en \mathcal{A}$, no necesariamente disjuntos, y una sucesión de números reales $c_i > 0$ tales que $\mu(E_i) < \infty$ para todo $i$ y
+$$
+f = \sum_{i=1}^\infty c_i \chi_{E_i}.
+$$
+Así, $\sum_{i=1}^\infty c_i \mu(E_i) = \int_X f \dd{\mu} < \infty$. Elija una sucesión de conjuntos compactos $K_i \subseteq X$ y una sucesión de conjuntos abiertos $U_i \subseteq X$ tales que $K_i \subseteq E_i \subseteq U_i$ y $c_i \mu(U_i \setminus K_i) < \varepsilon 2^{-i-1}$ para todo $i$. Elija $n \en \mathbb{N}$ tal que $\sum_{i=n+1}^\infty c_i \mu(E_i) < \varepsilon/2$ y defina
+$$
+u \coloneq \sum_{i=1}^n c_i \chi_{K_i}, \quad v \coloneq \sum_{i=1}^\infty c_i \chi_{U_i}.
+$$
+Muestre que $\int_X (v - u) \dd{\mu} < \varepsilon$, que $v$ es semi-continua inferiormente (es decir, $v^{-1}((t, \infty))$ es abierto para todo $t \en \mathbb{R}$), y que $u$ es semi-continua superiormente (es decir, $u^{-1}((-\infty, t))$ es abierto para todo $t \en \mathbb{R}$).
+\end{nejer}
+\begin{sol}
+\emph{Supongamos primero que $f\ge0$}:\\
+Por teorema 1.26 existe una sucesión $0\le s_1\leq s_2 \le s_3 \leq \cdots$ de funciones escalonadas medibles que converge puntualmente a $f$. Entonces ponemos $s_0 \coloneq 0$ y $\p_i \coloneq s_i -s_{i-1} \ge 0$ con $i\en\mathbb{N}$. Luego
+\[
+\sum^n_{i=1}\p_i = s_n,
+\qquad\text{por tanto al tomar } n\to\infty,\qquad
+\sum^\infty_{i=1} \p_i = f
+\]
+Para cada $i\en\mathbb{N}$, $\p_i \ge 0$ es escalonada medible, así que $\p_i = \sum^{k_i}_{j=1}c_{i,j}\chi_{A_{i,j}}$ para algunos $c_{i,j} > 0$ y $A_{i,j} \en\mathcal{A}$. Entonces se sigue que
+\[
+f
+= \sum^\infty_{i=1} \p_i
+= \sum^\infty_{i=1}\sum^{k_i}_{j=1}c_{i,j}\chi_{A_{i,j}}
+\]
+Como esta convergencia es absoluta (pues los términos son no negativos), no importa el orden de sumación, por lo que podemos re-indexar los términos para tener una serie de la forma
+\[
+f = \sum^{\infty}_{i=1} c_i\chi_{A_i}
+\]
+Entonces por teorema 1.38 se sigue $\infty >\int f \dd{\mu} = \sum^{\infty}_{i=1} \int c_i\chi_{A_i} \dd{\mu} = \sum^{\infty}_{i=1} c_i\mu({A_i})$.\par
+Ahora bien, sea $\varepsilon>0$. Como $\mu$ es regular exterior y regular interior en abiertos, el lema 3.7 garantiza que también es regular interior en conjuntos de medida finita. Por tanto, para cada $i\en\mathbb{N}$, ya que $\mu(A_i) < \infty$ se sigue que existen un compacto $K_i \subseteq A_i$ y un abierto $U_i \supseteq A_i$ tales que
+\[
+\mu(U_i) - \mu(A_i) < \frac{\varepsilon}{c_i2^{i+2}}
+\qquad\text{y}\qquad
+\mu(A_i) - \mu(K_i) < \frac{\varepsilon}{c_i2^{i+2}}
+\]
+como en particular $\mu(U_i) < \infty$, al aplicar aditividad y sumar estas últimas desigualdades, obtenemos 
+\[
+\mu(U_i \setminus K_i) = \mu(U_i) - \mu(K_i) < \frac{\varepsilon}{c_i2^{i+1}}
+\quad\text{de donde}\quad
+c_i\mu(U_i \setminus K_i) < \frac{\varepsilon}{2^{i+1}}
+\]
+Similarmente, como $A_i \subseteq U_i$ tiene medida finita, $c_i\mu(U_i\setminus A_i) =c_i(\mu(A_i) - \mu(K_i)) < \varepsilon2^{-i-2}$.
+A su vez, como $\sum c_i\mu(A_i)$ converge, existe $n\en\mathbb{N}$ tal que $\sum^\infty_{i=n+1} c_i\mu(A_i) < \frac14\varepsilon$. Entonces definimos
+\[
+u \coloneq \sum_{i=1}^n c_i \chi_{K_i} \le f 
+\qquad\text{y}\qquad
+v \coloneq \sum_{i=1}^\infty c_i \chi_{U_i} \ge f
+\]
+Como $K_i \subseteq A_i \subseteq U_i$ tenemos $\chi_{U_i} - \chi_{K_i}=\chi_{U_i\setminus K_i}$ y $\chi_{U_i} = \chi_{U_i\setminus A_i} + \chi_{A_i}$ así que
+{\thickmuskip=10mu
+\[
+v-u 
+= \sum^{\infty}_{i=n+1}c_i\chi_{U_i} + \sum_{i=1}^n c_i (\chi_{U_i} - \chi_{K_i})
+= \sum^{\infty}_{i=n+1}c_i\chi_{U_i\setminus A_i} + \sum^{\infty}_{i=n+1}c_i\chi_{A_i} + \sum_{i=1}^n c_i \chi_{U_i\setminus K_i}
+\]
+}
+así por linealidad y teorema 1.38
+{\thickmuskip=10mu
+\begin{align*}
+\int (v-u) \dd{\mu} 
+&= \sum^{\infty}_{i=n+1}c_i\mu({U_i\setminus A_i}) + \sum^{\infty}_{i=n+1}c_i\mu({A_i}) + \sum_{i=1}^n c_i \mu({U_i\setminus K_i})\\
+&< \sum^{\infty}_{i=n+1}\varepsilon2^{-i-2} + \frac{\varepsilon}{4} + \sum_{i=1}^n \varepsilon2^{-i-1}
+\leq \frac{\varepsilon}{4} + \frac{\varepsilon}{4} + \frac{\varepsilon}{2} = \varepsilon
+\end{align*}
+}
+Como $u \leq f \leq v$ solo falta probar que $u$ es semi-continua superior y $v$ semi-continua inferior. En efecto, si $K_i$ es compacto, entonces $\chi_{K_i}$ es semi-continua superiormente pues
+\[
+\chi_{K_i}^{-1}((-\infty,t))=
+\begin{cases}
+\varnothing,& t\le0,\\
+X\setminus K_i,& 0<t\le1,\\
+X,& t>1,
+\end{cases}
+\]
+y $X\setminus K_i$ es abierto ya que $K_i$ es cerrado. Como $c_i>0$, también $c_i\chi_{K_i}$ es semi-continua superiormente, y por tanto $u=\sum_{i=1}^n c_i\chi_{K_i}$ es semi-continua superiormente.
+
+Análogamente, si $U_i$ es abierto, entonces $\chi_{U_i}$ es semi-continua inferiormente pues
+\[
+\chi_{U_i}^{-1}((t,\infty))=
+\begin{cases}
+X,& t<0,\\
+U_i,& 0\le t<1,\\
+\varnothing,& t\ge1,
+\end{cases}
+\]
+Por tanto, la combinación $v_m\coloneq \sum_{i=1}^m c_i\chi_{U_i}$ es semi-continua inferiormente (ya que $c_i>0$). Como por definición $v_m \to v$ entonces
+\[
+v^{-1}((t,\infty))
+=\bigcup_{m=1}^\infty v_m^{-1}((t,\infty))
+\]
+es abierto para todo $t\en\mathbb{R}$, luego $v$ es semi-continua inferiormente. Por último, también notemos que $u(x) \le \sum^n_{i=1} c_i$ y $v(x) \ge 0$ así que $u$ es acotada superiormente y $v$ inferiormente.
+\medskip\\
+\emph{Probemos el ejercicio para $f\en\mathcal{L}^1(X)$ arbitraria}:\\
+Como $f\en\mathcal{L}^1(X)$ entonces se descompone en $f= f^+ - f^-$ donde $f^+,f^-$ son integrables no negativas, así que lo probado garantiza que existen $u_1,u_2$ semi-continuas (y acotadas) superiormente y $v_1,v_2$ semi-continuas (y acotadas) inferiormente con
+{\thickmuskip=10mu
+\[
+u_1 \leq f^+ \leq v_1
+\qquad\text{y}\qquad
+u_2 \leq f^- \leq v_2
+\]
+}%
+por lo tanto, $-v_2$ es semi-continua (y acotada) superiormente y $-u_2$ semi-continua (y acotada) inferiormente, con $-v_2 \le -f^- \le -u_2$. Así, 
+{\thickmuskip=10mu
+\[
+u_1-v_2 \leq f^+-f^- = f \leq v_1-u_2
+\]
+}%
+donde $u \coloneq u_1-v_2$ es semi-continua (y acotada) superiormente y $u\coloneq v_1-u_2$ semi-continua (y acotada) inferiormente.
+\end{sol}
+

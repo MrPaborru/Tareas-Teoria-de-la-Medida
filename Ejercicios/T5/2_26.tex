@@ -1,0 +1,165 @@
+\setcounter{neje}{25}
+\begin{nejer}
+Pruebe que todo subconjunto de un subespacio vectorial propio de $\mathbb{R}^n$ es Lebesgue-medible y tiene medida de Lebesgue cero. Encuentre un subconjunto de $\mathbb{R}^n$ Jordan-medible que no sea un conjunto de Borel. Encuentre un subconjunto acotado de $\mathbb{R}^n$ Lebesgue-medible con medida de Lebesgue positiva que no sea ni un conjunto de Borel ni Jordan-medible.
+\end{nejer}
+\begin{sol}
+\emph{Veamos que todo subespacio vectorial propio tiene medida cero}:\\
+Podemos aplicar el lema 2.18 de \cite{Salamon}, pero solamente para el caso $\det(\Phi) \neq 0 $, pues el libro no lo demuestra para $\Phi$ singular, y suponer esto sería suponer algo equivalente a lo que se busca probar.\par
+Sea $A < \mathbb{R}^n$ un subespacio de dimensión $d<n$, y sea $\mathscr{A} = \set{a_1,\dots,a_d}$ una base para $A$. También consideremos $\mathscr{B} = \set{e_1,\dots,e_n}$ la base canónica de $\mathbb{R}^n$, y denotemos $\mathscr{B}_d \coloneq \set{e_1,\dots,e_d}$, así como $B = \operatorname{Span}(\mathscr{B}_d)$. Como $B$ es libre en $\mathscr{B}_d$ y $A$ en $\mathscr{A}$, existe un único \emph{isomorfismo} $\Phi \colon B \to A$ que asigna $e_i \mapsto a_i$. Sabemos que todo subespacio es cerrado (en dimensión finita), así que es Lebesgue-medible; además, $\det(\Phi) \neq 0$, con lo cual el lema 2.18 implica:
+\[
+m(A) = m(\Phi(B)) = \abs{\det(\Phi)}\cdot m(B)
+\]
+Por lo tanto, basta con demostrar que $m(B) = 0$. Esto es así, primero consideremos el cerrado $Q_d \coloneq [0,1]^d\times\set{0}^{n-d} \subseteq B_d$. Luego, dado $\varepsilon>0$, tenemos que $Q_d \subseteq [0,1]^d\times[-\varepsilon/2,\varepsilon/2]^{n-d}$, así:
+\[
+m(Q_d) \leq m\bigl([0,1]^d\times[-\varepsilon/2,\varepsilon/2]^{n-d}\bigr) = \varepsilon^{n-d}
+\]
+Como $n-d \ge 1$ y $\varepsilon>0$ es arbitrario, se sigue $m(Q_d) = 0$. Además, es inmediato que:%
+\footnote{
+    Se sigue inmediato de que $\lambda_1e_i+\cdots+\lambda_de_d = (\set{\lambda_1}e_i+\cdots+\set{\lambda_d}e_d) + (\floor{\lambda_1}e_i+\cdots+\floor{\lambda_d}e_d)$. Donde $\floor{\cdot}$ es la función piso y $\set{\cdot}= {\id} - \floor{\cdot}$.
+}
+\[
+B \;= \bigcup_{z_1,\dots,z_d \en \mathbb{Z}} Q_d + (z_1e_1+\cdots+z_de_d)
+\]
+Esta unión es contable y $m$ es invariante por traslación, luego $m(B) = 0$. Finalmente: $m(A) = 0$.\vspace{1em}\\
+\emph{Encontremos un conjunto Jordan-medible no boreliano}:\\
+Para probar este hecho, usaremos un argumento de cardinalidad, así que primero debemos encontrar las siguientes dos cardinalidades:
+\begin{enumerate}[label=(\alph*)]
+%--------------------------------------------------
+\item % inciso (a)
+$\card(\mathcal{C}) = \mathfrak{c}$:\\
+En primer lugar, notemos que restar el tercio central de cada intervalo en $C^{1/3}_n$ equivale a aplicar las operaciones $\frac13C^{1/3}_n \cup (\frac23 + \frac13C^{1/3}_n)$, es decir, $C^{1/3}_{n+1} = \frac13C^{1/3}_n \cup (\frac23 + \frac13C^{1/3}_N)$.\par
+Ahora probemos, por inducción, que todo número de la forma 
+\[
+    s = \sum_{n=1}^\infty a_n 3^{-n}, 
+    \qquad a_n \en \{0,2\},
+\]
+pertenece a $\mathcal{C}$ (de hecho, se puede demostrar que todos los elementos de $\mathcal{C}$ son de esta forma).  
+Es inmediato que dichos números están en $C^{1/3}_0$, ya que
+$
+    0 \leq \sum_{n=1}^\infty a_n 3^{-n} 
+      \leq \sum_{n=1}^\infty 2 \cdot 3^{-n} 
+      = 1.
+$
+Supongamos ahora que todos los números de esta forma pertenecen a $C^{1/3}_n$, y consideremos
+$
+    s \coloneq \sum_{n=1}^\infty a_n 3^{-n}$ con $
+    a_n \en \{0,2\}.
+$
+Existen dos posibilidades:
+\begin{itemize}
+    \item Si $a_1 = 0$, entonces
+    $
+        3s = \sum_{n=1}^\infty a_n 3^{-n+1} 
+            = \sum_{n=0}^\infty a_{n+1} 3^{-n}.
+    $
+    Sustituyendo $a_1=0$ se obtiene
+    $
+        3s = \sum_{n=1}^\infty a_{n+1} 3^{-n},
+    $
+    el cual por hipótesis, pertenece a $C^{1/3}_n$. Así,
+    $
+        s \en \tfrac{1}{3}C^{1/3}_n \subseteq C^{1/3}_{n+1}.
+    $
+
+    \item Si $a_1 = 2$, es análogo:
+    $
+        3s = \sum_{n=1}^\infty a_n 3^{-n+1} 
+            = \sum_{n=0}^\infty a_{n+1} 3^{-n},
+    $
+    y sustituyendo $a_1=2$ se tiene
+    $
+        3s = 2 + \sum_{n=1}^\infty a_{n+1} 3^{-n},
+    $
+    donde $\sum_{n=1}^\infty a_{n+1} 3^{-n} \en C^{1/3}_n$ por hipótesis. Así,
+    $
+        s \en \tfrac{2}{3} + \tfrac{1}{3}C^{1/3}_n \subseteq C^{1/3}_{n+1}.
+    $
+\end{itemize}
+En ambos casos concluimos que $s \en C^{1/3}_{n+1}$. Por inducción matemática, todo número de la forma anterior pertenece a $C^{1/3}_n$, para cada $n\en\mathbb{N}$, y por lo tanto a $\mathcal{C}$.\par
+Como la representación ternaria $s=\sum a_n3^{-n}$ es única si exigimos $a_n\en\set{0,2}$, lo recién probado garantiza una inyección $\set{0,2}^\mathbb{N} \hookrightarrow \mathcal{C}$, así que $\card(\mathcal{C}) \geq \card(\set{0,2}^\mathbb{N}) = 2^{\aleph_0} = \mathfrak{c}$, pero ya tenemos que $\card(\mathcal{C}) \leq \card(\mathbb{R}) = \mathfrak{c}$. Esto prueba que $\card(\mathcal{C}) = \mathfrak{c}$.
+%--------------------------------------------------
+\item % inciso (b)
+$\card(\mathcal{B}_\mathbb{R}) = \mathfrak{c}$ ($\mathcal{B}_\mathbb{R}$ es la $\sigma$-álgebra de Borel):
+
+Definamos, por inducción transfinita, la \emph{jerarquía de Borel}. Para cada ordinal
+$0<\alpha<\omega_1$ ($\omega_1$ es el menor ordinal incontable), definimos los conjuntos $\Sigma^0_\alpha$ y $\Pi^0_\alpha$ como sigue:
+\begin{itemize}
+    \item $\Sigma^0_1$ es la familia de abiertos de $\mathbb{R}$,
+    y $\Pi^0_1$ la de cerrados.
+    
+    \item Si $\alpha>1$ (ya sea sucesor o límite), definimos
+    \[\textstyle
+    \Sigma^0_\alpha
+    \coloneq
+    \set[\big]{\bigcup_{n=1}^\infty A_n \given A_n\en\bigcup_{\beta<\alpha}\Pi^0_\beta}
+    \quad\text{y}\quad
+    \Pi^0_\alpha
+    \coloneq
+    \set[\big]{\mathbb{R}\setminus A \given A\en\Sigma^0_\alpha}
+    \]
+\end{itemize}
+Finalmente, denotamos $\mathcal{B}\coloneq\bigcup_{\alpha<\omega_1}\Sigma^0_\alpha$.\par
+Por construcción, todo $\Sigma^0_\alpha \subseteq \mathcal{B}_\mathbb{R}$, así $\mathcal{B} \subseteq \mathcal{B}_\mathbb{R}$. Recíprocamente, $\mathcal{B}$ contiene a los abiertos y es cerrada
+bajo complementos y uniones contables;%
+\footnote{
+    En efecto, si $A\en \mathcal{B}$ entonces existe $0<\alpha<\omega_1$ tal que $A\en\Sigma^0_\alpha$, por lo que $A^c\en\Pi^0_\alpha$, de donde se sigue que $A^c = \bigcup^\infty_{k=1}A^c \en \Sigma^0_{\alpha+1} \subseteq \mathcal{B}$. Por otro lado, si $\set{A_k}^\infty_{k=1}$ es una sucesión de elementos de $\mathcal{B}$, acabamos de probar que también $A^c_k\en\mathcal{B}$, así que definimos, para cada $k\en\mathbb{N}$, el ordinal $\alpha_k = \min\set*{\alpha \given A^c_k\en \Sigma^0_\alpha}$. Luego, damos $\gamma \coloneq \sup_{k\en\mathbb{N}}\alpha_k$, como unión de ordinales numerables es numerable, $\gamma < \omega_1$ (esto también se sigue de que $\operatorname{cf}(\omega_1) = \omega_1$). Como $\Sigma^0_\alpha$ es creciente por su propia definición, tenemos $A^c_k \en \Sigma^0_{\alpha_k}\subseteq \Sigma^0_\gamma$ para todo $k\en\mathbb{N}$. Se sigue que $A_k = (A^c_k)^c\en\Pi^0_\gamma$ para todo $k\en\mathbb{N}$, y concluimos que $\bigcup^\infty_{k=1}A_k\en\Sigma^0_{\gamma+1} \subseteq\mathcal{B}$.
+}
+por tanto es una $\sigma$-álgebra.
+Luego, por minimalidad, $\mathcal{B}_\mathbb{R}\subseteq\mathcal{B}$. Esto prueba $\mathcal{B}_\mathbb{R}=\mathcal{B}$.\par
+Ahora probemos por inducción transfinita que $\card(\Sigma^0_\alpha)\le\mathfrak{c}$ para todo $0<\alpha<\omega_1$.
+\begin{itemize}
+    \item\emph{Caso base}: como $\mathbb{R}$ es segundo numerable, dada una base contable $\mathscr{B}$ para $\mathbb{R}$, la aplicación $U \colon 2^\mathscr{B} \to \Sigma^0_1$ tal que $\mathcal{F} \mapsto \bigcup\mathcal{F}$ es, por definición de base, sobreyectiva. Luego, 
+    \[
+    \card(\Sigma^0_1) \leq \card(2^\mathscr{B}) = 2^{\aleph_0} =\mathfrak{c}
+    \]
+
+    \item\emph{Paso inductivo}: sea $1 < \alpha < \omega_1$ arbitrario, y supongamos que
+    $\card(\Sigma^0_\beta)\le\mathfrak{c}$
+    para todo $\beta<\alpha$; en particular, también $\card(\Pi^0_\beta)\le\mathfrak{c}$ (la biyección con $\Sigma^0_\beta$ es evidente).
+    Como $\alpha$ es contable,
+    \[
+    \card\biggl(\bigcup_{\beta<\alpha}\Pi^0_\beta\biggr)
+    \le
+    \aleph_0\cdot\mathfrak{c} = \mathfrak{c}
+    \]
+    Como cada elemento de $\Sigma^0_\alpha$ es unión contable de elementos
+    de esa familia, hay una sobreyección $(\bigcup_{\beta<\alpha}\Pi^0_\beta)^{\mathbb{N}} \twoheadrightarrow \Sigma^0_\alpha$. Por lo tanto $\card(\Sigma^0_\alpha)\le\mathfrak{c}^{\aleph_0}=\mathfrak{c}$. Esto cierra la inducción.
+\end{itemize}
+Concluimos, gracias a que $\card(\omega_1) = \mathfrak{c}$, que
+\[
+\card(\mathcal{B}_\mathbb{R})
+=
+\card\biggl(\bigcup_{\alpha<\omega_1}\Sigma^0_\alpha\biggr)
+\le
+\mathfrak{c}\cdot\mathfrak{c} = \mathfrak{c}
+\]
+La otra desigualdad es inmediata gracias a que $\set[\big]{\set{x} \given x\en\mathbb{R}} \subseteq \mathcal{B}_\mathbb{R}$.
+\end{enumerate}
+Teniendo esto, notemos que todo subconjunto de $\mathcal{C}$ es Jordan-nulo, pues ya probamos (2.25) que $\mathcal{C}$ lo es y es trivial que todo subconjunto de un Jordan-nulo es Jordan-nulo (Basta con escoger, para cualquier $\varepsilon>0$, la misma cubierta finita de cuboides usada para $\mathcal{C}$). Particularmente, si $A \en 2^\mathcal{C}$ es arbitrario, se tiene $\partial A \subseteq \ubar{\mathcal{C}} = \mathcal{C}$, por lo que $\partial A$ es Jordan-nulo y se sigue que $A$ es Jordan-medible. Esto prueba que todo elemento de $2^\mathcal{C}$ es Jordan-medible, así que hay al menos $2^\mathfrak{c}$ conjuntos Jordan-medibles; sin embargo, hay $\mathfrak{c}$ conjuntos borelianos. Concluimos que tiene que existir un conjunto Jordan-medible que no es boreliano, al cual denotaremos $\mathcal{N}$.\vspace{1em}\\
+\emph{Encontremos un conjunto acotado de medida positiva que no sea ni boreliano ni Jordan-medible}:\\
+Consideraremos el conjunto $\mathcal{N}$ encontrado en el punto anterior y el conjunto $U = \mathbb{R} \setminus\mathcal{C}_\alpha$ con $0<\alpha<\nicefrac{1}{3}$, el cual probamos (2.25) que tiene frontera igual a $\mathcal{C}_\alpha$ de medida $1+\frac{\alpha}{2\alpha-1} > 0$. Notemos que si consideramos el abierto $U' = U \cap (0,1)$ entonces
+\[
+\partial U' = \partial U'^c 
+= \partial\bigl(\mathcal{C}_\alpha \dotcup (0,1)^c\bigr) 
+= \bigl(\mathcal{C}_\alpha\dotcup(0,1)^c\bigr) \setminus \inter\bigl(\mathcal{C}_\alpha\dotcup(0,1)^c\bigr)
+= \bigl(\mathcal{C}_\alpha\dotcup(0,1)^c\bigr) \setminus [0,1]^c
+= \mathcal{C}_\alpha
+\]
+Finalmente, consideraremos $\mathcal{U} \coloneq U' + 2$ que es ajeno a $\mathcal{N}$. Como la traslación es homeomorfismo y preserva medidas, $\partial\mathcal{U} = \mathcal{C}_\alpha + 2$ tiene medida positiva; más aún, como $(2,3)$ es de medida finita, se cumple (notemos que $\mathcal{U} = (U+2)\cap(2,3) = (\mathcal{C}_\alpha+2)^c\cap(2,3) = (2,3)\setminus(\mathcal{C}_\alpha+2)$):
+\[
+m(\mathcal{U}) = m([2,3]\setminus(\mathcal{C}_\alpha+2)) = 1 - m(\mathcal{C}_\alpha) = \frac{\alpha}{1-2\alpha} > 0
+\]
+
+Ahora bien, el ejemplo que tomaremos será el conjunto acotado $A \coloneq \mathcal{N} \dotcup \mathcal{U} \subseteq [0,3]$. Este conjunto cumple lo siguiente:
+\begin{itemize}
+    \item \emph{Es Lebesgue-medible} por ser unión de conjuntos Lebesgue medibles: $\mathcal{N}$ es medible por estar contenido en $\mathcal{C}$ que es Lebesgue nulo (y la $\sigma$-álgebra de Lebesgue es completa), y $\mathcal{U}$ es medible por ser abierto. Más aún, por monotonía $m(A) \ge m(\mathcal{U}) > 0$.
+
+    \item \emph{No es boreliano}, ya que si supusiéramos que es de Borel, entonces $\mathcal{N} = A \cap [0,1]$ también sería de Borel (intersección de dos presuntos borelianos), pero por construcción $\mathcal{N}$ no es de Borel.
+
+    \item \emph{No es Jordan-medible}, ya que, al estar $\mathcal{N}$ y $\mathcal{U}$ separados por abiertos disjuntos (i.e., $\mathcal{N} \subseteq (-1,\nicefrac32)$ y $\mathcal{U} \subseteq (2,3)$), se sigue trivialmente que la frontera de su unión es la unión de sus fronteras:
+    \[
+    \partial A = \partial(\mathcal{N} \cup \mathcal{U}) = \partial\mathcal{N} \cup \partial\mathcal{U}
+    \]
+    Por lo tanto, $\nu(\partial A) \ge \nu(\partial\mathcal{U}) = m(\mathcal{U}) > 0$. Esto implica que $\partial A$ no es Lebesgue-nulo (\cref{nejer:2.25}), así que tampoco puede ser Jordan-nulo (pues es inmediato de la definición que Jordan-nulo implica Lebesgue-nulo). Como $\partial A$ no es Jordan-nulo, concluimos que $A$ no es Jordan-medible.
+\end{itemize}
+\end{sol}

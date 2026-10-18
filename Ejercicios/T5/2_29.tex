@@ -1,0 +1,47 @@
+\setcounter{neje}{28}
+\begin{nejer}
+Sea $f \colon \mathbb{R} \to \mathbb{R}$ continuamente diferenciable y defina
+$$
+A \coloneq \set[\big]{x \en \mathbb{R} \given f'(x) = 0}.
+$$
+Pruebe que $f(A)$ es un conjunto Lebesgue-nulo.
+\end{nejer}
+\begin{sol}
+Fijemos unos $\varepsilon>0$ y $n\en\mathbb{N}$ arbitrarios. Ahora definimos
+\[
+A_{n,\varepsilon} \coloneq \set[\big]{x \en \mathbb{R} \given |x| < n,\ |f'(x)| < 2^{-n}\varepsilon}
+\]
+Notemos que $A_{n,\varepsilon} = (-n,n) \cap f'^{-1}\bigl((-2^{-n}\varepsilon,2^{-n}\varepsilon)\bigr)$, por lo que la continuidad de $f'$ garantiza que $A_{n,\varepsilon}$ es abierto (en particular, medible). Una propiedad básica de la topología de $\mathbb{R}$ (i.e., que $\mathbb{R}$ es loc. conexo y segundo numerable) garantiza que podemos poner $A_{n,\varepsilon} = \dot\bigcup^\infty_{k=1} I_k$ donde cada $I_k$ es un intervalo abierto. Luego, sabemos que se cumple
+\[
+m(I_k) = \sup_{x,y\en I_k} \abs{x-y}
+\]
+ya que ambos son la longitud del intervalo. Además, si $x,y \en I_k$, el teorema del valor medio garantiza que existe $c\en [x,y] \subseteq I_k \subseteq A_{n,\varepsilon}$ con:
+\[
+\abs{f(x) - f(y)} = f'(c)\cdot\abs{x-y} \leq 2^{-n}\varepsilon\cdot m(I_k)
+\]
+esto implica, fijando a $x\en I_k$, que $f(I_k) \subseteq \bigl(f(x)-2^{-n}\varepsilon m(I_k), f(x) +2^{-n}\varepsilon m(I_k)\bigr)$. Por monotonía:
+\[
+\nu(f(I_k)) \leq \nu\bigl((f(x)-2^{-n}\varepsilon m(I_k), f(x) +2^{-n}\varepsilon m(I_k))\bigr) = 2^{-n}\varepsilon m(I_k)
+\]
+Como tenemos $m(A_{n,\varepsilon}) = m(\dot\bigcup_kI_k) =\sum^\infty_{k=1} m(I_k)$, la $\sigma$-subaditividad de $\nu$ implica:
+\[
+\nu(f(A_{n,\varepsilon}))
+= \nu\biggl(f\biggl(\bigcup^\infty_{k=1}I_k\biggr)\biggr) 
+= \nu\biggl(\bigcup^\infty_{k=1}f(I_k)\biggr)
+\leq \sum^\infty_{k=1} \nu(f(I_k))
+\leq \sum^\infty_{k=1} 2^{-n}\varepsilon m(I_k) = 2^{-n}\varepsilon m(A_{n,\varepsilon})
+\]
+Sin embargo, ya vimos que $A_{n,\varepsilon} \subseteq (-n,n)$, por lo cual $m(A_{n,\varepsilon}) \leq m((-n,n)) = 2n$. Se sigue que $\nu(f(A_{n,\varepsilon})) \leq 2^{-n}\varepsilon(2n) = n2^{-n+1}\varepsilon$.\par
+Dicho esto, notemos que si $x\en A$ entonces $|x| < n$ y $f'(x) = 0 < 2^{-n}\varepsilon$ para algún $n\en\mathbb{N}$, por lo que $A \subseteq \bigcup^\infty_{n=1}A_{n,\varepsilon}$. Usando nuevamente $\sigma$-subaditividad (y monotonía) de $\nu$:
+\[
+\nu(A)
+\leq \sum^\infty_{n=1} \nu(A_{n,\varepsilon})
+= \sum^\infty_{n=1} m(A_{n,\varepsilon})
+= \sum^\infty_{n=1} n2^{-n+1}\varepsilon
+\]
+Pero es sencillo ver que $\sum^\infty_{n=1} n2^{-n+1} = 4$,%
+\footnote{
+    Como $\sum_{n\ge0} x^n = \frac{1}{1-x}$ unif. en compactos de $(-1,1)$, su derivada es $\sum_{n\ge1} nx^{n-1} = \frac{1}{(1-x)^2}$. Basta evaluar en $\frac12$.
+}
+por lo tanto $\nu(A) \le 4\varepsilon$. Como $\varepsilon>0$ es arbitrario, se sigue que $\nu(A) = 0$, así que el \cref{nejer:2.25} garantiza que $A$ es Lebesgue-nulo.
+\end{sol}

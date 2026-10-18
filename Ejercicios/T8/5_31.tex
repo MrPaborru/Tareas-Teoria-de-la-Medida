@@ -1,0 +1,31 @@
+%------------------------------ Ejercicio 5.31 -------------------------------
+\setcounter{neje}{30}
+\begin{nejer}
+Sea $X \coloneq \mathbb{R}$, denote por $\mathcal{B} \subseteq 2^X$ a la $\sigma$-álgebra de Borel, sea $\mu \colon \mathcal{B} \to [0, \infty]$ la restricción de la medida de Lebesgue a $\mathcal{B}$, y sea $\nu \colon \mathcal{B} \to [0, \infty]$ la medida de conteo. Pruebe lo siguiente.
+\begin{enumerate}[label = (\roman*), leftmargin=1.8em]
+\item $\mu \ll \nu$.
+\item $\mu$ no es regular interior con respecto a $\nu$.
+\item No existe ninguna función medible $f \colon X \to [0, \infty]$ tal que
+$$
+\mu(B) = \int_B f \dd{\nu} \quad \text{para todo } B \en \mathcal{B}.
+$$
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+\begin{enumerate}[label = (\roman*), leftmargin=1.8em]
+%----------------------------------------------------
+\item % (i)
+Dado $B\en\mathcal{B}$, si $\nu(B) = 0$ entonces $B=\varnothing$, y así $\mu(B) = \mu(\varnothing) = 0$. Se sigue $\mu \ll \nu$.
+%----------------------------------------------------
+\item % (ii)
+Consideremos $A \en\mathcal{B}$ como cualquier conjunto con $\mu(A) > 0$ (por ejemplo $A = [0,1]$). Entonces, si $E \en\mathcal{B}$ es cualquier conjunto con $\nu(E) < \infty$, tenemos que $A\cap E$ es finito, por lo que $\mu(A \cap E) = 0$ (sabemos que los conjuntos contables tienen medida de Lebesgue nula); sin embargo, $\mu(A)>0$. Esto prueba que $\mu$ no es regular interior con respecto a $\nu$.
+%----------------------------------------------------
+\item % (iii)
+Procedamos por contradicción suponiendo que existe tal $f$. Por un lado, es evidente que $f$ no es nula, pues si lo fuera, implicaría que $\mu$ es nula. Entonces existe $x\en X$ tal que $f(x) > 0$, así:
+\[
+\mu(\set{x})
+= \int_{\set{x}} f \dd{\nu} = f(x)\nu(\set{x}) = f(x)>0
+\]
+No obstante, sabemos que $\mu(\set{x}) = 0$, por lo que esto es una contradicción. El error estuvo en suponer que existe tal $f$.
+\end{enumerate}
+\end{sol}

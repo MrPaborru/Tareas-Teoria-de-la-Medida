@@ -1,0 +1,118 @@
+%------------------------------ Ejercicio 1A.1 -------------------------------
+
+\begin{ejer}
+Suponga que $f \colon [a, b] \to \mathbb{R}$ es una función acotada tal que
+$$
+L(f, P, [a, b]) = U(f, P, [a, b])
+$$
+para alguna partición $P$ de $[a, b]$. Pruebe que $f$ es una función constante en $[a, b]$.
+\end{ejer}
+\begin{sol}
+Pongamos que $P$ consta de los puntos $a=x_0<x_1<\cdots<x_n=b$. Luego, por hipótesis:
+\begin{align*}
+0=U(f, P, [a, b]) - L(f, P, [a, b])%
+&={ \sum^n_{i=1}(x_i - x_{i-1})\sup_{\mathclap{[x_{i-1},x_i]}} f } - { \sum^n_{i=1}(x_i - x_{i-1})\inf_{\mathclap{[x_{i-1},x_i]}} f }\\
+&= \sum^n_{i=1}(x_i - x_{i-1})\Big( {\sup_{{[x_{i-1},x_i]}} f} - {\inf_{{[x_{i-1},x_i]}} f}\Big)
+\end{align*}
+Como todos los sumandos son no negativos, la única forma de que la suma sea cero es que cada sumando sea cero, es decir, para cad $i\en\set{1,\dots,n},$ $(x_i - x_{i-1})\big( {\sup_{{[x_{i-1},x_i]}} f} - {\inf_{{[x_{i-1},x_i]}} f}\big) = 0$, pero $(x_i - x_{i-1}) >0$, así que forzosamente ${\sup_{{[x_{i-1},x_i]}} f} - {\inf_{{[x_{i-1},x_i]}}f} = 0$, es decir, 
+\begin{equation}\label{eq:supinf}
+\forall i\en\set{1,\dots,n},\quad
+{\sup_{{[x_{i-1},x_i]}} f} = {\inf_{{[x_{i-1},x_i]}}f}
+\end{equation}
+No obstante, para cada $x\en[x_{i-1},x_i]$, ${\inf_{{[x_{i-1},x_i]}}f} \leq f(x) \leq {\sup_{{[x_{i-1},x_i]}} f}$, así que (\ref{eq:supinf}) implica
+\[
+\forall i\en\set{1,\dots,n}\forall x \en [x_{i-1},x_i],\quad
+{\sup_{{[x_{i-1},x_i]}} f} = f(x) = {\inf_{{[x_{i-1},x_i]}}f}
+\]
+esto implica que, para cada $i\en\set{1,\dots,n}$, $f$ es constante en $[x_{i-1},x_i]$ de valor $f(x_i)$. En particular, para cada $i\en\set{1,\dots,n}$, $f(x_{i-1}) = f(x_i)$, en otras palabras, para cada $i\en\set{1,\dots,n}$ se tiene $f(x_i) = f(x_1)$. Luego, para cada $i\en\set{1,\dots,n}$, $f$ es constante en $[x_{i-1},x_i]$ de valor $f(1)$. Esto prueba que $f$ es constante en todo $[a,b]$.
+\end{sol}
+
+%------------------------------ Ejercicio 1A.2 -------------------------------
+
+\begin{ejer}
+Suponga que $a \le s < t \le b$. Defina $f \colon [a, b] \to \mathbb{R}$ mediante
+$$
+f(x) = \begin{cases} 
+1 & \text{si } s < x < t, \\
+0 & \text{en otro caso.}
+\end{cases}
+$$
+Pruebe que $f$ es Riemann integrable en $[a, b]$ y que $\int_a^b f = t - s$.
+\end{ejer}
+\begin{sol}
+Antes que nada, tomemos un $N\en\mathbb{N}$ tal que $\frac{2}{N} < t-s$; luego, se cumplirá, para todo $n\ge N$, que $\frac{2}{n} < t-s$, lo cual implica que $s + \frac{1}{n} < t-\frac{1}{n}$. Teniendo esto definimos, para cada natural $n\ge N$, la partición $P_n$ dada por los puntos $a \leq s < s + \frac{1}{n} < t - \frac{1}{n} < t \leq b$. \par
+En los intervalos $[a,s]$ y $[t,b]$ la función $f$ es nula, así que tanto el supremo como el ínfimo serán $0$; en el intervalo $[s+\frac{1}{n},t-\frac{1}{n}]$ la función $f$ es constante de valor $1$, así que tanto e supremo como el ínfimo serán $1$; en cada uno de los intervalos $[s , s + \frac{1}{n}]$ y $[t - \frac{1}{n} , t]$ la función $f$ alcanza los valores $0$ y $1$, así que el supremo será $1$ y el ínfimo será $0$ en cada uno de estos dos intervalos. Luego, para cada $n\ge N$:
+\begin{align*}
+U(f,P_n,[a,b])%
+&= \big(s+\tfrac{1}{n} - s\big)1 + \big((t-\tfrac{1}{n})-(s+\tfrac{1}{n})\big)1 + \big(t-(t-\tfrac{1}{n})\big)1\\
+&= \big(\tfrac{1}{n}\big) + \big(t-s-\tfrac{2}{n}\big) + \big(\tfrac{1}{n}\big) = t-s
+\end{align*}
+y para la suma inferior:
+\begin{align*}
+L(f,P_n,[a,b])%
+&= \big((t-\tfrac{1}{n})-(s+\tfrac{1}{n})\big)1 = t-s-\tfrac{2}{n}
+\end{align*}
+No obstante, para cada natural $n \geq N$, se cumplen las desigualdades (teo. 1.8, \cite{Axler}): 
+\[
+L(f,P_n,[a,b]) \leq L(f,[a,b]) \leq U(f,[a,b]) \leq U(f,P_n,[a,b])
+\]
+Sustituyendo los valores de las sumas superior e inferior encontradas al inicio:
+\[
+\forall n\en\mathbb{N}_{\ge N},%
+\quad%
+t-s-\tfrac{2}{n} \leq L(f,[a,b]) \leq U(f,[a,b]) \leq t-s
+\]
+finalmente, tomamos límite cuando $n\to\infty$:
+\[
+t-s \leq L(f,[a,b]) \leq U(f,[a,b]) \leq t-s
+\]
+es decir, $L(f,[a,b]) = U(f,[a,b]) = t-s$. Por lo tanto, $f$ es Riemann integrable y $\int^b_af= t-s$. 
+\end{sol}
+
+%------------------------------ Ejercicio 1A.3 -------------------------------
+
+\begin{ejer}
+Suponga que $f \colon [a, b] \to \mathbb{R}$ es una función acotada. Pruebe que $f$ es Riemann integrable si y solo si para cada $\varepsilon > 0$, existe una partición $P$ de $[a, b]$ tal que
+\[
+U(f, P, [a, b]) - L(f, P, [a, b]) < \varepsilon
+\]
+\end{ejer}
+\begin{sol}
+Como $U(f,[a,b])$ es ínfimo de las sumas superiores de Riemann y $L(f,[a,b])$ es supremo de las sumas inferiores de Riemann, se sigue que para cada $\varepsilon>0$ existen particiones $P_1$ y $P_2$ tales que 
+\[
+U(f,P_1,[a,b]) - U(f,[a,b]) < \frac{\varepsilon}{2}
+\quad\text{y}\quad
+L(f,[a,b]) - L(f,P_2,[a,b]) < \frac{\varepsilon}{2}
+\]
+Si tomamos un refinamiento común $P$ de $P_1$ y $P_2$,%
+\footnote{
+    Por ejemplo, de modo que $P$ esté definido por la unión de los puntos extremos en ambas particiones.
+}
+entonces se cumple $U(f,P,[a,b]) \leq U(f,P_1,[a,b])$ y $L(f,P_2,[a,b]) \leq L(f,P,[a,b])$, es decir, $-L(f,P,[a,b]) \leq -L(f,P_2,[a,b])$. Por lo tanto,
+\[
+U(f,P,[a,b]) - U(f,[a,b]) < \frac{\varepsilon}{2}
+\quad\text{y}\quad
+L(f,[a,b]) - L(f,P,[a,b]) < \frac{\varepsilon}{2}
+\]
+Sumando estas dos desigualdades se tiene
+\begin{equation}\label{eq:riem}
+\big(\, L(f,[a,b]) - U(f,[a,b]) \,\big) \,+\, \big(\, U(f,P,[a,b]) - L(f,P,[a,b]) \,\big) < \varepsilon
+\end{equation}
+Hemos probado que para todo $\varepsilon>0$ existe una partición $P$ tal que se cumple (\ref{eq:riem}).\vspace{1em}\\
+\emph{Necesidad}:\\
+Si $f$ es Riemann integrable, $L(f,[a,b]) - U(f,[a,b]) = 0$, así que lo recién probado se traduce en que para todo $\varepsilon>0$ existe una partición $P$ tal que $ U(f,P,[a,b]) - L(f,P,[a,b]) < \varepsilon$.\vspace{1em}\\
+\emph{Suficiencia}:\\
+Como $U(f,[a,b]) \leq U(f,P,[a,b])$ y $L(f,P,[a,b]) \leq L(f,[a,b])$ (i.e., $-L(f,[a,b]) \leq -L(f,P,[a,b])$) para toda partición $P$, entonces
+\[
+U(f,[a,b])-L(f,[a,b]) \leq U(f,P,[a,b])-L(f,P,[a,b])
+\]
+Luego, por hipótesis, para todo $\varepsilon>0$ existe una partición $P$ tal que
+\[
+U(f,[a,b])-L(f,[a,b]) \leq U(f,P,[a,b])-L(f,P,[a,b]) < \varepsilon
+\]
+Como también $U(f,[a,b])\ge L(f,[a,b])$, hemos probado, en particular, que para todo $\varepsilon>0$ 
+\[
+0 \leq U(f,[a,b])-L(f,[a,b]) < \varepsilon
+\]
+Esto implica que $U(f,[a,b])=L(f,[a,b])$, así que $f$ es Riemann integrable. 
+\end{sol}

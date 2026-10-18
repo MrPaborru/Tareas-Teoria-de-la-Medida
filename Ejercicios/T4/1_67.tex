@@ -1,0 +1,7 @@
+\setcounter{neje}{66}
+\begin{nejer}
+Si $(X, \mathcal{A}, \mu)$ un espacio de medida completo, pruebe que $(X, \mathcal{A}, \mu)$ es igual a su completación.
+\end{nejer}
+\begin{sol}
+Ya sabemos que $\mathcal{A} \subseteq \mathcal{A}^*$. Por otro lado, si $A\en\mathcal{A}^*$, existen $E,F\en\mathcal{A}$ tales que $E \subseteq A \subseteq F$ y $\mu(F\setminus E) = 0$. En particular, $A \setminus E \subseteq F\setminus E$, así que $A\setminus E \en \mathcal{A}$ gracias a que $(X,\mathcal{A},\mu)$ es completo. De esto se sigue que $(A\setminus E) \cup E \en \mathcal{A}$, pero $E \subseteq A$, por lo tanto $A = (A \setminus E) \cup E$ y así $A \en \mathcal{A}$. Hemos demostrado que $\mathcal{A} = \mathcal{A}^*$. Como además $\mu|_\mathcal{A} = \mu$, la unicidad de $\mu^*$ garantiza que $\mu^* = \mu$.
+\end{sol}

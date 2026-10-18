@@ -1,0 +1,40 @@
+\setcounter{neje}{60}
+\begin{nejer}
+Sea $X \coloneq \mathbb{N}$ y $\mathcal{A} \coloneq 2^{\mathbb{N}}$, y sea $\mu\colon 2^{\mathbb{N}} \to [0, \infty]$ la medida de conteo (Ejemplo 1.30). Pruebe que una función $f \colon \mathbb{N} \to \mathbb{R}$ es $\mu$-integrable si y solo si la sucesión $\set{f(k)}_{k \en \mathbb{N}}$ de números reales es absolutamente sumable y que en este caso
+$$
+\int_{\mathbb{N}} f \, d\mu = \sum_{k=1}^{\infty} f(k).
+$$
+\end{nejer}
+\begin{sol}
+Primero notemos que toda función $f\colon (\mathbb{N},2^\mathbb{N}) \to (\mathbb{R}, \mathcal{B}_\mathbb{R})$ es medible por razones evidentes. Por otro lado, para cada $n\en\mathbb{N}$, definimos $f_n \coloneq f\chi_{\set{1,\dots,n}}$, así que $\abs{f_n} = \abs{f}\chi_{\set{1,\dots,n}}$.
+Como $\im(\abs{f_n}) = \set[\big]{0,\abs{f(1)},\dots,\abs{f(n)}}$, se sigue que $\abs{f_n}$ es simple. Además, para cada $k \leq n$, se tiene $|f_n(k)| = |f(k)| = |f_{n+1}(k)|$ y, para cada $k>n$, se tiene $|f_n(k)| = 0 \leq |f_{n+1}(k)|$; esto implica que $|f_n| \leq |f_{n+1}|$, así que $\set{\abs{f_n}}_{n\en\mathbb{N}}$ es monótona. Asimismo, para cada $k\en\mathbb{N}$, se tiene $f(k) = \lim_{n\to\infty}f_n(k)$, ya que $f_n(k) = f(k)$ para cualquier $k\geq n$. Esto último implica también que $|f(k)| = \lim_{n\to\infty}|f_n(k)|$. Además, por definición
+\begin{align*}
+    \int_\mathbb{N}|f_n|\dd{\mu}%
+    &\;=\; \sum^n_{k=1}|f_n(k)|\cdot\mu(\set{k}) \;+\; 0\cdot\mu(\set{k\en\mathbb{N} \given k\geq n+1})\\
+    &\;=\; \sum^n_{k=1}|f(k)| \;+\; 0\cdot\infty%
+    \;=\; \sum^n_{k=1}|f(k)|
+\end{align*}
+Hemos probado que $\set{|f_n|}_{n\en\mathbb{N}}$ es una sucesión monótona de funciones simples que converge a $|f|$ puntualmente, así que el teorema de convergencia monótona garantiza que
+\[
+\int_\mathbb{N}|f|\dd{\mu} = \lim_{n\to\infty}\int_\mathbb{N}|f_n|\dd{\mu} = \lim_{n\to\infty}\sum^n_{k=1}|f(k)| = \sum^\infty_{k=1}|f(k)|
+\]
+De esto se sigue que $\int_\mathbb{N}|f|\dd{\mu} < \infty$ si y solo si $\sum^\infty_{k=1}|f(k)| < \infty$, en otras palabras, $f$ es $\mu$-integrable si y solo si $\set{f(k)}_{k\en\mathbb{N}}$ es absolutamente sumable.\par
+Finalmente, supongamos que $f$ satisface estas condiciones equivalentes. Ya vimos que la sucesión $\set{f_n}_{n\en\mathbb{N}}$ converge puntualmente a $f$; además, $|f_n| \leq |f|$ donde $|f|$ es integrable por hipótesis. Luego, el teorema de convergencia dominada garantiza que 
+\begin{equation}\label{eq:convdom}
+\int_\mathbb{N}f\dd{\mu} = \lim_{n\to\infty} \int_\mathbb{N}f_n\dd{\mu}
+\end{equation}
+No obstante, las propiedades de la integral de Lebesgue (teo. 1.44, \cite{Salamon}) garantizan que
+\begin{align*}
+\int_\mathbb{N}f_n\dd{\mu}%
+&\;=\; \sum^n_{k=1}\int_{\set{k}}f_n\dd{\mu} \;+\; \int_{\set{k>n}} f_n\dd{\mu}\\
+&\;=\; \sum^n_{k=1}f(k)\int_{\set{k}}1\dd{\mu} \;+\; \int_{\set{k>n}} 0\dd{\mu}\\
+\end{align*}
+pero $\int_{\set{k}}1\dd{\mu} = \int_{\mathbb{N}}\chi_{\set{k}}\dd{\mu} = 1\mu(\set{k}) = 1$ y $\int_{\set{k>n}} 0\dd{\mu} = 0\int_{\set{k>n}} 1\dd{\mu} = 0$, por lo tanto, 
+\[
+\int_\mathbb{N}f_n\dd{\mu} = \sum^n_{k=1}f(k)
+\] 
+Sustituyendo en (\ref{eq:convdom}),
+\[
+\int_\mathbb{N}f\dd{\mu} = \lim_{n\to\infty}\sum^n_{k=1}f(k) = \sum^\infty_{k=1}f(k)
+\]
+\end{sol}

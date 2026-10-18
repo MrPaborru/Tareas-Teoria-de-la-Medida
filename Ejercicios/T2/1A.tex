@@ -1,0 +1,187 @@
+%------------------------------ Ejercicio 1A.4 -------------------------------
+
+\setcounter{eje}{3} % Ajusta el contador a 3 para que el ejercicio sea el 4
+\begin{ejer}
+Suponga que $f, g\colon [a, b] \to \mathbb{R}$ son Riemann integrables. Pruebe que $f + g$ es Riemann integrable en $[a, b]$ y
+$$
+\int_a^b (f + g) = \int_a^b f + \int_a^b g.
+$$
+\end{ejer}
+\begin{sol}
+Como $f$ y $g$ son acotadas, el ejercicio anterior (1B.\ref{ejer:2.3}) garantiza que 
+\begin{equation}\label{eq:dessum}
+L(f, [a, b]) + L(g, [a, b]) 
+\leq L(f + g, [a, b])
+\leq U(f + g, [a, b]) 
+\leq U(f, [a, b]) + U(g, [a, b])
+\end{equation}
+Como $f$ y $g$ son Riemann integrables, $L(f, [a, b]) = U(f, [a, b])$ y $L(g, [a, b]) = U(g, [a, b])$, así
+\[
+L(f, [a, b]) + L(g, [a, b]) = U(f, [a, b]) + U(g, [a, b])
+\]
+Por lo tanto, las desigualdades en (\ref{eq:dessum}) se convierten en igualdades
+\[
+L(f, [a, b]) + L(g, [a, b]) 
+= L(f + g, [a, b])
+= U(f + g, [a, b]) 
+= U(f, [a, b]) + U(g, [a, b])
+\]
+de donde se sigue inmediatamente que $f+g$ es Riemann integrable y 
+\[
+\int^b_a (f+g) = \int^b_a f + \int^b_a g
+\]
+\end{sol}
+
+%------------------------------ Ejercicio 1A.6 -------------------------------
+
+\setcounter{eje}{5} % Ajusta el contador a 5 para que el ejercicio sea el 6
+\begin{ejer}
+Suponga que $f\colon [a, b] \to \mathbb{R}$ es Riemann integrable. Suponga que $g\colon [a, b] \to \mathbb{R}$ es una función tal que $g(x) = f(x)$ para todo $x \en [a, b]$ excepto para una cantidad finita. Pruebe que $g$ es Riemann integrable en $[a, b]$ y
+$$
+\int_a^b g = \int_a^b f.
+$$
+\end{ejer}
+\begin{sol}
+Primero probemos que si una función $\p \colon [a,b] \to \mathbb{R}$ es cero, excepto para una cantidad finita de puntos $u_1 < \dots < u_m$, entonces es Riemann integrable y $\int^b_a\p = 0$. En efecto, denotemos 
+\[
+M \coloneq \max_{1\leq i \leq m} \abs{\p(u_i)}
+\]
+y sea, para cada $n\en\mathbb{N}$, la partición $P_n$ regular de $n$ intervalos, i.e., $P_n = \set*{a + \frac{k}{n}(b-a) \given 0 \leq k \leq n}$. Denotemos $x_k \coloneq a + \frac{k}{n}(b-a)$ y notemos que la longitud de cada intervalo en $P_n$ es $x_{i+1} - x_i = \frac{b-a}{n}$. Como cada $u_i$ puede estar en, a lo sumo, dos intervalos de la partición $P_n$, se sigue que hay a lo más $2m$ intervalos de $P_n$ que contienen algún $u_i$. No obstante, si $I$ es uno de estos intervalos, se tiene que $\sup_I \p \leq M$ y $\inf_I \p \geq -M$ y, si $I$ es un intervalo de $P_n$ que no contiene algún $u_i$, entonces $\p$ es constante de valor $0$ sobre $I$ así que $\sup_I \p = 0 = \inf_I \p$. De esto se sigue que, para cada $n\en\mathbb{N}$,
+\begin{align*}
+U(\p,P_n,[a,b]) &= \sum^{n-1}_{i=0}\frac{b-a}{n}\sup_{[x_i,x_{i+1}]} \p \leq 2m\frac{b-a}{n}M\\
+L(\p,P_n,[a,b]) &= \sum^{n-1}_{i=0}\frac{b-a}{n}\inf_{[x_i,x_{i+1}]} \p \geq 2m\frac{b-a}{n}(-M)
+\end{align*}
+Como $U(\p,[a,b]) \leq U(\p,P_n,[a,b])$ y $L(\p,[a,b]) \geq U(\p,P_n,[a,b])$, esto prueba que
+\[
+\forall n\en\mathbb{N},\quad
+-\frac{2m(b-a)M}{n} \leq L(\p,[a,b])\leq U(\p,[a,b]) \leq \frac{2m(b-a)M}{n}
+\]
+tomando límite cuando $n\to\infty$, se tiene $0\leq L(\p,[a,b])\leq U(\p,[a,b]) \leq0$, por lo tanto
+\[
+L(\p,[a,b]) = U(\p,[a,b]) = 0
+\]
+En conclusión, $\p$ es Riemann integrable y $\int^b_a\p = 0$.\par
+Ahora bien, si suponemos que $f=g$ salvo en un conjunto finito, entonces $g-f$ es cero salvo en un conjunto finito, así que lo recién probado implica que $g-f$ es Riemann integrable y su integral es $\int^b_a(g-f) = 0$. Luego, como $f$ es Riemann integrable por hipótesis, el \myref{ejer:3.4} implica que $g = f + (g-f)$ es Riemann integrable con
+\[
+\int^b_ag = \int^b_a f + \underbrace{\int^b_a(g-f)}_{=0} = \int^b_af
+\]
+\end{sol}
+
+%------------------------------ Ejercicio 1A.10 -------------------------------
+
+\setcounter{eje}{9} % Ajusta el contador a 9 para que el ejercicio sea el 10
+\begin{ejer}
+Suponga que $f\colon [a, b] \to \mathbb{R}$ es una función acotada y $c \en (a, b)$. Pruebe que $f$ es Riemann integrable en $[a, b]$ si y solo si $f$ es Riemann integrable en $[a, c]$ y $f$ es Riemann integrable en $[c, b]$. Además, pruebe que si estas condiciones se cumplen, entonces
+$$
+\int_a^b f = \int_a^c f + \int_c^b f.
+$$
+\end{ejer}
+\begin{sol}\vphantom{s}\vspace{1em}\\
+\emph{Necesidad}:\\
+Supongamos que $f$ es Riemann integrable en $[a,b]$ y probemos que también lo es en cualquier $[c,d] \subseteq [a,b]$. En efecto, usaremos el criterio de Riemann (ejercicio 1A.\ref{ejer:1.3}). Sea $\varepsilon >0$, como $f$ es integrable existe una partición $P = \set{x_0<\cdots<x_n}$ de $[a,b]$ con
+\[
+U(f,P,[a,b]) - L(f,P,[a,b]) < \varepsilon
+\]
+Entonces la partición $P' = P \cup \set{c,d}$ es refinamiento de $P$, así $U(f,P',[a,b]) \leq U(f,P,[a,b])$ y $-L(f,P',[a,b]) \leq -L(f,P,[a,b])$, es decir,
+\[
+U(f,P',[a,b]) - L(f,P',[a,b]) \leq U(f,P,[a,b]) - L(f,P,[a,b]) < \varepsilon
+\]
+Ahora re-etiquetemos de forma creciente a $P' = \set{y_0 < \cdots< y_m}$, de este modo, existen enteros $0 \leq k<l\leq m$ tales que $c = y_k$ y $d=y_l$. Sustituyendo las sumas,
+\begin{align*}
+U(f,P',[a,b]) - L(f,P',[a,b])%
+&= \sum^m_{i=0}(y_{i+1}-y_i)\Bigl(\sup_{[y_i,y_{i+1}]} f - \inf_{[y_i,y_{i+1}]} f\Bigr)\\
+&\ge \sum^l_{i=k}(y_{i+1}-y_i)\Bigl(\sup_{[y_i,y_{i+1}]} f - \inf_{[y_i,y_{i+1}]} f\Bigr)
+\end{align*}
+Esta última desigualdad es gracias a que $\sup_{[y_i,y_{i+1}]} f - \inf_{[y_i,y_{i+1}]} f \geq 0$. Sin embargo, se tiene que $Q \coloneq \set{y_k < \cdots<y_l}$ es una partición de $[c,d]$, así que
+\[
+U(f,Q,[c,d]) - L(f,Q,[c,d]) = \sum^l_{i=k}(y_{i+1}-y_i)\Bigl(\sup_{[y_i,y_{i+1}]} f - \inf_{[y_i,y_{i+1}]} f\Bigr)
+\]
+y se sigue que
+\[
+U(f,Q,[c,d]) - L(f,Q,[c,d]) \leq U(f,P',[a,b]) - L(f,P',[a,b]) < \varepsilon
+\]
+Como hemos encontrado esta partición $Q$ para cada $\varepsilon>0$, se sigue que $f$ es Riemann integrable en $[c,d]$. En particular, esto demuestra que $f$ es Riemann integrable sobre $[a,c]$ y $[c,b]$. \vspace{1em}\\ 
+\emph{Suficiencia}:\\
+Supongamos que $f$ es Riemann integrable sobre $[a,c]$ y $[c,b]$ y sean $Q$ una partición de $[a,c]$ y $R$ una partición de $[c,b]$. Esto implica que $P = Q \cup R$ es una partición de $[a,b]$ con $c\en P$. Podemos enumerar de forma creciente $P = \set{x_0<\cdots< x_n}$ de modo que existe $0 < k < n$ con $c = x_k$. Luego, $Q = \set{x_0 < \cdots < x_k}$ y $R = \set{x_k < \cdots < x_n}$, así que
+\begin{align*}
+U(f,P,[a,b])%
+&= \sum^{n-1}_{i=0}(x_{i+1}-x_i)\sup_{[x_i,x_{i+1}]} f \\
+&= \sum^{k-1}_{i=0}(x_{i+1}-x_i)\sup_{[x_i,x_{i+1}]} f + \sum^{n-1}_{i=k}(x_{i+1}-x_i)\sup_{[x_i,x_{i+1}]} f \\
+&= U(f,Q,[a,c]) + U(f,R,[c,b])
+\end{align*}
+De forma idéntica se prueba $L(f,P,[a,b]) = L(f,Q,[a,c]) + L(f,R,[c,b])$.\par
+Ahora bien, como $U(f,[a,b]) \leq U(f,P,[a,b])$, se cumple que 
+\[
+U(f,[a,b]) \leq U(f,Q,[a,c]) + U(f,R,[c,b])
+\]
+tomando ínfimos respecto a la partición $Q$ y luego respecto a la partición $R$, se sigue que 
+\begin{equation}\label{eq:aditsup}
+U(f,[a,b]) \leq  U(f,[a,c]) + U(f,[c,b])   
+\end{equation}
+De modo similar, del hecho de que $L(f,P,[a,b]) \leq L(f,[a,b])$ se sigue que 
+\[
+L(f,Q,[a,c]) + L(f,R,[c,b]) \leq L(f,[a,b])
+\]
+tomando supremos respecto a la partición $Q$ y luego respecto a la partición $R$, se sigue que 
+\begin{equation}\label{eq:aditinf}
+L(f,[a,c]) + L(f,[c,b]) \leq L(f,[a,b])
+\end{equation}
+Como se cumple $L(f,[a,b]) \leq U(f,[a,b])$ entonces (\ref{eq:aditsup}) y (\ref{eq:aditinf}) implican
+\begin{equation}\label{eq:adit}
+L(f,[a,c]) + L(f,[c,b]) \leq L(f,[a,b]) \leq U(f,[a,b]) \leq  U(f,[a,c]) + U(f,[c,b])
+\end{equation}
+No obstante, $f$ es integrable sobre $[a,c]$ y $[c,b]$, así que $L(f,[a,c]) = U(f,[a,c])$ y $L(f,[c,b]) = U(f,[c,b])$. Por lo tanto, $L(f,[a,c]) + L(f,[c,b]) = U(f,[a,c]) + U(f,[c,b])$ así que la desigualdad (\ref{eq:adit}) se convierte en igualdad:
+\[
+L(f,[a,c]) + L(f,[c,b]) = L(f,[a,b]) = U(f,[a,b]) =  U(f,[a,c]) + U(f,[c,b])
+\]
+Esto prueba que $f$ es Riemann integrable sobre $[a,b]$ y 
+\[
+\int^b_a f = U(f,[a,b]) = U(f,[a,c]) + U(f,[c,b]) = {\int^c_af} + {\int^b_c f}
+\]
+\end{sol}
+
+%------------------------------ Ejercicio 1A.11 -------------------------------
+
+\setcounter{eje}{10} % Ajusta el contador a 10 para que el ejercicio sea el 11
+\begin{ejer}
+Suponga que $f\colon [a, b] \to \mathbb{R}$ es Riemann integrable. Defina $F\colon [a, b] \to \mathbb{R}$ mediante
+$$
+F(t) = \begin{cases} 
+0 & \text{si } t = a, \\
+\int_a^t f & \text{si } t \en (a, b].
+\end{cases}
+$$
+Pruebe que $F$ es continua en $[a, b]$.
+\end{ejer}
+\begin{sol}
+Primero notemos que $F$ está bien definida gracias al ejercicio anterior (1A.\ref{ejer:3.10}), pues como $f$ es integrable sobre $[a,b]$, entonces también lo es sobre todo intervalo $[a,t]$.\par
+Sean $t,s\en[a,b]$ arbitrarios. Afirmamos que 
+\[
+\abs{F(t) - F(s)} \leq M\abs{t-s}%
+\quad\text{donde}\quad
+M = \sup_{[a,b]}\abs{f}
+\]
+En efecto, si $t=s$ entonces es trivial, pues $\abs{F(t) - F(s)} = 0 = M\abs{t-s}$. Entonces supongamos que $t \neq s$; luego, podemos suponer sin perder generalidad que $t>s$.\par
+Por un lado, si $s=a$, entonces $F(t) - F(s) = F(t) = \int^t_af = \int^t_sf$. Por otro lado, si $s > a$, el ejercicio anterior (1A.\ref{ejer:3.10}) garantiza que $\int^t_a f = \int^s_a f + \int^t_s f$, es decir, $F(t) = F(s) + \int^t_s f$, por lo cual, $F(t) - F(s) = \int^t_s f$. En cualquier caso hemos demostrado que $F(t) - F(s) = \int^t_s f$.\par
+Ahora bien, como $\abs{f(x)} \leq M$ para todo $x\en [a,b]$, entonces
+\[
+-M \leq f(x) \leq M,%
+\quad\forall x\en[a,b]
+\]
+Esto implica que $-M \leq \inf_{[a,b]}f$ y $\sup_{[a,b]} f \leq M$, por lo que, gracias a que $(t-s) \geq 0$, se tiene
+\begin{equation}\label{eq:acotint}
+-M(t-s) \leq (t-s)\inf_{[a,b]}f
+\quad\text{y}\quad
+(t-s)\sup_{[a,b]} f \leq M(t-s)
+\end{equation}
+Sin embargo, la proposición 1.13 (1A, \cite{Axler}) dice
+\[
+{(t-s)\inf_{[a,b]} f} \;\leq\; {\int^t_s f} \;\leq\; {(t-s)\sup_{[a,b]}f}
+\]
+así que de las desigualdades de (\ref{eq:acotint}) se sigue
+\[
+{-M(t-s)} \;\leq\; {\int^t_s f} \;\leq\; {M(t-s)}
+\]
+es decir, $\abs{\int^t_s f} \leq \abs{M(t-s)} = M|t-s|$. Como $F(t) - F(s) = \int^t_sf$ se sigue $\abs{F(t) - F(s)} \leq  M|t-s|$. En cualquier caso, hemos probado que $\abs{F(t) - F(s)} \leq  M|t-s|$ para cualesquiera $s,t\en[a,b]$. Esto implica que $F$ es una función de Lipschitz con lo cual es, en particular, continua.
+
+\end{sol}

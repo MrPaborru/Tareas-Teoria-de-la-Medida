@@ -1,0 +1,135 @@
+\setcounter{neje}{12}
+\begin{nejer}
+Considere el conjunto
+$$
+\ubar{\mathbb{R}} \coloneq [-\infty, \infty] \coloneq \mathbb{R} \cup \{-\infty, \infty\}.
+$$
+Para $a, b \en \mathbb{R}$ defina
+$$
+(a, \infty] \coloneq (a, \infty) \cup \{\infty\}, \quad [-\infty, b) \coloneq (-\infty, b) \cup \{-\infty\}.
+$$
+Llame a un subconjunto $U \subseteq \ubar{\mathbb{R}}$ abierto si es una unión contable de intervalos abiertos en $\mathbb{R}$ y conjuntos de la forma $(a, \infty]$ o $[-\infty, b)$ para $a, b \en \mathbb{R}$.
+\begin{enumerate}[label = (\roman*)]
+\item Muestre que el conjunto de subconjuntos abiertos de $\ubar{\mathbb{R}}$ satisface los axiomas de una topología. Esta se llama la topología estándar en $\ubar{\mathbb{R}}$.
+
+\item Pruebe que la topología estándar en $\ubar{\mathbb{R}}$ es inducida por la función de distancia
+$$
+d\colon \ubar{\mathbb{R}} \times \ubar{\mathbb{R}} \to \mathbb{R}
+$$
+definida por las siguientes fórmulas para $x, y \en \mathbb{R}$:
+\begin{align*}
+d(x, y) &\coloneq \frac{2|e^{x-y} - e^{y-x}|}{e^{x+y} + e^{x-y} + e^{y-x} + e^{-x-y}},\\
+d(x, \infty) &\coloneq d(\infty, x) \coloneq \frac{2e^{-x}}{e^x + e^{-x}},\\
+d(x, -\infty) &\coloneq d(-\infty, x) \coloneq \frac{2e^x}{e^x + e^{-x}},\\
+d(-\infty, \infty) &\coloneq d(\infty, -\infty) \coloneq 2.
+\end{align*}
+
+
+\item Pruebe que la aplicación $f\colon \ubar{\mathbb{R}} \to [-1, 1]$ definida por
+\begin{align*}
+f(x) \coloneq \tanh(x) &\coloneq \frac{e^x - e^{-x}}{e^x + e^{-x}}, \quad x \en \mathbb{R},\\
+f(\pm \infty) &\coloneq \pm 1,
+\end{align*}
+es un homeomorfismo. Pruebe que es una isometría con respecto a la métrica en (ii) sobre $\ubar{\mathbb{R}}$ y la métrica estándar en el intervalo $[-1, 1]$. Deduzca que $(\ubar{\mathbb{R}}, d)$ es compacto.
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+\begin{enumerate}[label = (\roman*)]
+\item % Inciso (i) --------------------------------
+Sea $\mathcal{B}$ la familia formada por los conjuntos de la forma
+\[
+(a,b),\quad (a,\infty],\quad [-\infty,b),\qquad a,b\en\mathbb{R}.
+\]
+Por definición, un subconjunto $U\subseteq\ubar{\mathbb{R}}$ es abierto si es una unión contable de elementos de $\mathcal{B}$. Para mostrar que esto define una topología, verificamos los axiomas:
+\begin{itemize}
+    \item $\varnothing$ es abierto (unión vacía, considerada contable).
+
+    \item $\ubar{\mathbb{R}}$ es abierto, pues puede escribirse como
+    \[
+    \ubar{\mathbb{R}} = [-\infty,1) \cup (0,\infty],
+    \]
+    que es una unión contable de elementos de $\mathcal{B}$.
+
+    \item Para probar que la colección de abiertos es cerrada bajo uniones arbitrarias, mostramos que existe una base numerable. Consideremos la subcolección $\mathcal{B}_{\mathbb{Q}}$ de $\mathcal{B}$ formada por:
+    \[
+    (\p,q),\quad (\p,\infty],\quad [-\infty,q),\qquad \p,q\en\mathbb{Q}.
+    \]
+    $\mathcal{B}_{\mathbb{Q}}$ es numerable. Además, cualquier elemento de $\mathcal{B}$ puede expresarse como unión de elementos de $\mathcal{B}_{\mathbb{Q}}$:
+    \begin{itemize}
+        \item $(a,b) = \bigcup\set*{(\p,q) \given \p,q\en\mathbb{Q},\ a<\p<q<b}$.
+        \item $(a,\infty] = \bigcup\set*{(\p,\infty] \given \p\en\mathbb{Q},\ \p>a}$.
+        \item $[-\infty,b) = \bigcup\set*{[-\infty,q) \given q\en\mathbb{Q},\ q<b}$.
+    \end{itemize}
+    Por tanto, la familia de abiertos (uniones contables de elementos de $\mathcal{B}$) coincide exactamente con la familia de uniones (arbitrarias) de elementos de $\mathcal{B}_{\mathbb{Q}}$. En efecto, si $U$ es abierto, $U = \bigcup_{i\en I} B_i$ con $B_i\en\mathcal{B}$ e $I$ contable; cada $B_i$ es unión de elementos de $\mathcal{B}_{\mathbb{Q}}$, luego $U$ es unión de una subfamilia de $\mathcal{B}_{\mathbb{Q}}$. Recíprocamente, toda unión de elementos de $\mathcal{B}_{\mathbb{Q}}$ es unión contable, porque $\mathcal{B}_{\mathbb{Q}}$ es numerable: si $\mathcal{C}\subseteq\mathcal{B}_{\mathbb{Q}}$, entonces $\bigcup\mathcal{C} = \bigcup_{B\en\mathcal{C}} B$ es unión contable (pues $\mathcal{C}$ es a lo sumo numerable). Así, la colección de abiertos es precisamente la familia de todos los subconjuntos que son uniones de elementos de $\mathcal{B}_{\mathbb{Q}}$. Esto implica que es cerrada bajo uniones arbitrarias: si $\{U_j\}_{j\en J}$ es una familia de abiertos, cada $U_j$ es unión de elementos de $\mathcal{B}_{\mathbb{Q}}$, luego $\bigcup_{j\en J} U_j$ también es unión de elementos de $\mathcal{B}_{\mathbb{Q}}$, por tanto es abierto.
+
+    \item Para la intersección finita, basta probar que la intersección de dos elementos de $\mathcal{B}$ es abierta (gracias a que la intersección se distribuye respecto a la unión arbitraria). Analicemos todos los casos posibles:
+    \begin{itemize}
+        \item $(a,b) \cap (c,d) = (\max\{a,c\}, \min\{b,d\})$ (intervalo abierto o vacío).
+        \item $(a,\infty] \cap (c,\infty] = (\max\{a,c\}, \infty]$.
+        \item $[-\infty,b) \cap [-\infty,d) = [-\infty, \min\{b,d\})$.
+        \item $(a,\infty] \cap [-\infty,b) = (a,b)$ si $a<b$; vacío si $a\ge b$.
+    \end{itemize}
+    En cualquier caso, la intersección finita de abiertos es abierta. Así que los axiomas de topología se satisfacen.
+\end{itemize}
+
+\item % Inciso (ii) ------------------------------------------
+Primero simplificamos la expresión de $d(x,y)$ para $x,y\en\mathbb{R}$, en términos de la función $f$ dada en el inciso (iii) del planteamiento del ejercicio.
+\[
+d(x,y)%
+=\frac{2|e^{x-y}-e^{y-x}|}{e^{x+y}+e^{x-y}+e^{y-x}+e^{-x-y}}%
+=\frac{2|e^{x-y}-e^{y-x}|}{(e^x+e^{-x})(e^y+e^{-y})}
+\]
+Por otro lado,
+\[
+\tanh t = \frac{e^{t}-e^{-t}}{e^{t}+e^{-t}},\qquad\forall t\en\mathbb{R}
+\]
+así que
+\[
+\tanh x - \tanh y%
+= \frac{(e^{x}-e^{-x})(e^{y}+e^{-y})-(e^{y}-e^{-y})(e^{x}+e^{-x})}{(e^{x}+e^{-x})(e^{y}+e^{-y})}%
+= \frac{2(e^{x-y}-e^{y-x})}{(e^{x}+e^{-x})(e^{y}+e^{-y})}.
+\]
+Por tanto,
+\[
+d(x,y) = |\tanh x - \tanh y|
+\]
+
+Para los casos con infinito:
+\[
+d(x,\infty)=\frac{2e^{-x}}{e^x+e^{-x}} = 1-\tanh x = |\tanh x - 1|,
+\]
+\[
+d(x,-\infty)=\frac{2e^{x}}{e^x+e^{-x}} = |\tanh x - (-1)|,
+\]
+y claramente $d(-\infty,\infty)=2=|-1-1|$. En resumen,
+\begin{equation}\label{eq:isome}
+d(u,v)=|f(u)-f(v)| \qquad \forall u,v\en\ubar{\mathbb{R}}.
+\end{equation}
+
+La topología inducida por $d$ tiene como base $\mathcal{B}_d \coloneq \set*{B_d(u,r) \given u\en\ubar{\mathbb{R}}, r>0}$ donde
+\[
+B_d(u,r)=\set*{v\en\ubar{\mathbb{R}} \given |f(v)-f(u)|<r}=f^{-1}\bigl((f(u)-r,f(u)+r) \cap [-1,1]\bigr)
+\]
+Estas bolas coinciden exactamente con los conjuntos de la forma $f^{-1}\bigl((a,b)\bigr),f^{-1}\bigl((a,1]\bigr)$ y $f^{-1}\bigl([-1,a)\bigr)$ con $a,b\en(-1,1)$: por un lado, acabamos de ver que toda bola $B_d(u,r)$ es de una de las tres formas mencionadas; por otro lado, dados $a,b\en(-1,1)$, si tomamos $u\coloneq f^{-1}(\frac{a+b}{2})$ y $r\coloneq \frac{b-a}{2}$, se tiene $B_d(u,r) = f^{-1}\bigl((a,b)\bigr)$ y, si tomamos $u=\infty$ (resp. $u=-\infty$) y $r = 1-a$ (resp. $r=1+a$), se tiene $B_d(u,r)=f^{-1}\bigl((a,1]\bigr)$ (resp. $B_d(u,r)=f^{-1}\bigl([-1,a)\bigr)$). En pocas palabras, acabamos de probar que 
+\[
+\mathcal{B}_d%
+= \set*{f^{-1}\bigl((a,b)\bigr) \given a,b\en(-1,1)} \cup \set*{f^{-1}\bigl((a,1]\bigr) \given a\en(-1,1)} \cup \set*{f^{-1}\bigl([-1,a)\bigr) \given a\en(-1,1)}
+\]
+Más aún, como $f$ es monótona y biyectiva (i.e., un isomorfismo de órdenes), se tiene que
+\begin{itemize}
+    \item $f^{-1}\bigl((a,b)\bigr) = \bigl(f^{-1}(a), f^{-1}(b)\bigr)$ para cualesquiera $a,b\en(-1,1)$.
+    \item $f^{-1}((a,1]) = \bigl(f^{-1}(a),\infty\bigr]$ para cada $a\en(-1,1)$.
+    \item $f^{-1}([-1,a]) = \bigl[-\infty,f^{-1}(a)\bigr)$ para cada $a\en(-1,1)$.
+\end{itemize}
+Por lo tanto,
+\begin{align*}
+\mathcal{B}_d%
+&= \set*{\bigl(f^{-1}(a),f^{-1}(b)\bigr) \given a,b\en(-1,1)} \cup \set*{\bigl(f^{-1}(a),\infty\bigr] \given a\en(-1,1)} \cup \set*{\bigl[-\infty,f^{-1}(a)\bigr) \given a\en(-1,1)}\\
+&= \set[\big]{(x,y) \given x,y\en\mathbb{R}} \cup \set[\big]{(x,\infty] \given x\en\mathbb{R}} \cup \set[\big]{[-\infty,x) \given x\en\mathbb{R}}
+\end{align*}
+Esto prueba que $\mathcal{B}_d = \mathcal{B}$, es decir, la topología estándar y la inducida por la métrica $d$ tienen la misma base; por consiguiente, son la misma topología.
+
+\item % Inciso (iii) -----------------------------------
+Ya probamos en la \cref{eq:isome} del inciso (ii) que $d(u,v) = \abs{f(u)-f(v)}$ para cualesquiera $u,v\en\ubar{\mathbb{R}}$, así que $f$ es una isometría. Además es biyectiva, lo cual implica que es un homeomorfismo. Como $[-1,1]$ es compacto con la métrica usual (por ser cerrado y acotado en $\mathbb{R}$) y la compacidad es preservada por homeomorfismos, $(\ubar{\mathbb{R}},d)$ es compacto.
+\end{enumerate}
+\end{sol}

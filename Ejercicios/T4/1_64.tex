@@ -1,0 +1,53 @@
+\setcounter{neje}{63}
+\begin{nejer}
+Sea $(X, \mathcal{A}, \mu)$ un espacio de medida y sea $f\colon X \to \mathbb{R}$ una función $\mu$-integrable.
+\begin{enumerate}[label = (\roman*)]
+\item Pruebe que para cada $\varepsilon > 0$ existe un $\delta > 0$ tal que, para cualquier $A \en \mathcal{A}$,
+$$
+\mu(A) < \delta 
+\quad\implies\quad 
+\left| \int_A f \dd{\mu} \right| < \varepsilon.
+$$
+
+\item Pruebe que para cada $\varepsilon > 0$ existe un $A \en \mathcal{A}$ tal que, para cualquier $B \en \mathcal{A}$,
+$$
+B \supseteq A 
+\quad\implies\quad 
+\left| \int_X f \dd{\mu} - \int_B f \dd{\mu} \right| < \varepsilon.
+$$
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+\begin{enumerate}[label = (\roman*)]
+%-----------------------------------------------------
+\item %(i)
+Procedamos por contradicción, suponiendo que existe un $\varepsilon>0$ tal que para cada $\delta>0$ existe un $A_\delta \en \mathcal{A}$ con $\mu(A_\delta) < \delta$ y $\abs\big{\int_{A_\delta}f\dd{\mu}} \geq \varepsilon$. En particular, para cada $k\en\mathbb{N}$ existe un $A_k\en\mathcal{A}$ tal que
+\[
+\mu(A_k) < \frac{1}{2^k}
+\quad\text{y}\quad
+\abs{\int_{A_k}  f \dd{\mu}} \ge \varepsilon
+\]
+Como $\abs\big{\int_{A_k} f \dd{\mu}} \leq \int_{A_k} \abs{f} \dd{\mu}$, se tiene también $\int_{A_k} \abs{f} \dd{\mu} \geq \varepsilon$.\par
+Ahora bien, definamos la sucesión de conjuntos medibles $B_n \coloneq \bigcup_{k\ge n} A_k$. Por un lado, es evidente que $B_n$ es decreciente, además, gracias a lo visto en el \myref{nejer:1.29},
+\[
+\forall n \en \mathbb{N},\quad
+\mu(B_n) = \mu\biggl(\bigcup_{k\ge n} A_k\biggr) \leq \sum^\infty_{k=n} \mu(A_k) < \sum^\infty_{k=n} \frac{1}{2^k} = \frac{1}{2^{n-1}}
+\]
+En particular, los $B_n$ tienen medida finita, así que al ser decrecientes
+\[
+0 \leq \mu\biggl(\bigcap^\infty_{n=1}B_n\biggr) = \lim_{n\to\infty}\mu(B_n) \leq \lim_{n\to\infty}\frac{1}{2^{n-1}} = 0
+\]
+Por tanto, si ponemos $B \coloneq \bigcap_{n\en\mathbb{N}} B_n$, se cumple $\mu(B) = 0$.\par
+Por otro lado, como $\abs{f}$ es medible no negativa, ya sabemos que $\mu_{\abs{f}} \colon A \mapsto\int_A\abs{f} \dd{\mu}$ define una medida para $(X,\mathcal{A})$. Luego, como $B_n \supseteq An$, se sigue que $\mu_{\abs{f}}(B_n) \geq \mu_{\abs{f}}(A_n) \geq \varepsilon$, para cualquier $n\en\mathbb{N}$. Además, $f$ es $\mu$-integrable, por lo que $\mu_{\abs{f}}$ es una medida finita (ya que $\mu_{\abs{f}}(X) = \int_X\abs{f} \dd{\mu} < \infty$), esto implica que 
+\[
+\mu_{\abs{f}}(B) = \mu_{\abs{f}}\biggl(\bigcap^{\infty}_{n=1}B_n\biggr) = \lim_{n\to\infty}\mu_{\abs{f}}(B_n) \geq \varepsilon
+\]
+Hemos probado que $B$ es un conjunto de medida cero tal que $\int_B \abs{f} \dd{\mu} =  \mu_{\abs{f}}(B) > 0$, lo cual es absurdo, pues integrar sobre cualquier conjunto de medida cero resulta en cero. El error estuvo en suponer que no se cumple (i), así que esto prueba que se tiene que cumplir forzosamente.
+%-----------------------------------------------------
+\item %(ii)
+Para cualquier $\varepsilon>0$ podemos tomar $A=X$, ya que si $B \supseteq X$, entonces $B=X$, así que 
+\[
+\abs{\int_Xf \dd{\mu} - \int_B f \dd{\mu}} = \abs{\int_X f \dd{\mu} - \int_Xf \dd{\mu}} = 0 < \varepsilon
+\]
+\end{enumerate}
+\end{sol}

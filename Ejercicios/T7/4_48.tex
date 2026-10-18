@@ -1,0 +1,18 @@
+%------------------------------ Ejercicio 4.48 -------------------------------
+\setcounter{neje}{47}
+\begin{nejer}
+Sea $(X, \mathcal{A}, \mu)$ un espacio de medida tal que $\mu(X) = 1$ y sean $f, g \colon X \to [0, \infty]$ funciones medibles tales que $fg \ge 1$. Pruebe que
+$$
+\norm{f}_1\norm{g}_1 \ge 1.
+$$
+\end{nejer}
+\begin{sol}
+Como $fg \ge 1$ entonces $(fg)^{1/2} \ge 1$, por lo que $\int_X (fg)^{1/2} \dd{\mu} \ge \int_X 1 \dd{\mu} = \mu(X) = 1$. No obstante, como $\frac{1}{2} + \frac{1}{2} = 1$, la desigualdad de Hölder implica
+\[
+1
+\le \int_X f^{1/2}g^{1/2} \dd{\mu} 
+\;\le\; \left(\int_X\big(f^{1/2}\big)^2 \dd{\mu}\right)^{1/2} \left(\int_X\big(g^{1/2}\big)^2 \dd{\mu}\right)^{1/2}
+\;=\; \left(\int_X f \dd{\mu}\right)^{1/2} \left(\int_X g \dd{\mu}\right)^{1/2}
+\]
+Al elevar al cuadrado se concluye que $1 \leq \int_Xf\dd{\mu}\int_X g \dd{\mu} = \norm{f}_1\norm{g}_1$.
+\end{sol}

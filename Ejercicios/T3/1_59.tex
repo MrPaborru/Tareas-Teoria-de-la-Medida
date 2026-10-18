@@ -1,0 +1,101 @@
+\setcounter{neje}{58}
+\begin{nejer}[Opcional]
+\begin{enumerate}[label = (\roman*)]
+\item Sea $f_n \colon [0,1] \to [-1, 1]$ una sucesión de funciones continuas que converge uniformemente a cero. Muestre que
+$$
+\lim_{n \to \infty} \int_0^1 f_n(x) \dd{x} = 0.
+$$
+
+\item Sea $f_n \colon [0,1] \to [-1, 1]$ una sucesión de funciones continuas tal que
+$$
+\lim_{n \to \infty} f_n(x) = 0, \quad \forall x \en [0,1].
+$$
+Pruebe que
+$$
+\lim_{n \to \infty} \int_0^1 f_n(x) \dd{x} = 0,
+$$
+sin usar el Teorema 1.45 (Convergencia Dominada).
+
+\item Construya una sucesión de funciones continuas $f_n \colon [0,1] \to [-1, 1]$ que converja puntualmente, pero no uniformemente, a cero.
+
+\item Construya una sucesión de funciones continuas $f_n \colon [0,1] \to [-1, 1]$ con $\int_0^1 f_n(x) \dd{x} = 0$ para todo $n\en\mathbb{N}$ y tal que $f_n(x)$ no converja para ningún $x \en [0,1]$.
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+\begin{enumerate}[label = (\roman*)]
+%-----------------------------------------------------
+\item %(i)
+Como $[0,1]$ es de medida finita y cada $|f_n|$ es medible (por ser continua), además de ser acotada por $1$ (pues el codominio es $[-1,1]$), lo visto en el \myref{nejer:1.58} implica, gracias a que $\abs{f_n} \rightrightarrows0$ (pues por hip. $f_n \rightrightarrows 0$), que
+\[
+\lim_{n \to \infty} \int_0^1 \abs{f_n(x)} \dd{x} = 0
+\]
+Como
+\[
+\abs{\int_0^1f_n(x) \dd{x}}\leq \int_0^1 \abs{f_n(x)} \dd{x}
+\]
+el teorema de compresión implica $\lim_{n\to\infty} \abs{\int_0^1f_n(x) \dd{x}} = 0$, por lo cual, 
+\[
+\lim_{n\to\infty} \int_0^1f_n(x) \dd{x} = 0
+\]
+%----------------------------------------------------
+\item %(ii)
+Usaré el teorema de Egorov, como el profesor permitió en clase:
+\begin{teo}[Egorov]
+Si $(X,\mathcal{A},\mu)$ es un espacio de medida finito y $f_n\colon X \to \mathbb{R}$ es una sucesión de funciones medibles que converge c.t.p. (casi en todas partes) a $f \colon X \to \mathbb{R}$ entonces, para todo $\varepsilon >0$, existe $A\en\mathcal{A}$ tal que $f_n$ converge uniformemente a $f$ en $A$ y $\mu(X\setminus A) < \varepsilon$.
+\end{teo}
+Ahora bien, como $([0,1],\mathcal{B}_{[0,1]},\lambda)$ es de medida finita, el teorema de Egorov implica que, para todo $\varepsilon>0$, existe $A\en\mathcal{B}_{[0,1]}$ tal que $f_n|_A \rightrightarrows 0$ (así, $\abs{f_n|_A} \rightrightarrows 0$) y $
+\lambda(A^c) < \varepsilon$. Por lo tanto
+\[
+\abs{\int^1_0f_n(x) \dd{x}} 
+= \abs{\int_A f_n(x) \dd{x} + \int_{A^c} f_n(x) \dd{x}}
+\leq \int_A \abs{f_n(x)} \dd{x} + \int_{A^c}\abs{f_n} \dd{x}
+\]
+Como $|f_n|$ son acotadas por $1$, lo anterior implica 
+\begin{equation}\label{eq:cotaunif}
+\abs{\int^1_0f_n(x) \dd{x}} \leq \int_A \abs{f_n(x)} \dd{x} + \lambda(A^c) < \int_{A}\abs{f_n(x)} \dd{x} + \varepsilon
+\end{equation}
+Sin embargo, $\abs{f_n|_A}$ es una sucesión de funciones medibles acotadas que converge uniformemente a $0$, así que el \myref{nejer:1.58} garantiza que $\lim_{n\to\infty} \int_Af_n(x) \dd{x} = 0$. En particular, tomando $\limsup_n$ (el cual sabemos que existe) en (\ref{eq:cotaunif}), se obtiene
+\[
+\limsup_{n\to\infty} \abs{\int^1_0f_n(x) \dd{x}} \leq \varepsilon
+\]
+como $\varepsilon>0$ es arbitrario, se sigue que $\limsup_{n\to\infty} \abs{\int^1_0f_n(x) \dd{x}} = 0$, pero esta última sucesión consta únicamente de valores no negativos, por lo tanto 
+\[
+\lim_{n\to\infty} \abs{\int^1_0f_n(x) \dd{x}} = 0,
+\quad\text{de donde se sigue,}\quad
+\lim_{n\to\infty} \int^1_0f_n(x) \dd{x} = 0.
+\]
+%-----------------------------------------------
+\item %(iii)
+Consideremos la siguiente sucesión de funciones continuas $f_n \colon [0,1] \to [0,1] \subseteq [-1,1]$ definida para cada entero $n \geq 2$ como sigue:
+\[
+f_n(x) =
+\begin{cases}
+1 - n \left| x - \frac{1}{n} \right|, & \text{si } 0 \le x \le \frac{2}{n}, \\[4pt]
+0, & \text{si } \frac{2}{n} < x \le 1.
+\end{cases}
+\]
+Cada $f_n$ es un \enquote{pico} triangular de altura 1, con vértice en $x = \nicefrac{1}{n}$, el cual desciende linealmente a cero en $x = 0$ y en $x = \nicefrac{2}{n}$, y es nulo en $[\nicefrac{2}{n}, 1]$. La continuidad está asegurada gracias al lema del pegado.
+
+\emph{Veamos que $f_n$ converge puntualmente a cero}:\\ 
+Sea $x \en [0,1]$. Si $x = 0$ entonces $f_n(0) = 1 - n \cdot \frac{1}{n} = 0$ para todo $n$, así que $\lim_{n\to\infty} f_n(0)=0$. Si $x > 0$, existe $N \en \mathbb{N}$ tal que $\nicefrac{2}{N} < x$. Luego, para todo $n \ge N$, se tiene $\nicefrac{2}{n} \le \nicefrac{2}{N} < x$, luego $x$ está en la región donde $f_n(x)=0$. Por lo tanto, $\lim_{n\to\infty} f_n(x)=0$ para todo $x \en [0,1]$.
+
+\emph{Veamos que $f_n$ no converge uniformemente a cero}:\\ 
+Observemos que $\sup_{x \en [0,1]} |f_n(x) - 0| = f_n(\nicefrac{1}{n}) = 1$ para cada $n \en \mathbb{N}$. Por lo tanto,
+\[
+\adjustlimits\lim_{n\to\infty}\sup_{x \en [0,1]} |f_n(x) - 0| = 1 \neq 0,
+\]
+Esto demuestra que la convergencia no es uniforme 
+%-------------------------------------------------
+\item %(iv)
+Definimos para cada $n\en\mathbb{N}$ y $x\en[0,1]$
+\[
+f_n(x)=\sin\bigl(2\pi (x+\tfrac{r_n}{3})\bigr),
+\quad\text{donde}\quad
+r_n=n\bmod 3,\; 0 \le r_n \le 2
+\]
+Cada $f_n$ es continua, $|f_n|\le1$ y $\int_0^1 f_n=0$ ya que $f_n$ tiene periodo 1.
+Fijando $x$ arbitrario, los valores $\{f_n(x)\}_n$ son la repetición cíclica de
+$\sin(2\pi x),\ \sin(2\pi(x+\nicefrac13)),\ \sin(2\pi(x+\nicefrac23))$.
+Dado que estos tres números nunca son todos iguales, la sucesión siempre alterna entre dos o tres valores distintos, por lo cual no converge para ningún $x\en[0,1]$. 
+\end{enumerate}
+\end{sol}

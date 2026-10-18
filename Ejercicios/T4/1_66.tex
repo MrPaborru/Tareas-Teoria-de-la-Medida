@@ -1,0 +1,32 @@
+\setcounter{neje}{65}
+\begin{nejer}
+Sea $(X, \mathcal{A}, \mu)$ un espacio de medida tal que $\mu = \delta_{x_0}$ es la medida de Dirac en algún punto $x_0 \en X$ (Ejemplo 1.31). Determine la completación $(X, \mathcal{A}^*, \mu^*)$ y el espacio $L^1(\mu)$.
+\end{nejer}
+\begin{sol}
+\emph{Determinemos la completación $(X,\mathcal A^*,\mu^*)$}:\\
+Recordemos que $\mathcal A^*$ consiste en aquellos conjuntos $A\subseteq X$ para los cuales existen $E,F\en\mathcal A$ tales que $E\subseteq A\subseteq F$ y $\mu(F\setminus E)=0$, y se definió $\mu^*(A) \coloneq \mu(E) = \mu(F)$. Con esto presente, analicemos dos casos para un subconjunto $A \subseteq X$:
+\begin{itemize}
+\item Si $x_0 \en A$, veamos que pedir $A\en\mathcal{A}^*$ equivale a pedir que exista un $x_0 \en E \en\mathcal{A}$ con $E \subseteq A$, y en cualquier caso $\mu^*(A) = 1$. En efecto, si $A\en\mathcal{A}$, sean $E,F\en\mathcal A$ con $E\subseteq A\subseteq F$ y $\mu(F\setminus E)=0$. Por un lado, se tendrá que $x_0\en F$ (ya que $x_0\en A$), por lo que $\mu^*(A) = \mu(F) = 1$; más aún, como $\mu(F\setminus E) = 0$ entonces $x_0 \noten (F \setminus E)$, pero ya tenemos $x_0\en F$, así que forzosamente $x_0 \en E$.
+Recíprocamente, supongamos que existe $x_0 \en E \en\mathcal{A}$ con $E \subseteq A$, de esto se sigue que $x_0  \noten (X\setminus E)$, así que siempre podemos poner $E \subseteq A \subseteq X$ con $\mu(X \setminus E) = 0$, así $A\en\mathcal{A}^*$. 
+
+\item Si $x_0 \noten A$, veamos que pedir $A\en\mathcal{A}^*$ equivale a pedir que exista un $x_0 \noten F \en\mathcal{A}$ con $F \supseteq A$, y en cualquier caso $\mu^*(A) = 0$. 
+En efecto, notemos que $x_0\en A^c$, así que el anterior punto garantiza que $A^c\en\mathcal{A}^*$ si y solo si existe $x_0 \en E \en\mathcal{A}$ con $E \subseteq A^c$. Como $\mathcal{A},\mathcal{A}^*$ son $\sigma$-álgebras, tomando $F = E^c$, esto se traduce en que $A\en\mathcal{A}^*$ si y solo si existe un $x_0 \noten F \en\mathcal{A}$ con $F \supseteq A$. Más aún, de cumplirse esto, tendremos $\mu^*(A) \leq \mu^*(F) = \mu(F) = 0$, así que $\mu^*(A) = 0$.
+% En efecto, si $A\en\mathcal{A}$, sean $E,F\en\mathcal A$ con $E\subseteq A\subseteq F$ y $\mu(F\setminus E)=0$. Por un lado, se tendrá que $x_0\noten E$ (ya que $x_0\noten A$), por lo que $\mu^*(A) = \mu(E) = 0$; más aún, como $\mu(F\setminus E) = 0$ entonces $x_0 \noten (F \setminus E)$, pero ya tenemos $x_0\noten E$, así que forzosamente $x_0 \noten F$.
+% Recíprocamente, supongamos que existe $x_0 \noten F \en\mathcal{A}$ con $F \supseteq A$, de esto se sigue que $x_0 \noten (F \setminus \varnothing)$, así que siempre podemos poner $\varnothing \subseteq A \subseteq F$ con $\mu(F \setminus \varnothing) = 0$, así $A\en\mathcal{A}^*$.
+\end{itemize}
+Estos puntos prueban que $\mathcal{A}^* = \set*{A \supseteq E \given x_0 \en E \en\mathcal{A}} \cup \set*{A \subseteq F \given x_0 \noten F \en\mathcal{A}}$ y $\mu^*$ es la delta de Dirac, pero definida sobre $\mathcal{A}^*$.\vspace{1em}\\
+\emph{Determinemos el espacio $L^1(\mu)$}:\\
+Sea $f \colon X \to\mathbb{R}$ medible. Si ponemos $y=f(x_0)$ entonces las funciones constantes $y,\abs{y}$ son escalonadas, por lo que sus integrales son $\int_X y \dd{\mu} = y\mu(X) = y$ y $\int_X\abs{y}\dd{\mu} = \abs{y}\mu(X) = \abs{y}$. Ahora bien, como el conjunto medible%
+\footnote{
+    Ya vimos en clase que estos conjuntos que constan de aquellos puntos donde dos funciones difieren son medibles.
+} 
+$\set*{x\en X \given \abs{f(x)} \neq \abs{y}}$ no contiene a $x_0$, entonces tiene medida cero. Se sigue que $\abs{f}$ es igual a $\abs{y}$ c.t.p., por lo cual $\int_X \abs{f} \dd{\mu} = \int_X \abs{y} \dd{\mu} = \abs{y} < \infty$. Esto prueba que $f$ es integrable. Más aún, también $x_0 \noten \set*{x\en X \given f(x) \neq y}$, así que tiene medida cero, de donde $f=y$ c.t.p. y $\int_X f \dd{\mu} = \int_X y \dd{\mu} = y$.\par
+En resumen, hemos probado que $\mathcal{L}^1(\mu)$ consta de todas las funciones medibles $f \colon X \to \mathbb{R}$; además, también probamos que toda $f$ medible es igual c.t.p. a la función constante $f(x_0)$, así que 
+\[
+L^1(\mu) 
+= \set*{ [f] \given f\en \mathcal{L}^1(\mu) }
+= \set*{[f(x_0)] \given f\en \mathcal{L}^1(\mu) }
+= \set*{[y] \given y \en \mathbb{R}}
+\]
+Donde $[y]$ consta de las funciones medibles $f$ con $y=f(x_0)$. En particular, esto también demuestra que $L^1(\mu) \cong \mathbb{R}$.
+\end{sol} 

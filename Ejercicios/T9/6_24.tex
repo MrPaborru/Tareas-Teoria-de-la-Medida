@@ -1,0 +1,30 @@
+%------------------------------ Ejercicio 6.24 -------------------------------
+\setcounter{neje}{23}
+\begin{nejer}[incisos (i) y (ii)]
+\begin{enumerate}[label = (\roman*), leftmargin=1.8em]
+\item La función de Cantor es la única función monótona $f \colon [0,1] \to [0,1]$ que satisface
+$$
+f \left( \sum_{i=1}^\infty \frac{2a_i}{3^i} \right) = \sum_{i=1}^\infty \frac{a_i}{2^i}
+$$
+para todas las sucesiones $a_i \en \{0, 1\}$. Es continua y no constante, y su derivada existe y se anula en el complemento del conjunto de Cantor estándar
+$$
+C \coloneq \bigcap_{n=1}^\infty \bigcup_{a_i \en \{0, 1\}} \left[ \sum_{i=1}^n \frac{2a_i}{3^i}, \sum_{i=1}^n \frac{2a_i}{3^i} + \frac{1}{3^n} \right].
+$$
+Este conjunto de Cantor tiene medida de Lebesgue cero. Por lo tanto, $f$ es diferenciable casi en todas partes y su derivada es integrable. Sin embargo, $f$ no es igual a la integral de su derivada, y por lo tanto no es absolutamente continua.
+
+\item La siguiente construcción me fue explicada por Theo Buehler. Defina los homeomorfismos $g \colon [0,1] \to [0,2]$ y $h \colon [0,2] \to [0,1]$ mediante
+$$
+g(x) \coloneq f(x) + x, \quad h \coloneq g^{-1}.
+$$
+La imagen $g( [0,1] \setminus C)$ es una unión numerable de intervalos abiertos disjuntos de longitud total uno y, por lo tanto, tiene medida de Lebesgue uno. Así, su complemento 
+\[K \coloneq g(C) \subseteq  [0,1]\] 
+es un conjunto modificado de Cantor con medida de Lebesgue uno. Por lo tanto, por teorema 6.19, $g$ no es absolutamente continua. Más aún, por lema 2.15, existe un conjunto $E \subseteq K$ el cual no es Lebesgue medible. De cualquier modo, su imagen
+\[
+F \coloneq h(E) \subseteq [0,1]
+\]
+bajo $h$ es un subconjunto del conjunto Lebesgue-nulo $C$ y por tanto es un conjunto Lebesgue-nulo. Se sigue que $F$ es un conjunto Lebesgue medible y $E = h^{-1}(F)$ no es Lebesgue medible. Esto prueba que la función $h$ no es medible con respecto a la $\sigma$-álgebra de Lebesgue en dominio y codominio (i.e., no es Lebesgue-Lebesgue medible). 
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+Nada qué probar.
+\end{sol}

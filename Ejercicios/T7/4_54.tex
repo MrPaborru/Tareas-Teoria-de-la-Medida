@@ -1,0 +1,56 @@
+%------------------------------ Ejercicio 4.54 -------------------------------
+\setcounter{neje}{53}
+\begin{nejer}[Teorema de Egoroff]
+Sea $(X, \mathcal{A}, \mu)$ un espacio de medida finita y sea $f_i \colon X \to \mathbb{R}$ una sucesión de funciones medibles que converge puntualmente a $f \colon X \to \mathbb{R}$. Si fijas un $\varepsilon > 0$, entonces existe un conjunto $E \en \mathcal{A}$ tal que
+$
+\mu(X \setminus E) < \varepsilon
+$
+y $f_n|_E$ converge uniformemente a $f|_E$.\\
+\end{nejer}
+\begin{sol}
+Fijemos $\varepsilon>0$ y definamos, para cualesquiera $k,n\en\mathbb{N}$, el conjunto
+\[
+A_{k,n} 
+\;\coloneq\; \set*{x\en X \given \abs{f_i(x) - f(x)} < \tfrac{1}{k},\; \forall i\ge n}
+\;=\; \bigcap_{i\ge n} \abs{f_i-f}^{-1}\bigl(\big(0,\tfrac{1}{k}\big)\bigr)
+\]
+Como cada $f_i$ es medible, y así, también $f$ es medible, se sigue que $|f_i-f|$ es medible; lo cual garantiza que $A_{k,n} \en \mathcal{A}$. Luego, se sigue inmediato de su definición que $A_{k,n} \subseteq A_{k,n+1}$, además
+\[
+\bigcup_{n\en\mathbb{N}}A_{k,n} = \set*{x\en X \given \exists n\en\mathbb{N}, \forall i\ge n,\;  \abs{f_i(x) - f(x)} < \tfrac{1}{k}}
+\]
+así que, gracias a que $f_i \to f$ puntualmente, por definición de límite tenemos $\bigcup_{n\en\mathbb{N}}A_{k,n} = X$. Por consiguiente, para cada $k\en\mathbb{N}$: 
+\[
+\lim_{n\to\infty} \mu(A_{k,n}) 
+\;=\; \mu\Bigl(\bigcup\nolimits_{n\en\mathbb{N}}A_{k,n}\Bigr) 
+\;=\; \mu(X)
+\]
+De este límite se sigue que para cada $k\en\mathbb{N}$ existe un $n_k\en\mathbb{N}$ tal que
+\begin{flalign*}
+&&\mu(X \setminus A_{k,n_k}) \;=\; \mu(X) - \mu(A_{k,n_k}) \;<\; \frac{\varepsilon}{2^{k}}
+&&\boxed{ 
+\begin{tabular}{c}
+\footnotesize
+Como $\mu(X) < \infty$, se cumple
+\\\footnotesize 
+$\mu(X \setminus A_{k,n_k}) = \mu(X) - \mu(A_{k,n_k})$     
+\end{tabular}
+}
+\end{flalign*}
+Ahora probemos que $E \coloneq \bigcap_{k\en\mathbb{N}} A_{k,n_k}$ cumple lo requerido. En efecto, por subaditividad
+\[
+\mu(X\setminus E)
+\;=\; \mu\left( \bigcup\nolimits_{k\en\mathbb{N}} X\setminus A_{k,n_k} \right)
+\;\leq\; \sum^\infty_{k=1} \mu(X\setminus A_{k,n_k})
+\;<\; \sum^{\infty}_{k=1} \frac{\varepsilon}{2^k} 
+\;=\; \varepsilon
+\]
+Por otro lado, para todo $x\en E$ se cumple por definición que
+\[
+\forall k\en\mathbb{N},\forall i\ge n_k, \quad \abs{f_i(x) - f(x)} < \tfrac{1}{k}
+\]
+conmutando cuantificadores universales se sigue
+\[
+\forall k\en\mathbb{N}, \forall i\ge n_k, \forall x\en E, \quad \abs{f_i(x) - f(x)} < \tfrac{1}{k}
+\]
+Es decir, $f_i|_E$ converge uniformemente a $f|_E$.
+\end{sol}

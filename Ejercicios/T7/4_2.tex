@@ -1,0 +1,126 @@
+%------------------------------ Ejercicio 4.2 -------------------------------
+\setcounter{neje}{1}
+\begin{nejer}
+\begin{enumerate}[label = (\roman*), leftmargin=1.5em]
+    \item Asuma que $0 < \int_X f^{\p} \dd{\mu} < \infty$ y $0 < \int_X g^q \dd{\mu} < \infty$. Pruebe que la igualdad se cumple en (4.3) si y solo si existe una constante $\alpha > 0$ tal que $g^q = \alpha f^{\p}$ casi en todas partes.\par \emph{Sugerencia.} Use la prueba de la desigualdad de Hölder y el hecho de que la igualdad se cumple en (4.2) si y solo si $a^{\p} = b^q$.
+    \item Asuma que $0 < \int_X f^{\p} \dd{\mu} < \infty$ y $0 < \int_X g^{\p} \dd{\mu} < \infty$. Pruebe que la igualdad se cumple en (4.4) si y solo si hay un número real $\lambda > 0$ tal que $g = \lambda f$ casi en todas partes.\par \emph{Sugerencia.} Use la parte (i) y la prueba de la desigualdad de Minkowski.
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+\begin{enumerate}[label = (\roman*), leftmargin=1.5em]
+\item 
+Recordemos que $A = \left(\int_Xf^{\p}\dd{\mu}\right)^{1/\p}$ y $B = \left(\int_Xg^{q}\dd{\mu}\right)^{1/q}$.
+Por desigualdad de Young, 
+% se cumple $\frac{1}{\p A^{\p}}f^{\p} + \frac{1}{qB^q}g^q - \frac{1}{AB}fg \ge 0$ y 
+\[
+\frac{1}{\p}\bigg(\frac{f(x)}{A}\bigg)^{\p} + \frac{1}{q}\bigg(\frac{g(x)}{B}\bigg)^{q} = \frac{f(x)g(x)}{AB}
+\;\;\iff\;\;
+\bigg(\frac{f(x)}{A}\bigg)^{\p} = \bigg(\frac{g(x)}{B}\bigg)^{q}
+\;\;\iff\;\;
+f(x)^{\p} = \frac{A^{\p}}{B^q}g(x)^q
+\]
+Luego, gracias a que $\frac{1}{\p}\big(\frac{f}{A}\big)^{\p} + \frac{1}{q}\big(\frac{g}{B}\big)^{q} \ge \frac{fg}{AB}$ (Young),%
+\footnote{
+    Usaré el símbolo "$\ctpeq$" para representar que dos funciones son iguales casi en todo punto. El libro de Salamon usa "$\overset{\mu}{\sim}$", pero no me gusta.
+}
+\[
+\int_X \frac{1}{\p}\Big(\frac{f}{A}\Big)^{\p} + \frac{1}{q}\Big(\frac{g}{B}\Big)^{q} \dd{\mu}
+= \int_X\frac{fg}{AB} \dd{\mu}
+\;\;\iff\;\;
+\frac{1}{\p}\Big(\frac{f}{A}\Big)^{\p} + \frac{1}{q}\Big(\frac{g}{B}\Big)^{q} 
+\ctpeq  \frac{fg}{AB}
+\;\;\iff\;\;
+f^{\p} \ctpeq \frac{A^{\p}}{B^q}g^q
+\]
+Sin embargo, por linealidad $\int_X \frac{1}{\p}\big(\frac{f}{A}\big)^{\p} + \frac{1}{q}\big(\frac{g}{B}\big)^{q} \dd{\mu} = \frac{1}{\p}\frac{\int_Xf^{\p} \dd{\mu}}{A^{\p}} + \frac{1}{q}\frac{\int_Xg^{q} \dd{\mu}}{B^{q}} = \frac{1}{\p} + \frac{1}{q} = 1$, por lo que
+\[
+\int_X \frac{1}{\p}\Big(\frac{f}{A}\Big)^{\p} + \frac{1}{q}\Big(\frac{g}{B}\Big)^{q} \dd{\mu}
+= \int_X\frac{fg}{AB} \dd{\mu}
+\;\;\iff\;\;
+1 = \frac{1}{AB}\int_X fg \dd{\mu}
+\;\;\iff\;\;
+AB = \int_X fg \dd{\mu}
+\]
+Sustituyendo $A$ y $B$ esta serie de equivalencias prueban que:
+\[
+\left(\int_Xf^{\p}\dd{\mu}\right)^{1/\p} \left(\int_Xg^{q}\dd{\mu}\right)^{1/q} = \int_X fg \dd{\mu}
+\quad\iff\quad
+f^{\p} \ctpeq \alpha g^q, \;\text{ con }\; \alpha \coloneq \frac{A^{\p}}{B^q} > 0
+\]
+Más aún, si $f^{\p} \ctpeq \alpha g^q$ para algún $\alpha>0$, entonces por linealidad $A^{\p} = \int f^{\p}\dd{\mu} = \alpha \int g^q\dd{\mu} = \alpha B^q$, así que $\alpha = \frac{A^{\p}}{B^q}$. Por tanto, esta última equivalencia se convierte en 
+\[
+\left(\int_Xf^{\p}\dd{\mu}\right)^{1/\p} \left(\int_Xg^{q}\dd{\mu}\right)^{1/q} = \int_X fg \dd{\mu}
+\quad\iff\quad
+\exists \alpha>0,\;
+f^{\p} \ctpeq \alpha g^q
+\]
+
+\item 
+Denotemos $a \coloneq \left(\int_Xf^{\p}\dd{\mu}\right)^{1/\p}, b \coloneq \left(\int_Xg^{\p}\dd{\mu}\right)^{1/\p}$ y $c\coloneq \left(\int_X(f+g)^{\p}\dd{\mu}\right)^{1/\p}$. Por el inciso (i) aplicado a $f$ y $(f+g)^{\p-1}$:
+\begin{align*}
+\int_Xf(f+g)^{\p-1}\dd{\mu} 
+=
+\left( \int_X f^{\p} \dd{\mu} \right)^{1/\p}\!\left( \int_X (f+g)^{(\p-1)q} \dd{\mu} \right)^{1/q} 
+\iff
+\exists \alpha_1\!>\!0,\;f^{\p} \!\!\ctpeq\!\! \alpha_1(f+g)^{(\p-1)q}
+\end{align*}
+Asimismo:
+\begin{align*}
+\int_Xg(f+g)^{\p-1}\dd{\mu} 
+=
+\left( \int_X g^{\p} \dd{\mu} \right)^{1/\p}\!\left( \int_X (f+g)^{(\p-1)q} \dd{\mu} \right)^{1/q} 
+\iff
+\exists \alpha_2\!>\!0,\;g^{\p} \!\!\ctpeq\!\! \alpha_2(f+g)^{(\p-1)q}
+\end{align*}
+Como Hölder garantiza que siempre se tiene la desigualdad "$\leq$" en estas últimas dos igualdades, se sigue que ambas ocurren si y solo si ocurre la igualdad entre sus sumas.%
+\footnote{
+    Es trivial probar que si $x,y,w,z\en\mathbb{R}$ cumplen $x \le y$ y $w \le z$, entonces $x=y$ y $w = z$ equivale a que $x+w = y+z$.
+}
+En otras palabras,
+\begin{equation}\label{eq:eqgrande}
+\begin{split}
+\exists \alpha_1,\alpha_2\!>\!0,\;\; f^{\p} \!\!\ctpeq\!\! \alpha_1(f+g)^{(\p-1)q} &\;\;\text{y}\;\; g^{\p} \!\!\ctpeq\!\! \alpha_2(f+g)^{(\p-1)q}\\
+&\iff\\
+\int_Xf(f+g)^{\p-1}\dd{\mu} + \int_Xg(f+g)^{\p-1}\dd{\mu} 
+&\;=\;
+\left( \int_X f^{\p} \dd{\mu} \right)^{1/\p}\!\left( \int_X (f+g)^{(\p-1)q} \dd{\mu} \right)^{1/q}\\
+&+ \left( \int_X g^{\p} \dd{\mu} \right)^{1/\p}\!\left( \int_X (f+g)^{(\p-1)q} \dd{\mu} \right)^{1/q}
+\end{split}
+\end{equation}
+pero (como se probó en el libro \cite[p. 135]{Salamon}) el lado izquierdo de esta última igualdad es $c^{\p}$ y el derecho es $(a+b)c^{\p-1}$. Por lo tanto, la igualdad (i.e., $c^{\p} = (a+b)c^{\p-1}$) ocurre si y solo si $c = a+b$.%
+\footnote{
+    Aquí usamos implícitamente que $0<c < \infty$, lo cual se sigue de la desigualdad de Minkowski probada en el libro.
+}
+Por consiguiente, la equivalencia (\ref{eq:eqgrande}) se convierte en:
+\begin{equation*}
+\exists \alpha_1,\alpha_2\!>\!0,\;\; f^{\p} \!\!\ctpeq\!\! \alpha_1(f+g)^{(\p-1)q} \;\;\text{y}\;\; g^{\p} \!\!\ctpeq\!\! \alpha_2(f+g)^{(\p-1)q}
+\;\;\iff\;\;
+c = a+b
+\end{equation*}
+más aún, como $\frac{1}{\p} + \frac{1}{q} = 1$, se sigue $q+\p = \p q$ de donde $(\p-1)q = \p$, así que tenemos:
+\begin{equation}\label{eq:EquiMink}
+\exists \alpha_1,\alpha_2\!>\!0,\;\; f^{\p} \!\!\ctpeq\!\! \alpha_1(f+g)^{\p} \;\;\text{y}\;\; g^{\p} \!\!\ctpeq\!\! \alpha_2(f+g)^{\p}
+\;\;\iff\;\;
+c = a+b
+\end{equation}
+
+No obstante, si suponemos $f^{\p} \ctpeq \alpha_1(f+g)^{\p}$ y $g^{\p} \ctpeq \alpha_2(f+g)^{\p}$, entonces 
+\[
+f^{\p} \ctpeq \frac{\alpha_1}{\alpha_2}\big(\alpha_2(f+g)^{\p}\big) \ctpeq \frac{\alpha_1}{\alpha_2}g^{\p}
+\quad\implies\quad
+f \ctpeq \lambda g, \;\text{donde}\; \lambda \coloneq \bigg(\frac{\alpha_1}{\alpha_2}\bigg)^{1/\p} >0
+\]
+Recíprocamente, si $f \ctpeq \lambda g$, entonces $(f+g)^{\p} \ctpeq (g+\lambda g)^{\p} \ctpeq (1+\lambda)^{\p}g^{\p}$, de donde:
+\[
+\frac{\lambda^{\p}}{(1+\lambda)^{\p}}(f+g)^{\p} \ctpeq \lambda^{\p}g^{\p}\ctpeq f^{\p}
+\quad\text{y}\quad
+\frac{1}{(1+\lambda)^{\p}}(f+g)^{\p} \ctpeq g^{\p}
+\]
+Esto prueba que el lado izquierdo de (\ref{eq:EquiMink}) equivale a que $f \ctpeq \lambda g$ para algún $\lambda > 0$. Finalmente, sustituyendo los valores de $a,b$ y $c$ en (\ref{eq:EquiMink}), además de esta última equivalencia probada, obtenemos:
+\[
+\exists \lambda>0,\; f \ctpeq \lambda g
+\quad\iff\quad
+\left(\int_X (f+g)^{\p} \dd{\mu}\right)^{1/\p}  =  \left(\int_X f^{\p} \dd{\mu}\right)^{1/\p} + \left(\int_X g^{\p} \dd{\mu}\right)^{1/\p}
+\]
+\end{enumerate}
+\end{sol}

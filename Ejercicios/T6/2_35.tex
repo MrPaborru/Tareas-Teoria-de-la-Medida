@@ -1,0 +1,437 @@
+%------------------------------ Ejercicio 2.35 -------------------------------
+
+\setcounter{neje}{34}
+\begin{nejer}[Medida de Hausdorff]
+Sea $(X, \rho)$ un espacio métrico y fije un número real $d \ge 0$. El diámetro de un subconjunto $A \subseteq X$ se define mediante
+$$
+\diam(A) \coloneq \sup_{x, y \en A} \rho(x, y)
+$$
+Para $\varepsilon > 0$, defina la función
+$
+\nu_{d, \varepsilon} \colon 2^X \to [0, \infty]
+$
+por
+$$
+\nu_{d, \varepsilon}(A) \coloneq%
+\inf \set*{%
+    \sum_{i \en I} \diam(D_i)^d% 
+    \given%
+    \begin{array}{l} I \text{ es a lo sumo contable,}\,\ \text{para todo } i \en I\\ D_i \subseteq X \text{ t.q. } \diam(D_i) < \varepsilon, \ \text{ y } \ A \subseteq \bigcup_{i \en I} D_i \end{array} 
+}
+$$
+para $A \subseteq X$. Así, $\nu_{d, \varepsilon}(\varnothing) = 0$ y $\nu_{d, \varepsilon}(A) = \infty$ siempre que $A$ no admita un recubrimiento numerable por subconjuntos de diámetro menor que $\varepsilon$. Además, la función $\varepsilon \mapsto \nu_{d, \varepsilon}(A)$ es no creciente para cada subconjunto $A \subseteq X$. La medida exterior de Hausdorff $d$-dimensional es la función
+$$
+\nu_d \colon 2^X \to [0, \infty]
+$$
+definida por
+$$
+\nu_d(A) \coloneq \sup_{\varepsilon > 0} \nu_{d, \varepsilon}(A) = \lim_{\varepsilon \to 0} \nu_{d, \varepsilon}(A),
+\quad\text{para } A \subseteq X
+$$
+
+
+Pruebe lo siguiente.
+\begin{enumerate}[label = (\roman*), leftmargin=1.5em]
+    \item $\nu_d$ es una medida exterior.
+    
+    \item Si $A, B \subseteq X$ satisfacen
+    $$
+    \rho(A, B) \coloneq \inf\set{\rho(x, y) \mid x \en A, y \en B} > 0,
+    $$
+    entonces $\nu_d(A \cup B) = \nu_d(A) + \nu_d(B).$\\
+    Por lo tanto, según los Teoremas 2.4 y 2.5, el conjunto
+    $$
+    \mathcal{A}_d \coloneq \set{A \subseteq X \mid A \text{ es } \nu_d\text{-medible}}
+    $$
+    es una $\sigma$-álgebra que contiene a los conjuntos de Borel y
+    $$
+    \mu_d \coloneq \nu_d|_{\mathcal{A}_d} \colon \mathcal{A}_d \to [0, \infty]
+    $$
+    es una medida. Se le llama la medida de Hausdorff $d$-dimensional en $X$.
+    
+    \item Si $d = 0$, entonces $\mathcal{A}_0 = 2^X$ y $\nu_0 = \mu_0$ es la medida de conteo.
+    
+    \item La medida de Hausdorff $n$-dimensional en $\mathbb{R}^n$ coincide con la medida de Lebesgue salvo por un factor (la medida de Lebesgue de la bola de radio $1/2$).
+    
+    \item Sea $A \subseteq X$ no vacío. La dimensión de Hausdorff de $A$ es el número
+    $$
+    \dim(A) \coloneq \sup \set{r \ge 0 \mid \nu_r(A) = \infty} = \inf \set{s \ge 0 \mid \nu_s(A) = 0}.
+    $$
+    La segunda igualdad se sigue del hecho de que $\nu_d(A) > 0$ implica $\nu_r(A) = \infty$ para $0 \le r < d$, y $\nu_d(A) < \infty$ implica $\nu_s(A) = 0$ para $s > d$.
+    
+    \item La dimensión de Hausdorff de una curva suave embebida $\Gamma \subseteq \mathbb{R}^n$ es $d = 1$ y su medida de Hausdorff $1$-dimensional $\mu_1(\Gamma)$ es la longitud de la curva.
+    
+    \item La dimensión de Hausdorff del conjunto de Cantor es $d = \log(2) / \log(3)$.
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+Antes que nada, denotaremos los conjuntos de cubiertas por:
+\[
+\mathcal{R}_{\varepsilon}(A) \coloneq%
+\set*{
+    R \subseteq 2^X%
+    \given%
+    \card R \le \aleph_0,\ %
+    \forall D \en R\,%
+    ( \diam(D) < \varepsilon)\ %
+    \text{ y } \ A \subseteq \textstyle\bigcup R
+}
+\]
+de este modo, por definición: $\nu_{d,\varepsilon}(A) = \inf_{R\en\mathcal{R}_{\varepsilon}(A)} \sum_{D\en R}\diam(D)^d$.%
+\footnote{
+    Notemos que, gracias a que $\diam(D) \ge 0$, las series $\sum_{D\en R}\diam(D)^d$ son absolutamente convergentes en $[0,\infty]$, por lo cual no importa el orden en que se sumen.
+}
+\begin{enumerate}[label = (\roman*), leftmargin=1.5em]
+%-----------------------------------------------------
+\item % Inciso (i)
+\emph{Probemos que $\nu_d$ es una medida exterior}:
+\begin{itemize}[leftmargin=1em]
+    \item $\nu_d(\varnothing)=0$: Para todo $\varepsilon>0$, tenemos que $\varnothing \subseteq \bigcup\varnothing$ donde $\diam(D) < \varepsilon$ para todo $D\en\varnothing$. Por lo tanto $\varnothing\en\mathcal{R}_\varepsilon(\varnothing)$, y así:
+    \[
+    0 = \sum_{D\en\varnothing}\diam(D)^d = \nu_{d,\varepsilon}(\varnothing),%
+    \quad\forall \varepsilon>0
+    \]
+    Se sigue que $\nu_d(\varnothing)=\sup_{\varepsilon>0}\nu_{d,\varepsilon}(\varnothing)=0$
+
+    \item\emph{Monotonía}: Si $A\subseteq B$, entonces todo recubrimiento de $B$ también recubre $A$, por lo cual $\mathcal{R}_{d,\varepsilon}(B) \subseteq \mathcal{R}_{d,\varepsilon}(A)$ para todo $\varepsilon>0$. Por consiguiente, la monotonicidad del ínfimo implica:
+    \[
+    \nu_{d,\varepsilon}(A)
+    \;=\; \inf_{R\en\mathcal{R}_{\varepsilon}(A)} \sum_{D\en R}\diam(D)^d
+    \;\le\; \inf_{R\en\mathcal{R}_{\varepsilon}(B)} \sum_{D\en R}\diam(D)^d
+    \;=\; \nu_{d,\varepsilon}(B),
+    \quad \forall\varepsilon>0.
+    \]
+    Tomando supremo respecto a $\varepsilon>0$, concluimos que $\nu_d(A)\le \nu_d(B)$.
+
+    \item\emph{$\sigma$-subaditividad}: Primero fijemos $d\ge 0$ y $\varepsilon>0$ y probemos la propiedad para $\nu_{d,\varepsilon}$.\par
+    En efecto, sea $\set{A_k}_{k\en\mathbb{N}}$ una familia de subconjuntos de $X$ y $A\coloneq\bigcup_{k\en\mathbb{N}} A_k$.
+    También fijemos $\delta>0$ arbitrario. Luego, para cada $k\en\mathbb{N}$ existe un recubrimiento $R_k \en \mathcal{R}_{\varepsilon}(A_k)$ tal que
+    \begin{equation}\label{eq:infsum}
+    \sum_{D\en R_{k}} \diam(D)^d
+    < \nu_{d,\varepsilon}(A_k)+\frac{\delta}{2^k}.
+    \end{equation}
+    Como la familia contable $R\coloneq\bigcup_{k\en\mathbb{N}} R_k$ es un recubrimiento de $A$ (pues recubre a cada $A_k$) y $\diam(D) < \varepsilon$ para cada $D\en R$, tenemos $R \en \mathcal{R}_\varepsilon(A)$. En consecuencia, gracias a (\ref{eq:infsum}) y a que el ínfimo es una cota inferior:%
+    \footnote{
+        Notemos que la segunda desigualdad de abajo no siempre es una igualdad, ya que la unión $\bigcup_kR_k$ no es disjunta y podrían haber un $D\subseteq X$ en común entre distintos $R_k$'s. De este modo, al sumar respecto a $R$, se suma $\diam(D)$ solo una vez, mientras que, al sumar respecto a $R_k$ y luego respecto a $k$, se sumará un $\diam(D)$ por cada repetición.
+    }
+    \[
+    \nu_{d,\varepsilon}(A)%
+    \le \sum_{D\en R} \diam(D)^d%
+    \le \sum_{k\en\mathbb{N}} \sum_{D\en R_{k}} \diam(D)^d
+    \le \sum_{k\en\mathbb{N}} \nu_{d,\varepsilon}(A_k)+\frac{\delta}{2^k}
+    = \left(\sum_{k\en\mathbb{N}} \nu_{d,\varepsilon}(A_k)\right)+\delta
+    \]
+    Pero $\delta>0$ es arbitrario, por lo cual
+    \begin{equation}\label{eq:sigsub}
+    \nu_{d,\varepsilon}(A) \le \sum_{k\en\mathbb{N}} \nu_{d,\varepsilon}(A_k)
+    \end{equation}
+    Esto prueba la $\sigma$-subaditividad de $\nu_{d,\varepsilon}$, para cualesquiera $d \ge 0$ y $\varepsilon>0$.\par
+    Ahora bien, sabemos que $\nu_{d,\varepsilon}(A_k) \leq \nu_d(A_k)$, así (\ref{eq:sigsub}) se convierte en
+    \[
+    \nu_{d,\varepsilon}(A) \le \sum_{k\en\mathbb{N}} \nu_{d}(A_k),
+    \quad\forall\varepsilon>0
+    \]
+    Así, al tomar supremo respecto a $\varepsilon>0$, concluimos que
+    \[
+    \nu_{d}(A) \le \sum_{k\en\mathbb{N}} \nu_{d}(A_k)
+    \]
+\end{itemize}
+Esto prueba que $\nu_d$ es una medida exterior; de hecho, hemos probado que cada $\nu_{d,\varepsilon}$ lo es.
+%-----------------------------------------------------
+\item % Inciso (ii)
+Supóngase que $\delta\coloneq \rho(A,B)>0$ y sea $0 < \varepsilon<\delta$ arbitrario. Luego, todo $R \en \mathcal{R}_\varepsilon(A\cup B)$ cumple:
+\begin{equation}\label{eq:propdisj}
+\forall D \en R,
+\quad D \cap A \neq \varnothing 
+\;\implies\;
+D \cap B = \varnothing
+\end{equation}
+En efecto, pues en caso contrario, existirían $a\en D \cap A$ y $b\en D \cap B$, pero $\rho(A,B) = \delta$, por lo cual $\rho(a,b) \ge \delta$; no obstante, $a,b\en D$, así que esto contradiría que $\diam(D) < \varepsilon < \delta$.\par
+Ahora bien, podemos poner $R = R_A \sqcup R_B$ donde 
+\[
+R_B = \set[\big]{D\en R \given D \cap B \neq \varnothing}
+\quad\text{y}\quad
+R_A = \set[\big]{D\en R \given D \cap B = \varnothing}
+\]
+de $R$ se hereda inmediatamente que $R_A,R_B$ son a lo sumo contables y sus elementos tienen diámetro menor que $\varepsilon$, solo falta ver que cubren a $A$ y $B$ respectivamente:
+\begin{itemize}[leftmargin=1em]
+    \item Si $x\en B$, existe $D\en R$ tal que $x\en D$. Se sigue que $x\en D \cap B$, de donde $D\en R_B$, y así $x \en \bigcup R_B$.
+    \item Si $x\en A$, existe $D\en R$ tal que $x\en D$. Se sigue que $x\en D \cap A$, por tanto (\ref{eq:propdisj}) implica $D \cap B = \varnothing$, de donde $D \en R_A$, y así $x\en \bigcup R_A$. 
+\end{itemize}
+En conclusión, $R_A\en\mathcal{R}_\varepsilon(A)$ y $R_B\en\mathcal{R}_\varepsilon(B)$.
+Gracias a esto, la definición de ínfimo garantiza que $\nu_{d,\varepsilon}(A) \leq \sum_{D\en R_A} \diam(D)^d$ y $\nu_{d,\varepsilon}(B) \leq \sum_{D\en R_B} \diam(D)^d$, por lo tanto
+\[
+\nu_{d,\varepsilon}(A) + \nu_{d,\varepsilon}(B)%
+\leq \sum_{D\en R_A} \diam(D)^d + \sum_{D\en R_B} \diam(D)^d%
+= \sum_{D\en R} \diam(D)^d
+\]
+Al tomar ínfimo respecto a $R\en\mathcal{R}_\varepsilon(A\cup B)$, obtenemos que
+\[
+\nu_{d,\varepsilon}(A) + \nu_{d,\varepsilon}(B) \leq \nu_{d,\varepsilon}(A\cup B)
+\]
+Esto último, junto a la $\sigma$-subaditividad de $\nu_{d,\varepsilon}$ probada en (i), garantizan:
+\[
+\nu_{d,\varepsilon}(A) + \nu_{d,\varepsilon}(B) = \nu_{d,\varepsilon}(A\cup B),
+\quad\forall \varepsilon \en (0,\delta)
+\]
+Al tomar límite cuando $\varepsilon \to 0$, finalmente obtenemos:
+\[
+\nu_{d}(A) + \nu_{d}(B) = \nu_{d}(A\cup B)
+\]
+Por tanto, $\mathcal{A}_d\coloneq \set{A \subseteq X \mid A \text{ es } \nu_d\text{-medible}}$ contiene a los Borel y $\mu_d = \nu_d|_{\mathcal{A}_d}$ es una medida.
+%-----------------------------------------------------
+\item % Inciso (iii)
+Sea $A\subseteq X$ finito y denotemos $\varepsilon_0 \coloneq \min\set*{\rho(x,y) \mid x,y \en A,\ x \neq y}$. Afirmamos que:
+\begin{equation}\label{eq:nucard}
+\nu_{0,\varepsilon}(A) = \card(A), 
+\quad \forall\varepsilon\en(0,\varepsilon_0)
+\end{equation}
+En efecto, como $A \subseteq \bigcup_{x \en A} \set{x}$ y $\diam(\set{x}) = 0$, se tiene $\set[\big]{\set{x} \given x\en A} \en \mathcal{R}_{\varepsilon}(A)$, así:
+\[
+\nu_{0,\varepsilon}(A)
+\le \sum_{x \en A} \diam(\set{x})^0
+=\sum_{x \en A} 1 
+= \card(A)
+\]
+Recíprocamente, para todo $0<\varepsilon < \varepsilon_0$, si $R \en \mathcal{R}_\varepsilon(A)$, cualquier $D\en R$ contiene a lo sumo un elemento de $A$,%
+\footnote{
+    En efecto, pues en caso contrario, habrían $x,y\en A \cap D$ con $x\neq y$, de donde se seguiría que $\rho(x,y) \ge \varepsilon_0$. Pero esto contradice que $\diam(D) < \varepsilon < \varepsilon_0$.
+}
+por lo que $\card(R) \ge \card(A)$, y así:
+\[
+\sum_{D\en R} \diam(D)^0 = \card(R) \ge \card(A)
+\]
+Al tomar ínfimo respecto a $R\en\mathcal{R}_\varepsilon(A)$, obtenemos la desigualdad recíproca: $\nu_{0,\varepsilon}(A) \ge \card(A)$.
+Hemos demostrado (\ref{eq:nucard}), así al tomar $\varepsilon \to 0$, concluimos que $\nu(A) = \card(A)$ para $A\subseteq X$ finito.\par
+Por otro lado, si $A \subseteq X$ es infinito, entonces para cualquier $n\en\mathbb{N}$, existe $B_n \subseteq A$ con $\card(B_n) = n$, así la monotonía de $\nu_0$ y lo recién probado para el caso finito implican:
+\[
+\nu_0(A) \ge \nu_0(B) = n, \quad\forall n\en\mathbb{N}
+\]
+Es decir, $\nu_0(A) = \infty$. En conclusión, hemos demostrado que $\nu_0$ coincide con la medida de conteo, como esta última ya es una medida en $2^X$, tenemos que todo subconjunto de $X$ es $\nu_0$-medible. Por tanto, $\mathcal{A}_0 = 2^X$ y $\mu_0 = \nu_0$.
+%-----------------------------------------------------
+\item % Inciso (iv)
+\emph{Veamos que $\nu_n$ (y por tanto $\mu_n$) es invariante por traslación}:\\
+Primero probemos que, si $f\colon (X,\rho_X) \to (Y,\rho_Y)$ es $L$-Lipschitz, entonces $\nu_d(f(A)) \le L^d\nu_d(A)$ para todo $A\subseteq X$.
+En efecto, como $\rho_Y(f(x), f(y)) \le L\rho_X(x, y)$ para cualesquiera $x, y \en X$, se sigue que $\diam(f(D)) \le L \diam(D)$ para cualquier $D\subseteq X$. De esto se sigue inmediatamente que, para cualquier $R\en\mathcal{R}_{\varepsilon}(A)$, se tiene $f(R) \coloneq \set{f(D) \given D\en R} \en \mathcal{R}_{L\varepsilon}(f(A))$. 
+Por lo tanto, al ser $\nu_{d, L\varepsilon}(f(A))$ cota inferior:
+\[
+\nu_{d, L\varepsilon}(f(A)) 
+\leq \sum_{D\en R}\diam(f(D))^d
+\leq \sum_{D\en R}(L \diam(D))^d
+= L^d \sum_{D\en R}\diam(D)^d
+\]
+Tomando ínfimo resp. a $R\en\mathcal{R}_{\varepsilon}(A)$, concluimos que $\nu_{d, L\varepsilon}(f(A)) \le L^d \nu_{d,\varepsilon}(A)$. Finalmente, al tomar $\varepsilon \to 0$, también se tiene que $L\varepsilon \to 0$, por lo cual obtenemos $\nu_{d}(f(A)) \le L^d \nu_{d}(A)$.\par
+Un corolario es que, si $f$ es isometría biyectiva, $\nu_d(f(A)) = \nu_d(A)$, gracias a que $f$ y $f^{-1}$ son 1-Lipschitz. En particular, $x \mapsto x+a$ es una isometría biyectiva de $\mathbb{R}^n$ para todo $a\en\mathbb{R}^n$, así que $\nu_d$ es invariante por traslación en $\mathbb{R}^n$ para todo $d\ge 0$. En particular lo serán $\nu_n$ y $\mu_n$.\vspace{1em}\\
+\emph{Normalicemos $\mu_n$ y usemos unicidad de $m$}:\\
+Para normalizar, primero necesitamos verificar que $0 < \mu_n([0,1]^n) < \infty$. Esto es así, por un lado, para todo $\varepsilon>0$, existe $k\en\mathbb{N}$ tal que $\nicefrac{\sqrt{n}}{k} < \varepsilon$. Así que damos una partición regular de $[0,1]^n$ en $k^n$ hipercubos:
+\[\textstyle
+R_k\coloneq\set*{
+    \prod^n_{i=1}\big[\frac{l_i}{k},\frac{l_i+1}{k}\big]
+    \given
+    (l_1,\dots,l_n)\en\set{0,\dots,n-1}^n
+    }
+\]
+Es sencillo notar que el diámetro de cualquier $Q \en R_k$ se alcanza en vértices opuestos, así que
+\[
+\diam(Q) 
+= \norm{\bigl(\tfrac{l_1+1}{k},\dots,\tfrac{l_n+1}{k}\bigr)-\bigl(\tfrac{l_1}{k},\dots,\tfrac{l_n}{k}\bigr)}
+= \norm{\tfrac{1}{k},\dots,\tfrac{1}{k}} 
+= \tfrac{\sqrt{n}}{k} < \varepsilon
+\]
+Por tanto, $R_k\en\mathcal{R}_\varepsilon([0,1]^n)$, y así:
+\[
+\nu_{n,\varepsilon}([0,1]^n) 
+\leq \sum_{Q\en R_k}\diam(Q)^n = k^n \cdot \Bigl(\tfrac{\sqrt{n}}{k}\Bigr)^n = \sqrt{n^n}
+\]
+al tomar $\varepsilon\to 0$ esto implica que $\mu_n([0,1]^n)=\nu_n([0,1]^n) \le \sqrt{n^n}$.\par
+Para probar que $\mu_n([0,1]^n) >0$ notemos primero que todo conjunto $A\subseteq\mathbb{R}^n$ de diámetro finito está contenido en un hipercubo $Q_A$ de lado $\diam(A)$. En efecto, si $\pi_i$ es la proyección sobre la $i$-ésima coordenada, $\pi_i(A)$ tiene diámetro menor o igual que $\diam(A)$,%
+\footnote{
+    De otro modo, abría dos puntos $x,y\en A$ cuyas $i$-ésimas entradas están a distancia mayor a $\diam(A)$, de donde se seguiría que $x,y\en A$ están a distancia mayor a $\diam(A)$.
+}
+por lo tanto $\pi_i(A) \subseteq I_i \coloneq [\inf\pi_i(A),\inf\pi_i(A)+\diam(A)]$, y así $A \subseteq I_1 \times\cdots\times I_n$. Ahora bien, sean $\varepsilon>0$ y $R\en\mathcal{R}_\varepsilon([0,1]^n)$. Por $\sigma$-subaditividad y monotonía de $\nu$ la medida exterior de Lebesgue:
+\[
+1 = \nu([0,1]^n) 
+\le \sum_{D\en R}\nu(D)
+\le \sum_{D\en R}\nu(Q_D)
+= \sum_{D \en R} \diam(D)^n
+\]
+Tomando ínfimo respecto a $R\en\mathcal{R}_\varepsilon([0,1]^n)$, concluimos que $\nu_{n,\varepsilon}([0,1]^n) \ge 1$. Finalmente, al tomar $\varepsilon\to0$ obtenemos $\mu_n([0,1]^n) = \nu_n([0,1]^n) \ge 1>0$.\par
+Por último, si denotamos $c = 1/\mu_n([0,1]^n)$, se sigue que $c\mu_n$ es una medida invariante por traslación que satisface $c\mu_n([0,1]^n) = 1$, así que la unicidad del teorema 2.1 de \cite{Salamon} implica que $c\mu_n = m$.%
+\footnote{
+Usando la desigualdad isodiamétrica, se puede probar que $c=m\bigl(\set*{x\given \norm{x} < \nicefrac{1}{2}}\bigr)$. 
+}
+\par 
+En particular, para $n=1$ probamos $1 \le \mu_1([0,1]) \le \sqrt{1^1} = 1$, así que $c = 1$ y $\mu_1 = m$ en $\mathbb{R}$.
+%-----------------------------------------------------
+\item % Inciso (v)
+La dimensión de Hausdorff de $A$ se define como
+\[
+\dim(A)=\inf\set*{s\ge 0\given\nu_s(A)=0}
+=\sup\set*{s\ge 0\given\nu_s(A)=\infty}
+\]
+\emph{Nota}: como $\dim(A)\en [0,\infty]$, es necesario usar la convención $\inf \varnothing = \infty$ y $\sup \varnothing = 0$. De este modo, la dimensión siempre está definida en $[0,\infty]$.
+
+Para probar la igualdad de arriba afirmamos que, si $\nu_d(A)>0$, entonces $\nu_s(A)=\infty$ para todo $s<d$, y si $\nu_d(A)<\infty$, entonces $\nu_s(A)=0$ para todo $s>d$. En efecto, para todos $\varepsilon>0$ y $R\en\mathcal{R}_\varepsilon(A)$ se tiene que si $s<d$ entonces $s-d < 0$ y $\diam(D)^{s-d} > \varepsilon^{s-d}$ para $D\en R$, así
+\[
+\sum_{D\en R} \diam(D)^s
+= \sum_{D\en R} \diam(D)^d\diam(D)^{s-d}
+\ge \varepsilon^{s-d}\sum_{D\en R} \diam(D)^d
+\]
+al tomar ínfimos para $R\en\mathcal{R}_\varepsilon(A)$ se sigue $\nu_{s,\varepsilon}(A) \geq \varepsilon^{s-d}\cdot\nu_{d,\varepsilon}(A)$. Si suponemos $\nu_d(A) >0$,
+al tomar $\varepsilon \to 0$ en esta desigualdad, obtenemos $\nu_s(A) \ge \infty\cdot\nu_d(A) = \infty$ (ya que $s-d<0$). Recíprocamente, si $s>d$ entonces $s-d>0$ y $\diam(D)^{s-d} < \varepsilon$, por lo que de forma análoga a lo anterior llegamos a que $\nu_{s,\varepsilon}(A) \le \varepsilon^{s-d}\cdot\nu_{d,\varepsilon}(A)$. Si suponemos $\nu_d(A)<\infty$ entonces al tomar $\varepsilon\to0$ en la última desigualdad obtenemos $\nu_s(A) \le 0 \cdot \nu_d(A) = 0$ (ya que $s-d>0$).\par
+Ahora bien, la afirmación recién probada implica que $I \coloneq \set{s\ge0 \given \nu_s(A)=0}$ es un intervalo en $[0,\infty]$ abierto a la derecha, y $J \coloneq \set{s\ge0 \given \nu_s(A)=\infty}$ uno abierto a la izquierda; más aún, si denotamos $d=\inf I$, para todo $s<d$ se tiene $\nu_s(A)= \infty$,%
+\footnote{
+De otro modo, la afirmación del inicio implicaría $\nu_r(A)=0$ para $s<r<d$, lo que contradice que $d=\inf I$.
+}
+por lo cual $d=\sup J$.\par
+Esto prueba la igualdad deseada y garantiza que si $d\ge0$ es tal que $0< \nu_d(A) < \infty$ entonces $\nu_s(A) =0$ para $s<d$ y $\nu_s(A) = \infty $ para $s>d$, de donde $d = \dim A$.
+% \begin{itemize}[leftmargin=1em]
+% \item Si $\nu_d(A) > 0$ entonces ya vimos que $\nu_s(A) = \infty$ para todo $s<d$, así que $d = \sup J$.
+% \item Si $\nu_d(A) = 0$ entonces
+
+% \end{itemize}
+%-----------------------------------------------------
+\item % Inciso (vi)
+Como $\Gamma\subseteq\mathbb{R}^n$ es una curva suave embebida, admite una parametrización por longitud de arco $\gamma \colon [0,L] \to \Gamma$, donde $0<L<\infty$ es la longitud de $\Gamma$ y $\norm{\gamma'(t)} = 1$ para todo $t\en[0,L]$. Se sigue (por teo. del valor medio) que $\gamma$ es 1-Lipschitz, así que lo visto en (iv) garantiza que:
+\[
+\nu_1(\Gamma) \le \nu_1([0,L]) = m([0,L]) = L
+\]
+Para la otra desigualdad afirmamos que, si $C\subseteq\mathbb{R}^n$ es cualquier conexo, $\diam(C) \le \nu_1(C)$. En efecto, si $a,b \en C$, existe una isometría afín (biyectiva) $R \colon \mathbb{R}^n \to \mathbb{R}^n$ tal que:%
+\footnote{
+    Basta componer una traslación $x\mapsto x-a$ con una rotación que mande $b-a$ al primer eje.
+}
+\[
+R(a) = 0,
+\quad\text{y}\quad
+R(b) = (\norm{b-a},0,\dots,0)
+\]
+Como la proyección $\pi_1$ es 1-Lipschitz y $R$ es isometría biyectiva, $\nu_1(\pi_1(R(C))) \leq \nu_1(C)$. Sin embargo, $C$ es conexo, por lo cual también $\pi_1(R(C))$ (i.e., es un intervalo). Luego, como $0,\norm{b-a}\en\pi_1(R(C))$, se sigue que $[0,\norm{b-a}] \subseteq \pi_1(R(C))$, y así por monotonía:
+\[
+\norm{b-a} = \nu_1([0,\norm{b-a}]) \leq \nu_1(\pi_1(R(C)))
+\]
+es decir, por lo visto antes, $\norm{b-a} \leq \nu_1(C)$ para todos $a,b\en C$. Tomando supremo concluimos $\diam(C) \leq \nu_1(C)$, como queríamos probar.\par
+Ahora bien, sea $P=\set{x_1<\cdots<x_m}$ una partición arbitraria de $[0,L]$. Entonces cada $C_i \coloneq \gamma([x_i,x_{i+1}])$ es conexo, así que por lo recién probado
+\[
+\norm{\gamma(x_{i+1}) - \gamma(x_i)} \le\dim(C_i) \le \nu_1(C_i),
+\quad\forall i=1,\cdots m-1
+\]
+Además, como $\gamma$ es un embebimiento, cada $C_i \cap C_j$ tiene a lo sumo un punto, pero $\mu_0 = \nu_0$ es la medida de conteo, así $\nu_0(C_i \cap C_j) < \infty$, y (v) implica que $\nu_1(C_i \cap C_j) = 0$. Luego, $\Gamma = \bigcup_i C_i$ de modo que podemos quitar un conjunto de medida cero (todos los $C_i \cap C_j$) para hacer esta unión disjunta, lo cual no altera la medida de ningún $C_i$, así que por aditividad de $\mu_1$ (los $C_i$ y $\Gamma$ son cerrados al ser imagen de un compacto):
+\[
+\sum^{m-1}_{i=1} \norm{\gamma(x_{i+1}) - \gamma(x_i)}
+\leq
+\sum^{m-1}_{i=1} \diam(C_i)
+\leq
+\sum^{m-1}_{i=1} \mu_1(C_i)
+=
+\mu_1(\Gamma)    
+\]
+Tomando supremo respecto a las particiones $P$, concluimos $L \leq \mu_1(\Gamma) = \nu_1(\Gamma)$. Esto, junto a la primer desigualdad probada en el inciso, demuestra $\nu_1(\Gamma) = L$. En particular, $0< \nu_1(\Gamma) < \infty$, así que (v) implica que $\dim(\Gamma) = 1$.
+%-----------------------------------------------------
+\item % Inciso (vii)
+Sea $\mathcal{C}=\mathcal{C}_{1/3}$ el conjunto de Cantor y sea $s = \frac{\ln 2}{\ln 3} = \log_32$.
+
+\medskip
+\emph{Acotemos superiormente $\nu_s(\mathcal{C})$}:\\
+Dado $\varepsilon>0$ arbitrario, existe $n \en \mathbb{N}$ tal que $\varepsilon<3^{-n}$. Como $\mathcal{C} \subseteq C^{1/3}_n$ donde $C^{1/3}_n$ es la unión de $2^n$ intervalos $I_1,\dots,I_{2^n}$ de longitud $3^{-n}< \varepsilon$, tenemos $\set{I_k}^{2^n}_{k=1} \en \mathcal{R}_{\varepsilon}(\mathcal{C})$ y
+\[
+\nu_{s,\varepsilon}(\mathcal{C})
+\le \sum_{i=1}^{2^n} \diam(I_k)^s
+= \sum_{i=1}^{2^n} (3^{-n})^s
+= 2^n \cdot (3^{-n})^s
+= 2^n \cdot (3^{s})^{-n}
+\]
+Como $s = \log_32$, se tiene $2^n \cdot (3^{s})^{-n} = 2^n\cdot2^{-n} = 1$, y por lo tanto $\nu_{s,\varepsilon}(\mathcal{C}) \le 1$. Como $\varepsilon>0$ es arbitrario, al hacer $\varepsilon \to 0$ obtenemos
+\[
+\nu_s(\mathcal{C}) \le 1
+\]
+
+\medskip
+\emph{Acotemos inferiormente $\nu_s(\mathcal{C})$}:\\
+Primero notemos que, si $I \subseteq \mathbb{R}$ es un intervalo abierto con $0 < \diam(I) < \tfrac{1}{3}$, entonces existe un único entero $k \ge 2$ tal que
+\[
+3^{-k} \le \diam(I) \le 3^{-(k-1)}
+\]
+Luego, por la construcción del conjunto de Cantor, la longitud de $I$ fuerza a que:%
+\begin{itemize}[leftmargin=1em]
+    \item $I$ intersecta a lo sumo un intervalo de $C^{1/3}_{k-1}$.
+    \item Para cada $m \ge k$, $I$ intersecta a lo sumo $2^{m-k+1}$ intervalos de $C^{1/3}_m$.
+\end{itemize}
+En efecto, $C^{1/3}_{k-1}$ consta de $2^k$ intervalos separados por una distancia de al menos $3^{-(k-1)}$, así que si $I$ intersectara dos de ellos, existirían $a,b\en I$ con $\abs{b-a} \ge 3^{-(k-1)}$. Como $I$ es abierto, esto último implicaría $\diam(I) > 3^{-(k-1)}$, lo cuál es contradictorio. Esto prueba el primer punto. El segundo punto es consecuencia inmediata del primero, al notar que cada intervalo de $C^{1/3}_{k-1}$ contiene exactamente $2^{m-k+1}$ intervalos de $C^{1/3}_{m}$ ($m\ge k$).
+
+\medskip
+Ahora bien, sea $0 < \varepsilon < \tfrac{1}{6}$ y sea $\set{D_i}_{i\en\mathbb{N}} \en \mathcal{R}_\varepsilon(\mathcal{C})$ una cubierta arbitraria.
+
+Para cada $i$, tomamos un intervalo abierto $I_i \supseteq D_i$ tal que
+\[
+\diam(I_i)
+= \diam(D_i) + \varepsilon_i,
+\quad \text{donde} \quad
+\varepsilon_i := (\varepsilon 2^{-i})^{1/s}.
+\]
+(Por ejemplo, $I_i = (\inf D_i - \nicefrac{\varepsilon_i}{2},\sup D_i+\nicefrac{\varepsilon_i}{2})$ ya que $D_i$ es acotado).
+Entonces $\set{I_i}_{i\en\mathbb{N}}$ también es una cubierta de $\mathcal{C}$ y satisface $\diam(I_i) < \varepsilon + (\varepsilon 2^{-i})^{1/s} \le \varepsilon+(\varepsilon)^{1/s} \le 2\varepsilon< \tfrac{1}{3}$.%
+\footnote{
+    Aquí aprovechamos que $x^{1/s}$ es creciente y que, gracias a que $\varepsilon<1$ y $1/s >1$, se tiene $(\varepsilon)^{1/s} \le \varepsilon$.
+}
+Además, por compacidad, existe una subcubierta finita $I_1\cup\dots\cup I_n \supseteq \mathcal{C}$ (reindexando si es necesario).\par
+Sea $m$ suficientemente grande tal que
+\[
+3^{-(m-1)} < \diam(I_i),
+\quad \forall i=1,\dots,n.
+\]
+Por lo visto al inicio (como $0<\diam(I_i) < 1/3$), para cada $1 \le i \le n$, existe $k_i\ge 2$ (por lo anterior, $m \ge k_i$) con
+\[
+3^{-k_i} \le \diam(I_i) \le 3^{-(k_i-1)}
+\]
+de modo que $I_i$ intersecta a lo sumo $2^{m-k_i+1}$ intervalos de $C^{1/3}_m$. Observemos que, gracias a que $2^{-k_i} = (3^{\log_32})^{-k_i} = (3^s)^{-k_i} = (3^{-k_i})^s$:
+\[
+2^{m-k_i+1}
+= 2^{m+1} \cdot 2^{-k_i}
+= 2^{m+1} \cdot (3^{-k_i})^s
+\le 2^{m+1} \cdot \diam(I_i)^s
+\]
+Por lo tanto, cada $I_i$ intersecta a lo sumo $2^{m+1} \diam(I_i)^s$ intervalos de $C^{1/3}_m$.
+
+Como los $2^m$ intervalos de $C^{1/3}_m$ deben quedar cubiertos por los $I_1,\dots,I_n$, se tiene
+\[
+2^m \le \sum_{i=1}^n 2^{m+1}\diam(I_i)^s
+\qquad\text{de donde}\qquad
+\frac{1}{2} \le \sum_{i=1}^n \diam(I_i)^s
+\]
+
+\medskip
+Más aún, gracias a que $0 < s <1$, tenemos $(a+b)^s \le a^s + b^s$ para todos $a,b \ge 0$, así:
+\[
+\diam(I_i)^s
+=(\diam(D_i) + \varepsilon_i)^s
+\le \diam(D_i)^s + \varepsilon_i^s
+= \diam(D_i)^s + \varepsilon 2^{-i}.
+\]
+Sumando,
+\[
+\sum_{i=1}^n \diam(I_i)^s
+\le \sum_{i=1}^n \diam(D_i)^s
++ \varepsilon \sum_{i=1}^n 2^{-i}
+\le \sum_{i=1}^\infty \diam(D_i)^s + \varepsilon.
+\]
+Por lo tanto,
+\[
+\frac{1}{2}
+\le \sum_{i=1}^\infty \diam(D_i)^s + \varepsilon,
+\]
+y de aquí
+\[
+\frac{1}{2} - \varepsilon
+\leq
+\sum_{i=1}^\infty \diam(D_i)^s
+\]
+Como $\set{D_i}_i\en\mathcal{R}_\varepsilon(\mathcal{C})$ es arbitraria, se sigue que
+\[
+\frac{1}{2} - \varepsilon\le\nu_{s,\varepsilon}(\mathcal{C}) 
+\]
+Haciendo $\varepsilon \to 0$, concluimos que $\frac{1}{2} \le \nu_s(\mathcal{C})$.
+
+\medskip
+Finalmente, acabamos de probar $\frac{1}{2} \le \nu_s(\mathcal{C}) \le 1$, así que por (v) la dimensión de Hausdorff de $\mathcal{C}$ es $s = \frac{\ln 2}{\ln 3} = \log_32$.
+\end{enumerate}
+\end{sol}

@@ -1,0 +1,63 @@
+%------------------------------ Ejercicio 2.32 -------------------------------
+
+\setcounter{neje}{31}
+\begin{nejer}
+Sea $(\mathbb{R}, \mathcal{A}, m)$ el espacio de medida de Lebesgue. Construya un conjunto Borel $E \subseteq \mathbb{R}$ con
+$$
+0 < \frac{m(E \cap I)}{m(I)} < 1
+$$
+para todo intervalo abierto acotado y no vacío $I \subseteq \mathbb{R}$.
+\end{nejer}
+\begin{sol}
+Antes que nada, recordemos el conjunto de Smith-Volterra-Cantor $\mathcal{C}_\alpha$ (con $0 < \alpha \leq \nicefrac{1}{3}$) definido en la solución del \cref{nejer:2.25}: este es construido inductivamente eliminando, en el $n$-ésimo paso, el tercio central de longitud $\alpha^n$ de cada uno de los $2^{n-1}$ sub-intervalos definidos hasta el momento. Asimismo, probamos que $\mathcal{C}_\alpha$ es compacto, de interior vacío y de medida positiva cuando $\alpha< \nicefrac{1}{3}$. Entonces fijemos un $0<\alpha<\nicefrac{1}{3}$.
+
+Observamos primero que si $I=[a,b]$ con $a < b$ es un intervalo compacto, entonces existe una transformación afín $T_I \colon \mathbb{R} \to \mathbb{R}$ con $x \mapsto a+ (b-a)x$ (luego, mapea a $[0,1]$ sobre $I$), la cual es un homeomorfismo; más aún, gracias a que $T_I - a$ es un isomorfismo lineal, el lema 2.18 de \cite{Salamon} y la invarianza bajo traslación de $m$ garantizan que
+\[
+m(T_I(A)) = m(T_I(A) - a) = \abs{\det(T_I-a)} \cdot m(A) = (b-a)\cdot m(A)
+\]
+para todo $A \en\mathcal{A}$. En particular, $T_I(\mathcal{C}_{\alpha}) \subseteq I$ es compacto, de interior vacío y de medida positiva.
+\vspace{1em}\\
+\emph{Construyamos el conjunto $E$}:\\
+Sea $\set{I_n}_{n\in\mathbb{N}}$ una enumeración de todos los intervalos abiertos con extremos racionales en $\mathbb{R}$. Construiremos por inducción dos sucesiones de conjuntos compactos, con interior vacío y de medida positiva $\set{A_n}$ y $\set{B_n}$ que satisfacen:
+\[
+A_n,B_n \subseteq I_n,\quad A_n \cap B_n = \varnothing \quad\text{y}\quad A_n \cap C_n = B_n \cap C_n = \varnothing
+\]
+donde $C_n = A_1\cup B_1 \cup \dots \cup A_{n-1} \cup B_{n-1}$.\par
+
+En efecto, supongamos construidos $A_1,B_1,\dots,A_{n-1},B_{n-1}$. Como $C_n$ es unión finita de conjuntos compactos sin interior, también es compacto sin interior. Por lo tanto, el conjunto $I_n\setminus C_n$ es abierto no vacío,%
+\footnote{
+Es abierto ya que $I_n$ es abierto y $C_n$ compacto; además, como $C_n$ no tiene interior, $C_n \nsupseteq I_n$, de donde $I_n \setminus C_n \neq \varnothing$.
+}
+así que contiene un intervalo abierto $J_n$. Ahora, dentro de $J_n$ elegimos dos sub-intervalos compactos disjuntos $J_n', J_n'' \subseteq J_n$, y luego definimos los siguientes compactos sin interior:
+\[
+A_n := T_{J_n'}(\mathcal{C}_\alpha), \quad B_n := T_{J_n''}(\mathcal{C}_\alpha),
+\]
+Se sigue que $A_n \subseteq J'_n$ y $B_n \subseteq J''_n$, por lo que serán disjuntos; además, ambos están dentro de $I_n \setminus C_n$ por lo que cumplen todas las propiedades requeridas.
+Definimos finalmente el boreliano:
+\[
+E := \bigcup_{n=1}^\infty A_n
+\]
+\vspace{1em}\\
+\emph{Verifiquemos que $E$ cumple la propiedad deseada}:\\
+Sea $I \subseteq \mathbb{R}$ un intervalo abierto acotado no vacío arbitrario. Como los intervalos con extremos racionales forman una base de la topología usual, existe $I_n \subseteq I$, particularmente $A_n \subseteq I$, así que $A_n \subseteq E \cap I$, de donde:
+\[
+ m(E \cap I) \ge m(A_n) > 0
+\]
+Análogamente, $B_n \subseteq I$ y, por construcción, $B_n \cap E = \varnothing$,%
+\footnote{
+Esto se tiene gracias a que $B_n$ es ajeno a todo $A_k$. En efecto, se cumple para $k< n$ ya que $B_n \cap A_k  \subseteq B_n \cap C_n = \varnothing$, se cumple para $k>n$ ya que $B_n \cap A_k \subseteq C_k \cap A_k = \varnothing$, y para $k=n$ ya tenemos $A_n \cap B_n = \varnothing$.
+}
+por lo cual $B_n \subseteq I \setminus E$, de donde:
+\[
+m(I \setminus E) \ge m(B_n) > 0
+\]
+Por lo tanto, por aditividad (y gracias a que $I$ tiene medida finita por ser acotado):
+\[
+m(I) = m(E \cap I) + m(I\setminus E) > m(E \cap I)
+\]
+Concluimos que $0 < m(E \cap I) < m(I) < \infty$, así que hemos probado
+\[
+0 < \frac{m(E \cap I)}{m(I)} < 1
+\]
+para todo intervalo abierto acotado no vacío $I$, como se quería.
+\end{sol}

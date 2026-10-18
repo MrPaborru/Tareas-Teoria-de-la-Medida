@@ -1,0 +1,47 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TITULO TOC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\cftbeforetoctitleskip}{-2.5em}
+% \setlength{\cftaftertoctitleskip}{7em}
+\renewcommand{\cfttoctitlefont}{\hfill\fontfamily{lmr}\selectfont\resizebox{!}{1cm}}
+\renewcommand{\cftaftertoctitle}{
+    \resizebox{!}{1cm}{\,\colorbox{rojoCIMAT}{\!\vphantom{I}\!}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SEPARACIÓN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Capitulos
+\setlength{\cftbeforechapskip}{0.5em} % arriba
+\renewcommand{\cftchapafterpnum}{\vspace{0.3em}} % abajo
+% Secciones
+\setlength{\cftbeforesecskip}{0.2em} % arriba
+% Subsecciones
+\setlength{\cftsubsecindent}{\cftsecindent} % indentado
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CAPITULOS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cftpagenumbersoff{chap}
+\renewcommand{\cftchappresnum}{\bfseries\color{white}}
+\newcommand{\chaptertocbox}{%
+    \makebox[0pt][l]{%
+        \tikz[remember picture,overlay]{
+            \draw[color=grisCIMAT, line width=1pt]
+                ([xshift=-0.05em,yshift=-0.35em]0,0)
+                rectangle
+                ++(\textwidth,1.22em);
+            \fill[color=grisCIMAT, line width=1pt]
+                ([xshift=-0.05em,yshift=-0.35em]0,0)
+                rectangle
+                ++(\cftchapnumwidth,1.25em);
+        }%
+    }%
+}
+\renewcommand{\cftchapfont}{\large\chaptertocbox}
+\renewcommand{\cftchapaftersnumb}{\scshape}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECCIONES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\cftsecfont}{\fontfamily{bch}\selectfont\color{grisCIMAT}}
+\cftpagenumbersoff{sec}
+\renewcommand{\cftsecdotsep}{\cftnodots}
+
+\renewcommand{\cftsubsecfont}{\small\fontfamily{bch}\selectfont}

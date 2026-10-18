@@ -1,0 +1,89 @@
+%------------------------------ Ejercicio 4.58 -------------------------------
+\setcounter{neje}{57}
+\begin{nejer}
+Pruebe que todo espacio de medida $\sigma$-finito $(X, \mathcal{A}, \mu)$ es localizable.
+% \emph{Sugerencia.} Asuma primero que $\mu(X) < \infty$. Sea $\mathcal{E} \subseteq \mathcal{A}$ y defina
+% $$
+% c \coloneq \sup\set*{\mu(E_1 \cup \dots \cup E_n) \mid n \en \mathbb{N}, E_1, \dots, E_n \en \mathcal{E}}.
+% $$
+% Muestre que hay una sucesión $E_i \en \mathcal{E}$ tal que $\mu\left(\bigcup_{i=1}^\infty E_i\right) = c$. Pruebe que $H \coloneq \bigcup_{i=1}^\infty E_i$ es una envolvente de $\mathcal{E}$.
+\end{nejer}
+\begin{sol}
+Primero notemos que $(X, \mathcal{A}, \mu)$ es semi-finito. En efecto, existe una sucesión de conjuntos medibles $X_1 \subseteq X_2\subseteq \cdots$ con $\mu(X_n) < \infty$ y $X = \bigcup_nX_n$. Luego, si $A\en\mathcal{A}$ cumple $\mu(A)>0$, la sucesión $A_n \coloneq A \cap X_n \en \mathcal{A}$ también es monótona, con $\mu(A_n) < \infty$ y $A = \bigcup_nA_n$. Por lo tanto, $\lim_{n\to\infty} \mu(A_n) = \mu(A) >0$, de donde se sigue que forzosamente existe un $n\en\mathbb{N}$ con $\mu(A_n) >0$. Por consiguiente, $A_n\en\mathcal{A}$ cumple que $A_n \subseteq A$ y $0 < \mu(A_n) < \infty$.\vspace{1em}\\
+\emph{Veamos que si $\mu(X) < \infty$ entonces toda $\mathcal{E} \subseteq \mathcal{A}$ tiene una envolvente}:\\
+Como $\set*{\mu(E_1 \cup \dots \cup E_n) \mid n \en \mathbb{N},\ E_1, \dots, E_n \en \mathcal{E}}$ es acotado por $\mu(X) < \infty$, entonces existe 
+\[
+c \coloneq \sup\set[\big]{\mu(E_1 \cup \dots \cup E_n) \mid n \en \mathbb{N},\ E_1, \dots, E_n \en \mathcal{E}} < \infty
+\]
+Luego, para cada $k\en\mathbb{N}$, existen $n_k\en\mathbb{N}$ y $E^k_1,\dots,E^k_{n_k} \en \mathcal{E}$ tales que
+\[
+c - \mu\bigl(E^k_1\cup\dots\cup E^k_{n_k}\bigr) < \frac{1}{k}
+\]
+La colección $\set{E^k_i \given k\en\mathbb{N},\ 1\le i \le n_k}$ es numerable, así que admite una enumeración $\set{E_i}_{i\en\mathbb{N}}$.\par 
+Ahora bien, definimos $H = \bigcup^\infty_{i=1}E_i\en\mathcal{A}$. Como la sucesión $\set{\bigcup^n_{i=1} E_i}_{n\en\mathbb{N}}$ es monótona con unión $H$, tenemos que el límite de sus medidas converge a $\lim_{n\to\infty} \mu(\bigcup^n_{i=1}E_i) = \mu(H)$. Afirmamos que dicho límite es igual a $c$. En efecto, por un lado, como $E_i \en \mathcal{E}$, por definición $\mu(\bigcup^n_{i=1}E_i) \leq c$ para todo $n\en\mathbb{N}$, por lo que al tomar límite: $\mu(H) \le c$. Por otro lado, para todo $k\en\mathbb{N}$ existe un $N\en\mathbb{N}$ tal que todos los $E^k_j$ son iguales a algún $E_i$ para $i \leq N$. De esto se sigue que
+\[
+\mu(E^k_1\cup\dots\cup E^k_{n_k}) \le \mu\left(\bigcup\nolimits^N_{i=1} E_i\right) \leq \mu(H)
+\]
+por lo tanto (recordando que ya probamos $c \ge \mu(H)$):
+\[
+0 \leq c - \mu(H) \leq  c - \mu\bigl(E^k_1\cup\dots\cup E^k_{n_k}\bigr) < \frac{1}{k} 
+\]
+como $k\en\mathbb{N}$ es arbitrario, se sigue que $c = \mu(H)$. Finalmente, probemos que $H$ es envolvente de $\mathcal{E}$:
+\begin{itemize}[leftmargin=1em]
+\item Si $E\en\mathcal{E}$, $\set*{E\cup\bigcup^n_{i=1}E_i}_{n}$ es monótona con unión $E\cup H$, así que $\lim_{n}\mu(E\cup\bigcup^n_{i=1}E_i) = \mu(E\cup H)$. Luego, por ser $c$ supremo, para cada $n\en\mathbb{N}$ se tiene $\mu(E\cup\bigcup^n_{i=1}E_i)\leq c$, así que al tomar $n\to\infty$, $\mu(E\cup H) \leq c$. Después, gracias a que $E\cup H = E\setminus H \;\dotcup\; H$, por aditividad:
+\[
+c\ge \mu(E \cup H) = \mu(E\setminus H) + \mu(H) = \mu(E\setminus H) + c
+\;\;\implies\;\;
+0 \ge \mu(E\setminus H) 
+\;\;\implies\;\;
+0 = \mu(E\setminus H)
+\]
+\item Si $G\en\mathcal{A}$ cumple $\mu(E\setminus G) =0$ para todo $E\en\mathcal{E}$, en part. $\mu(E_i\setminus G) = 0$ para todo $i\en\mathbb{N}$, así que:
+\[
+\mu(H\setminus G) 
+= \mu\left(\bigcup\nolimits^\infty_{i=1}E_i\setminus G\right)
+\leq \sum\nolimits^\infty_{i=1} \mu(E_i\setminus G)
+= 0
+\]
+\end{itemize}
+Hemos probado que $H$ es envolvente de $\mathcal{E}$.\pagebreak[3]\vspace{1em}\\
+\emph{Extendamos el resultado a medida $\sigma$-finita}:\\
+Sea $X_1 \subseteq X_2\subseteq \cdots$ una sucesión de conjuntos medibles con $\mu(X_m) < \infty$ y $X = \bigcup_mX_m$. Entonces lo anterior garantiza que cada familia $\mathcal{E}_m \coloneq \set{E \cap X_m \given E\en\mathcal{E}} \subseteq \mathcal{A}|_{X_m}$ posee una envolvente $H_m \en \mathcal{A}|_{X_m} \subseteq \mathcal{A}$. Solo falta probar que el conjunto $H \coloneq \bigcup^\infty_{m=1} H_m \en\mathcal{A}$ es envolvente de $\mathcal{E}$.
+\begin{itemize}[leftmargin=1em]
+\item Sea $E\en\mathcal{E}$ arbitrario. Luego, para cada $m\en\mathbb{N}$ tenemos $E \cap X_m\en\mathcal{E}_m$, y así $\mu\bigl((E\cap X_m)\setminus H_m\bigr) = 0$. Como se cumple $(E\cap X_m)\setminus H \subseteq (E\cap X_m)\setminus H_m$ (ya que $H_m \subseteq H$), entonces
+\[
+E \setminus H 
+\;=\; \left(\bigcup\nolimits^\infty_{m=1}(E \cap X_m)\right)\setminus H
+\;=\; \bigcup\nolimits^\infty_{m=1}(E \cap X_m)\setminus H
+\;\subseteq\; \bigcup\nolimits^\infty_{m=1}(E\cap X_m)\setminus H_m
+\]
+De esto se sigue que
+\[
+\mu(E\setminus H) 
+\;\leq\; \mu\left(\bigcup\nolimits^\infty_{m=1}(E\cap X_m)\setminus H_m\right)
+\;\leq\; \sum\nolimits^\infty_{m=1}\mu\bigl((E\cap X_m)\setminus H_m\bigr)
+\;=\;0
+\]
+y así, $\mu(E\setminus H) = 0$.
+\item Sea $G \en\mathcal{A}$ tal que $\mu(E\setminus G) = 0$ para todo $E\en\mathcal{E}$. En particular, $G\cap X_m \en \mathcal{E}_m$ satisface que, para cualquier $E_m \en \mathcal{E}_m$ (poniendo $E_m = E \cap X_m$ para algún $E\en\mathcal{E}$):
+\[
+\mu(E_m \setminus(G\cap X_m)) = \mu(E_m\setminus G )\leq \mu(E\setminus G) = 0
+\]
+Así que, como $H_m$ es envolvente de $\mathcal{E}_m$, tenemos $\mu(H_m\setminus(G\cap X_m)) = 0$. Luego, gracias a que $H_m \setminus G \subseteq H_m\setminus(G\cap X_m)$:
+\[
+H\setminus G  
+\;=\; \left(\bigcup\nolimits^\infty_{m=1}H_m\right)\setminus G
+\;=\; \bigcup\nolimits^\infty_{m=1}H_m\setminus G
+\;\subseteq\; \bigcup\nolimits^\infty_{m=1}H_m\setminus (G\cap X_m)
+\]
+Por tanto:
+\[
+\mu(H\setminus G) 
+\;\leq\; \mu\left(\bigcup\nolimits^\infty_{m=1}H_m\setminus (G\cap X_m)\right)
+\;\leq\; \sum\nolimits^\infty_{m=1}\mu(H_m\setminus (G\cap X_m))
+\;=\; 0
+\]
+y así, $\mu(H\setminus G) = 0$.
+\end{itemize}
+Esto prueba que $H$ es envolvente de $\mathcal{E}$. Como $\mathcal{E}\subseteq \mathcal{A}$ es arbitrario y ya probamos que $(X, \mathcal{A}, \mu)$ es semi-finito, se sigue que es localizable.
+\end{sol}

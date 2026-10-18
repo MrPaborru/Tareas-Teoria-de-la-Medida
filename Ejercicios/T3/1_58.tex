@@ -1,0 +1,63 @@
+\setcounter{neje}{57}
+\begin{nejer}
+Sea $(X, \mathcal{A}, \mu)$ un espacio de medida tal que $\mu(X) < \infty$ y sea $f_n\colon X \to [0, \infty)$ una sucesión de funciones medibles acotadas que converge uniformemente a $f\colon X \to [0, \infty)$. Pruebe que
+$$
+\int_X f \dd{\mu} = \lim_{n \to \infty} \int_X f_n \dd{\mu}.
+$$
+Encuentre un ejemplo de un espacio de medida $(X, \mathcal{A}, \mu)$ con $\mu(X) = \infty$ y una sucesión de funciones medibles acotadas $f_n\colon X \to [0, \infty)$ convergiendo uniformemente a $f$ tal que la ecuación anterior no se cumpla.
+\end{nejer}
+\begin{sol}
+Sea $\varepsilon>0$ arbitrario. Como $\mu(X) < \infty$, se sigue que existe $N\en \mathbb{N}$ tal que 
+\begin{equation}\label{eq:convunif}
+\forall n \ge N,
+\quad
+\sup\nolimits_X\abs{f_n - f} < \frac{\varepsilon}{\mu(X)}
+\end{equation}
+Como además se cumple
+\[
+\abs{\int_X f_n-f \dd{\mu}}
+\leq \int_X \abs{f_n-f} \dd{\mu}
+\leq \int_X \sup\nolimits_X\abs{f_n - f} \dd{\mu}
+= \sup\nolimits_X\abs{f_n - f} \cdot \mu(X)
+\]
+Entonces (\ref{eq:convunif}) implica que 
+\[
+\forall n \ge N,
+\quad
+\abs{\int_X f_n -f \dd{\mu}} < \varepsilon
+\]
+Como $\varepsilon > 0$ es arbitrario, hemos probado que $\int_X f_n \dd{\mu} - \int_X f \dd{\mu} = \int_X f_n-f \dd{\mu}$ converge a cero, es decir, $\lim_{n\to\infty} \int_X f_n \dd{\mu} = \int_X f \dd{\mu}$.
+% Para cada $n\en\mathbb{N}$, definimos $M_n \coloneq \sup_X |f_n|$. Entonces se tiene 
+% \[
+% \int_X \abs{f_n} \dd{\mu} \leq \int_XM_n\dd{\mu} = M_n\mu(X) < \infty
+% \]
+% Por lo que cada $f_n$ es integrable.\par
+% Luego, la convergencia uniforme $f_n \rightrightarrows f$ garantiza que existe $N\en\mathbb{N}$ tal que
+% \[
+% \forall n \ge N,\forall x\en X,
+% \quad
+% \abs{f_n(x) - f(x)} < 1
+% \]
+% en particular, para todo $x \en X$, $\abs{f(x)} \leq \abs{f(x) - f_N(x)} + \abs{f_N(x)} < 1 + M_N$, así que $f$ es también acotada. Más aún, esto implica que 
+% \[
+% \forall n \ge N,\forall x\en X,
+% \quad
+% \abs{f_n(x)} \leq \abs{f_n(x) - f(x)} + \abs{f(x)} < 2 + M_N
+% \]
+% Así que si tomamos $M \coloneq \max\set{2+M_N,M_1,\dots,M_{N-1}}$ se cumplirá que 
+% \[
+% \forall n \en \mathbb{N},\forall x\en X,
+% \quad
+% \abs{f_n(x)} \le M
+% \]
+% Como la función constante de valor $M$ tiene integral $\int_XM\dd{\mu} = M\mu(X) < \infty$, se cumple que la sucesión $f_n$ de funciones integrables es dominada por la función integrable $M$, por lo cual el teorema de convergencia dominada garantiza que $f$ es integrable y
+% \[
+% \int_X f \dd{\mu} = \lim_{n \to \infty} \int_X f_n \dd{\mu}
+% \]
+% \emph{Demos el contra-ejemplo:}\\
+% Si consideramos $(\mathbb{N},2^\mathbb{N},\mu)$ con $\mu$ la medida de conteo y la sucesión de funciones $f_n = \frac{1}{n}\chi_{\set{1,\dots,n}}$ medibles y acotadas, entonces es sencillo notar que $\sup_{k} \abs{f_n(k)} = \nicefrac{1}{n}$, lo cual prueba que la sucesión $f_n$ converge uniformemente a la función $f=0$; sin embargo,
+% \[
+% \int_\mathbb{N} f_n \dd{\mu} = \frac{1}{n} \mu(\set{1,\dots,n}) = 1
+% \]
+% En conclusión, $\int_\mathbb{N} f \dd{\mu} = 0 \neq 1 = \lim_{n \to \infty} \int_\mathbb{N} f_n \dd{\mu}$.
+\end{sol}

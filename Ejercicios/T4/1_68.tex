@@ -1,0 +1,64 @@
+\setcounter{neje}{67}
+\begin{nejer}
+Sean $(X, \mathcal{A}, \mu)$ y $(X, \mathcal{A}', \mu')$ dos espacios de medida con $\mathcal{A} \subseteq \mathcal{A}'$ y $\mu'|_{\mathcal{A}} = \mu$. Pruebe que $\mathcal{L}^1(\mu) \subseteq \mathcal{L}^1(\mu')$ y
+$$
+\int_X f \dd{\mu} = \int_X f \dd{\mu'}
+$$
+para cada $f \en \mathcal{L}^1(\mu)$.
+% \emph{Sugerencia.} Pruebe lo siguiente:
+% \begin{enumerate}[label = (\roman*)]
+%     \item Sea $f\colon X \to [0, \infty]$ una función $\mathcal{A}$-medible y defina
+%     $$
+%     f_\delta(x) := \begin{cases} 
+%     0 & \text{si } f(x) \le \delta, \\
+%     f(x) & \text{si } \delta < f(x) \le \delta^{-1}, \\
+%     \delta^{-1} & \text{si } f(x) > \delta^{-1}.
+%     \end{cases}
+%     $$
+%     Entonces $f_\delta$ es $\mathcal{A}$-medible para todo $\delta > 0$ y
+%     $$
+%     \lim_{\delta \to 0} \int_X f_\delta \dd{\mu} = \int_X f \dd{\mu}.
+%     $$
+    
+
+\end{nejer}
+\begin{sol}
+Este ejercicio venía con una sugerencia que no seguiré.\vspace{1em}\\
+\emph{Probémoslo para las funciones escalonadas no negativas:}\\
+Sea $s\colon X \to [0,\infty]$ escalonada $\mathcal{A}$-medible, es decir, $s = \sum^m_{k=1}a_k\chi_{A_k}$ con $a_k\en[0,\infty]$ y $A_k\en\mathcal{A}$. Como $\mathcal{A} \subseteq \mathcal{A}'$, entonces cada $A_k \en\mathcal{A}'$, así que $s$ es también $\mathcal{A}'$-medible. Además, $\mu'|_\mathcal{A} = \mu$, así
+\[
+\int_X s \dd{\mu'} = \sum^m_{k=1} a_k\mu'(A_k) = \sum^m_{k=1} a_k\mu(A_k) = \int_X s \dd{\mu}
+\]
+\\
+\emph{Probémoslo para funciones medibles no negativas}:\\
+Si $f\colon X \to [0,\infty]$ es $\mathcal{A}$-medible, entonces existe una sucesión $\set{s_n}_{n\en\mathbb{N}}$ monótona de funciones escalonadas, $\mathcal{A}$-medibles y no negativas, tal que $s_n \to f$. El teorema de convergencia monótona garantiza que 
+\[
+\lim_{n\to\infty} \int_Xs_n\dd{\mu} = \int_X f \dd{\mu}
+\]
+No obstante, lo probado al inicio garantiza que cada $s_n$ es $\mathcal{A}'$-medible, así que $f$ también será $\mathcal{A}'$-medible por ser límite puntual de funciones $\mathcal{A}'$-medibles. Más aún, por convergencia monótona:
+\[
+\lim_{n\to\infty} \int_Xs_n\dd{\mu'} = \int_X f \dd{\mu'}
+\]
+No obstante, ya vimos que $\int_X s_n \dd{\mu} = \int_X s_n \dd{\mu'}$, por lo cual:
+\[
+\int_X f \dd{\mu} = \lim_{n\to\infty} \int_Xs_n\dd{\mu} = \lim_{n\to\infty} \int_Xs_n\dd{\mu'} = \int_X f \dd{\mu'}
+\]
+\\
+\emph{Probemos el resultado}:\\
+Sea $f\en\mathcal{L}^1(\mu)$. Se sigue que $\abs{f},f^+,f^-$ son $\mathcal{A}$-medibles (no negativas), así que lo recién probado garantiza que también son $\mathcal{A}'$-medibles y además
+\[
+\int_X \abs{f} \dd{\mu} = \int_X \abs{f} \dd{\mu'},
+\quad
+\int_X f^+ \dd{\mu} = \int_X f^+ \dd{\mu'}
+\quad\text{y}\quad
+\int_X f^- \dd{\mu} = \int_X f^- \dd{\mu'}
+\]
+Por un lado, esto implica que $f = f^+ - f^-$ es $\mathcal{A}'$-medible al ser suma de funciones $\mathcal{A}'$-medibles. Por otro lado, garantiza que $\int_X \abs{f} \dd{\mu'} = \int_X \abs{f} \dd{\mu} < \infty$, por lo que $f\en\mathcal{L}^1(\mu')$. Más aún, sustituyendo lo anterior en la definición de integral real-valuada:
+\[
+\int_X f \dd{\mu'} 
+= \int_X f^+ \dd{\mu'} - \int_X f^- \dd{\mu'}
+= \int_X f^+ \dd{\mu} - \int_X f^- \dd{\mu}
+= \int_X f \dd{\mu}
+\]
+Hemos demostrado que $\mathcal{L}^1(\mu) \subseteq \mathcal{L}^1(\mu')$ y $\int_X f \dd{\mu} = \int_X f \dd{\mu'}$.
+\end{sol}

@@ -1,0 +1,163 @@
+\setcounter{neje}{13}
+\begin{nejer}
+Extienda el orden total de $\mathbb{R}$ a $\ubar{\mathbb{R}}$ mediante $-\infty \leq a \leq \infty$ para $a \en \ubar{\mathbb{R}}$. Extienda la suma mediante
+$$
+\infty + a \coloneq \infty \quad \text{para } -\infty < a \leq \infty,
+$$
+y por
+$$
+-\infty + a \coloneq -\infty \quad \text{para } -\infty \leq a < \infty.
+$$
+(La suma $a + b$ es indefinida cuando $\{a, b\} = \{-\infty, \infty\}$.) Sean $a_1, a_2, a_3, \dots$ y $b_1, b_2, b_3, \dots$ sucesiones en $\ubar{\mathbb{R}}$.
+
+\begin{enumerate}[label = (\roman*)]
+\item Defina $\limsup_{n \to \infty} a_n$ y $\liminf_{n \to \infty} a_n$ y muestre que siempre existen.
+
+\item Muestre que $\limsup_{n \to \infty} (-a_n) = -\liminf_{n \to \infty} a_n$.
+
+\item Asuma que $\{a_n, b_n\} \neq \{-\infty, \infty\}$ de modo que la suma $a_n + b_n$ está definida para $n \en \mathbb{N}$. Pruebe la desigualdad
+$$
+\limsup_{n \to \infty} (a_n + b_n) \leq \limsup_{n \to \infty} a_n + \limsup_{n \to \infty} b_n,
+$$
+siempre que el lado derecho exista. Encuentre un ejemplo donde la desigualdad sea estricta.
+
+\item Si $a_n \leq b_n$ para todo $n \en \mathbb{N}$, muestre que
+$$
+\liminf_{n \to \infty} a_n \leq \liminf_{n \to \infty} b_n.
+$$
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+\begin{enumerate}[label=(\roman*)]
+%-------------------------------------------------
+\item % Inciso (i)
+Definimos los reales extendidos como
+\[
+\ubar{\mathbb{R}} = \mathbb{R} \cup \{-\infty, \infty\}.
+\]
+
+Extendemos el orden usual de $\mathbb{R}$ declarando que
+\[
+-\infty < x < \infty \qquad \text{para todo } x \en \mathbb{R},
+\]
+y mantenemos el orden usual en $\mathbb{R}$. Con esto,
+$(\ubar{\mathbb{R}},\leq)$ es un conjunto totalmente ordenado.
+
+Para justificar que todo subconjunto no vacío $A \subseteq \ubar{\mathbb{R}}$ tiene supremo (y análogamente ínfimo), consideramos su conjunto de cotas superiores:
+\[
+U(A) = \set*{ u \en \ubar{\mathbb{R}} \given a \leq u \text{ para todo } a \en A }
+\]
+Ahora hay tres posibilidades:
+\begin{itemize}
+    \item Si $A$ contiene a $\infty$, entonces claramente $\infty$ es la única cota superior de $A$, así que $\sup A = \infty$.
+    
+    \item Si $A$ no contiene a $\infty$ pero está acotado superiormente en $\mathbb{R}$ (es decir, existe algún $M \en \mathbb{R}$ tal que $a \leq M$ para todo $a \en A$), entonces consideramos el subconjunto $A \cap \mathbb{R}$. Por la completitud de $\mathbb{R}$, este conjunto tiene supremo $s \en \mathbb{R}$ (si $A \cap \mathbb{R}$ es vacío, su supremo es $-\infty$). Dado que los únicos elementos posibles fuera de $\mathbb{R}$ son $-\infty$ (que es menor que cualquier real) y $\infty$ (que hemos excluido), se verifica que $\sup A = s$.
+
+    \item Si $A$ no contiene a $\infty$ y no está acotado superiormente en $\mathbb{R}$, entonces para todo $M \en \mathbb{R}$ existe $a \en A$ con $a > M$. Esto implica que la única cota superior posible es $\infty$. En efecto, ningún real puede ser cota superior, y $-\infty$ claramente no lo es. Por tanto, $U(A) = \{\infty\}$ y entonces $\sup A = \infty$.
+\end{itemize}
+En cualquier caso, $\sup A$ existe en $\ubar{\mathbb{R}}$. Un razonamiento dual, considerando el conjunto de cotas inferiores, muestra que $\inf A$ también siempre existe.
+
+En particular, para cada $n \en \mathbb{N}$, el conjunto $A_n = \set{a_k \given k \ge n} \subseteq \ubar{\mathbb{R}}$ es no vacío, por lo que podemos definir:
+\[
+x_n := \sup_{k \ge n} a_k, \quad y_n := \inf_{k \ge n} a_k.
+\]
+
+Ahora, las sucesiones $\{x_n\}$ y $\{y_n\}$ son, respectivamente, no creciente y no decreciente en $\ubar{\mathbb{R}}$ (pues al aumentar $n$, tomamos supremo sobre un conjunto más pequeño). Sus límites (en el sentido de ínfimo y supremo, respectivamente) siempre existen en $\ubar{\mathbb{R}}$. Definimos entonces:
+\[
+\limsup_{n\to\infty} a_n := \inf_{n\en\mathbb{N}} x_n = \adjustlimits\inf_{n\en\mathbb{N}} \sup_{k \ge n} a_k,
+\]
+\[
+\liminf_{n\to\infty} a_n := \sup_{n\en\mathbb{N}} y_n = \adjustlimits\sup_{n\en\mathbb{N}} \inf_{k \ge n} a_k.
+\]
+
+Estas definiciones tienen sentido porque los conjuntos $\set{x_n \given n \en \mathbb{N}}$ y $\set{y_n \given n \en \mathbb{N}}$ son no vacíos, y por lo probado anteriormente, su ínfimo y supremo existen en $\ubar{\mathbb{R}}$. Por tanto, $\limsup a_n$ y $\liminf a_n$ siempre existen en $\ubar{\mathbb{R}}$.
+%-------------------------------------------------
+\item % Inciso (ii)
+Notemos que si $A$ es un subconjunto no vacío de $\ubar{\mathbb{R}}$, 
+se tiene $\sup(-A) = -\inf A$, donde $-A = \set{-x \given x \en A}$. En efecto, $\inf A \leq x$ para todo $x \en A$ implica $-x \leq -\inf A$, y si $u$ es cota superior de $-A$,
+entonces $-u$ es cota inferior de $A$, de modo que $-u \leq \inf A$ y así $u \ge -\inf A$.
+Esto prueba que $-\inf A$ es el supremo de $-A$. Por otro lado, este hecho también implica, tomando $-A$ en lugar de $A$, que $\sup A =\sup(-(-A)) = -\inf(-A)$, es decir, $\inf(-A) = -\sup A$.
+
+Aplicando esto obtenemos
+\[
+\limsup_{n\to\infty} (-a_n) 
+= \adjustlimits\inf_{n\en\mathbb{N}} \sup_{k \ge n} (-a_k)
+= \inf_{n\en\mathbb{N}} \bigl( -\inf_{k \ge n} a_k \bigr)
+= {-\adjustlimits\sup_{n\en\mathbb{N}}\inf_{k \ge n} a_k}
+= {-\limsup_{n\to\infty}a_n}
+\]
+% ------------------------------------------------------------
+\item % Inciso (iii)
+Denotemos 
+\[
+\alpha = \limsup_{n\to\infty} a_n = \adjustlimits\inf_{n\en\mathbb{N}} \sup_{k \ge n} a_k, \qquad 
+\beta = \limsup_{n\to\infty} b_n = \adjustlimits\inf_{n\en\mathbb{N}} \sup_{k \ge n} b_k.
+\]
+Supongamos que $\alpha + \beta$ está definido (no es de la forma $\infty - \infty$).
+
+Fijemos $n \en \mathbb{N}$. Para cada $k \ge n$ se cumple
+\[
+a_k \leq \sup_{j \ge n} a_j, \qquad b_k \leq \sup_{j \ge n} b_j.
+\]
+Como $a_n,b_n\noten\set{-\infty,\infty}$, se tiene que $\sup_{j \ge n} a_j,\sup_{j \ge n} b_j \neq -\infty$ (en caso contrario, las desigualdades anteriores implicarían que $a_n = -\infty$ o $b_n=-\infty$). De esto se sigue que la suma $\sup_{j \ge n} a_j+\sup_{j \ge n} b_j$ está bien definida. Luego, 
+\[
+a_k + b_k \leq \sup_{j \ge n} a_j + \sup_{j \ge n} b_j,
+\quad\forall k\ge n
+\]
+Por tanto, $\sup_{k \ge n} (a_k + b_k) \leq \sup_{j \ge n} a_j + \sup_{j \ge n} b_j$.
+Tomando ínfimo en $n\en\mathbb{N}$:
+\begin{equation}\label{eq:deslim}
+\limsup_{n\to\infty} (a_n + b_n) 
+= \adjustlimits\inf_{n\en\mathbb{N}} \sup_{k \ge n} (a_k + b_k) 
+\leq \inf_{n\en\mathbb{N}} \biggl( \sup_{k \ge n} a_k + \sup_{k \ge n} b_k \biggr)
+\end{equation}
+\par
+\emph{Ahora demostremos que $\inf_{n} (\sup_{k \ge n} a_k + \sup_{k \ge n} b_k) \leq \alpha + \beta$}:\\ 
+Denotemos $s_n \coloneq \sup_{k\ge n} a_k$ y $t_n\coloneq \sup_{k\ge n} b_k$ y $\gamma \coloneq \inf_{n}(s_n+t_n)$.  Luego, tenemos $\gamma \leq s_n + t_n$ para todo $n\en\mathbb{N}$. Veamos que, gracias a que $s_n$ y $t_n$ son (monótonas) no crecientes, $\gamma \leq s_n+t_m$ para todos $n,m\en\mathbb{N}$: en efecto, supongamos sin perder generalidad que $n \ge m$, entonces se cumple $\gamma \leq s_n + t_n$; sin embargo, como $t_n$ es no creciente, se tiene $t_n \leq t_m$ y así $\gamma \leq s_n + t_m$. Por lo tanto, para todos $n,m\en\mathbb{N}$ se tiene $\gamma\leq s_n + t_m$. Tomando ínfimos sobre $m\en\mathbb{N}$, se sigue que $\gamma \leq s_n + \beta$; luego, tomando ínfimos sobre $n\en\mathbb{N}$, $\gamma \leq \alpha + \beta$. Hemos probado que:
+\[
+\inf_{n\en\mathbb{N}} \biggl( \sup_{k \ge n} a_k + \sup_{k \ge n} b_k \biggr) \leq \limsup_{n\to\infty}a_n + \limsup_{n\to\infty}b_n
+\]
+Gracias a (\ref{eq:deslim}) esta desigualdad implica que
+\[
+\limsup_{n\to\infty} (a_n+b_n) \leq \limsup_{n\to\infty} a_n + \limsup_{n\to\infty} b_n.
+\]
+
+\emph{Veamos que la desigualdad puede ser estricta}:\\
+Definimos las sucesiones
+\[
+a_n \coloneq (-1)^n, \qquad b_n \coloneq (-1)^{n+1}.
+\]
+Entonces $a_n+b_n = 0$ para todo $n\en\mathbb{N}$, así que $\limsup_{n\to\infty}(a_n+b_n) = 0$. 
+Sin embargo. $\limsup_{n\to\infty} a_n = 1$ y $\limsup_{n\to\infty} b_n = 1$, de modo que
+\[
+ \limsup_{n\to\infty}(a_n+b_n) = 0 < 2 = \limsup_{n\to\infty} a_n + \limsup_{n\to\infty}b_n
+\]
+%-------------------------------------------------
+\item % Inciso (iv)
+Si $a_n\leq b_n$ para todo $n\en\mathbb{N}$, entonces para cada $k\ge n$
+$a_k\leq b_k$, pero $\inf_{j\ge n}a_j \leq b_k$, así que
+\[
+\forall k\ge n,
+\quad
+\inf_{j\ge n}a_j \leq b_k
+\] 
+esto implica que $\inf_{j\ge n}a_j$ es cota inferior de $\set{b_k}_{k\ge n}$, por lo que se sigue
+\[
+\inf_{j\ge n} a_j \leq \inf_{k\ge n}b_k
+\]
+Esto último se cumple para cualquier $n\en\mathbb{N}$. Como $\inf_{k\ge n} b_k \leq \sup_m\inf_{k\ge m} b_k$, se tiene
+\[
+\forall n\en\mathbb{N},
+\quad
+\inf_{j\ge n} a_j \leq \adjustlimits\sup_{m\en\mathbb{N}}\inf_{k\ge m}b_k
+\]
+Así que $\sup_{m\en\mathbb{N}}\inf_{k\ge m}b_k$ es cota superior de $\set{\inf_{j\ge n} a_j}_{n\en\mathbb{N}}
+$, por lo tanto
+\[
+\liminf_{n\to\infty}a_n%
+= \adjustlimits\sup_{n\en\mathbb{N}}\inf_{j\ge n} a_j %
+\leq \adjustlimits\sup_{m\en\mathbb{N}}\inf_{k\ge m}b_k 
+=\liminf_{m\to\infty}b_m
+\]
+\end{enumerate}
+\end{sol}

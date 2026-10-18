@@ -1,0 +1,181 @@
+%------------------------------ Ejercicio 4.59 -------------------------------
+\setcounter{neje}{58}
+\begin{nejer}
+Sea $(X, \mathcal{A}, \mu)$ un espacio de medida localizable. Pruebe que satisface lo siguiente.
+\begin{itemize}[leftmargin=1.5em]
+\item[(F)]\textit{Sea $\mathcal{F}$ una colección de funciones medibles $f \colon A_f \to \mathbb{R}$, cada una definida en un conjunto medible $A_f \en \mathcal{A}$. Suponga que cualesquiera dos funciones $f_1, f_2 \en \mathcal{F}$ coinciden casi en todas partes en $A_{f_1} \cap A_{f_2}$. Entonces existe una función medible $g \colon X \to \mathbb{R}$ tal que $g|_{A_f} = f$ casi en todas partes para todo $f \en \mathcal{F}$.}
+\end{itemize}
+{
+% \emph{Sugerencia.} Sea $\mathcal{F}$ una colección de funciones como en (F). Para $a \en \mathbb{R}$ y $f \en \mathcal{F}$ defina
+% $$
+% A_f^a \coloneq \{x \en A_f \mid f(x) < a\}.
+% $$
+% Para $q \en \mathbb{Q}$, sea $H^q \en \mathcal{A}$ una envolvente de la colección
+% $
+% \mathcal{E}_q \coloneq \{A_f^q \mid f \en \mathcal{F}\}.
+% $
+% Defina, para $a\en\mathbb{R}$, los conjuntos medibles
+% $$
+% X_a \coloneq \bigcup_{q \en \mathbb{Q}, \, q < a} H^q
+% $$
+% Pruebe lo siguiente.
+% \begin{enumerate}[label = (\roman*), leftmargin=1.8em]
+%     \item Si $a < b$, entonces $X_a \subseteq X_b$.
+%     \item Para todo $a \en \mathbb{R}$ el conjunto medible $X_a$ es una envolvente de la colección $\mathcal{E}_a \coloneq \{A_f^a \mid f \en \mathcal{F}\}$. Por lo tanto $\mu(A_f^a \setminus X_a) = 0$ para todo $f \en \mathcal{F}$ y, si $G \en \mathcal{A}$, entonces
+%     $$
+%     \mu(A_f^a \setminus G) = 0 \text{ para todo } f \en \mathcal{F} \implies \mu(X_a \setminus G) = 0.
+%     $$
+%     \item Si $a \en \mathbb{R}$ y $E \en \mathcal{A}$, entonces
+%     $$
+%     \mu(A_f^a \cap E) = 0 \text{ para todo } f \en \mathcal{F} \implies \mu(X_a \cap E) = 0.
+%     $$
+%     \item $\mu(X_a \cap A_f \setminus A_f^a) = 0$ para todo $f \en \mathcal{F}$ y todo $a \en \mathbb{R}$.
+%     \item Defina
+%     $$
+%     E_0 \coloneq \left( \bigcap_{r \en \mathbb{R}} X_r \right) \cup \left( X \setminus \bigcup_{s \en \mathbb{R}} X_s \right).
+%     $$
+%     Entonces $E_0$ es medible y $\mu(A_f \cap E_0) = 0$ para todo $f \en \mathcal{F}$.
+%     \item Para $f \en \mathcal{F}$ defina el conjunto medible $E_f \subseteq A_f$ mediante
+%     $$
+%     E_f \coloneq (A_f \cap E_0) \cup \bigcup_{q \en \mathbb{Q}} (A_f^q \setminus X_q) \cup \bigcup_{q \en \mathbb{Q}} (X_q \cap A_f \setminus A_f^q).
+%     $$
+%     Entonces $\mu(E_f) = 0$.
+%     \item Defina $g \colon X \to \mathbb{R}$ mediante
+%     $$
+%     g(x) \coloneq \begin{cases}
+%     0 & \text{si } x \en E_0, \\
+%     a & \text{si } x \en X_s \text{ para todo } s > a \text{ y } x \notin X_r \text{ para todo } r < a.
+%     \end{cases}
+%     $$
+%     Entonces $g$ está bien definida y es medible, y $g = f$ en $A_f \setminus E_f$ para todo $f \en \mathcal{F}$.
+% \end{enumerate}
+}
+\end{nejer}
+\begin{sol}
+Sea $\mathcal{F}$ tal que satisface las hipótesis de (F). Entonces definimos, para cada $a\en\mathbb{R}$ y $f\en\mathcal{F}$:
+\[
+A^a_f \coloneq \set*{x\en A_f \given f(x) < a},
+\qquad \text{(también denotado $\set{f<a}$)}
+\]
+Como $f$ es medible, $A^a_f\en\mathcal{A}$. Luego, por localizabilidad, para cada $a\en\mathbb{R}$ existe $H^a \en\mathcal{A}$ tal que es una envolvente de la familia $\mathcal{E}^a \coloneq \set[\big]{A^a_f \given f\en\mathcal{F} }$. Para "forzar" a que estas envolventes sean monótonas, definimos para cada $a\en\mathbb{R}$:
+\[
+X^a \coloneq \bigcup_{q\en\mathbb{Q}_{a}} H^q,
+\quad\text{donde denotamos}\quad
+\mathbb{Q}_a \coloneq \set{q\en\mathbb{Q} \given q<a}
+\]
+Notemos que $X^a\en\mathcal{A}$ por ser unión contable de medibles; además, $a \leq b$ implica $X^a \subseteq X^b$.%
+\footnote{
+    En efecto, para todo $q\en\mathbb{Q}_a$ se tiene $q<b$, así que $H^q \subseteq X^b$. Al unir para $q\en\mathbb{Q}_a$ se sigue $X^a\subseteq X^b$.
+}  
+Fijemos $a\en\mathbb{R}$ y probemos que $X^a$ es envolvente de $\mathcal{E}^a$:
+\begin{itemize}[leftmargin=1em]
+\item 
+Sea $f\en\mathcal{F}$ arbitraria. Entonces:
+\[
+A^a_f \setminus X^a 
+\;=\; A^a_f\setminus\bigcup_{q\en\mathbb{Q}_a}H^q
+\;=\; \bigcap_{q\en\mathbb{Q}_a} A^a_f\setminus H^q
+\]
+No obstante, como $A^a_f = \set{f<a}$, para cada $q\en\mathbb{Q}_a$ tenemos $A^a_f = A^q_f \cup \set{q \leq f < a}$. Así que
+\begin{align*}
+A^q_f \setminus H^q
+&\;=\; \big(A^q_f \cup \set{q \leq f < a}\big) \setminus H^q
+\;\subseteq\; \left(A^q_f\setminus H^q\right) \cup \set{q \leq f < a}\\
+&\;\subseteq\; \bigg(\bigcup_{q'\en\mathbb{Q}_a} A^{q'}_f\setminus H^{q'}\bigg) \cup \set{q \leq f < a}
+\end{align*}
+Por lo tanto, al tomar intersección (aprovechando la distributividad: $\bigcap_x(M\cup N_x) = M \cup \bigcap_x N_x$).
+\begin{equation}\label{eq:env1}
+\begin{split}
+A^a_f \setminus X^a 
+&\;=\; \bigcap_{q\en\mathbb{Q}_a} A^a_f\setminus H^q
+\;\subseteq\; \bigcap_{q\en\mathbb{Q}_a} \bigg(\bigcup_{q'\en\mathbb{Q}_a} A^{q'}_f\setminus H^{q'}\bigg) \cup \set{q \leq f < a}\\
+&\;=\; \bigg(\bigcup_{q'\en\mathbb{Q}_a} A^{q'}_f\setminus H^{q'}\bigg) \cup \bigg(\bigcap_{q\en\mathbb{Q}_a}\set{q \leq f < a}\bigg)
+\end{split}
+\end{equation}
+Pero, gracias a la densidad de $\mathbb{Q}$, $\bigcap_{q\en\mathbb{Q}_a}[q,a) = \varnothing$, por lo cual:
+\[
+\bigcap_{q\en\mathbb{Q}_a}\set{q \leq f < a} 
+\;=\; \bigcap_{q\en\mathbb{Q}_a} f^{-1}\bigl([q,a)\bigr) 
+\;=\; f^{-1}\biggl(\bigcap_{q\en\mathbb{Q}_a}[q,a)\biggr) 
+\;=\; f^{-1}(\varnothing)
+\;=\; \varnothing
+\] 
+así que la contención (\ref{eq:env1}) se convierte en
+\begin{equation}\label{eq:env2}
+A^a_f \setminus X^a 
+\;\subseteq\; \bigcup_{q'\en\mathbb{Q}_a} A^{q'}_f\setminus H^{q'}
+\end{equation}
+Como $H^{q'}$ es envolvente de $\mathcal{E}^{q'} \pert A^{q'}_f$, entonces $\mu(A^{q'}_f\setminus H^{q'}) = 0$. Se sigue que el conjunto derecho en (\ref{eq:env2}) es $\mu$-nulo por ser unión contable de conjuntos $\mu$-nulos, de donde $\mu(A^a_f \setminus X^a) = 0$.
+
+\item
+Sea $G\en\mathcal{A}$ tal que $\mu(A^a_f \setminus G) = 0$ para todo $f\en\mathcal{F}$. Luego, para todos $q\en\mathbb{Q}_a$ y $f\en\mathcal{F}$, tenemos $\mu(A^q_f\setminus G) \leq \mu(A^a_f\setminus G) = 0$ (ya que $A^q_f \subseteq A^a_f$). Por lo tanto, al ser $H^q$ envolvente de $\mathcal{E}^q$, se sigue que $\mu(H^q \setminus G) = 0$, para todo $q\en\mathbb{Q}_a$. En consecuencia, el conjunto
+\[
+X^a \setminus G 
+\;=\; \biggl(\bigcup_{q\en\mathbb{Q}_a}H^q \biggr) \setminus G
+\;=\; \bigcup_{q\en\mathbb{Q}_a}H^q\setminus G
+\]
+es $\mu$-nulo por ser union contable de conjuntos $\mu$-nulos. Es decir, $\mu(X^a \setminus G) = 0$.
+\end{itemize}
+Hemos probado que $X^a$ es envolvente de $\mathcal{E}^a$. Ahora bien, definimos la función $\tilde{g} \colon X \to \ubar{\mathbb{R}}$ tal que
+\[
+\tilde{g}(x) \coloneq \inf\set[\big]{a\en\mathbb{R} \given x \en X^a}
+\]
+la cual está bien definida gracias a que todo subconjunto de $\ubar{\mathbb{R}}$ tiene un ínfimo (\cref{nejer:1.14}) recordando $\inf\varnothing = \infty$ (por vacuidad todo real extendido es cota inferior de $\varnothing$, así que $\infty$ es su mayor cota inferior).\vspace{1em}\\
+\emph{Veamos que $\tilde{g}$ es medible}:\\
+Por el teorema 1.21 (\cite[\S 1.2]{Salamon}), basta con probar que $\set{\tilde{g} < b}\en\mathcal{A}$ para cada $b\en\mathbb{R}$. En efecto, veremos que $\set{\tilde{g}<b} = X^b \en \mathcal{A}$:
+\begin{itemize}[leftmargin=1.8em]
+\item[($\subseteq$)]Si $x\en X$ es tal que $\tilde{g}(x) < b$ entonces, por definición de ínfimo, $b$ no puede ser cota inferior de $\set{a\en\mathbb{R} \given x \en X^a}$, así que existe $a<b$ tal que $x \en X^a$. Como $X^a \subseteq X^b$, se sigue $x\en X^b$.
+\item[($\supseteq$)]Si $x\en X^b$, entonces por su definición existe $q\en\mathbb{Q}_b$ tal que $x\en H^q$. Como $H^q \subseteq X^q$ tenemos que $x\en X^q$, y así $\tilde{g}(x) = \inf\set{a\en\mathbb{R} \given x \en X^a} \leq q < b$.
+\end{itemize}
+Esto prueba que $\set{\tilde{g} < b} = X^b$, así que $\tilde{g}$ es medible.\vspace{1em}\\
+\emph{Veamos que $\tilde{g}|_{A_f} \ctpeq f$ para cada $f\en\mathcal{F}$}:\\
+Fijemos una $f\en\mathcal{F}$. Por lo que ya vimos, $\set*{\tilde{g}|_{A_f} < b} = X^b \cap A_f$, y por definición $\set{f < b} = A^b_f$, así que nos bastará probar que $X^b \cap A_f \ctpeq A^b_f$.%
+\footnote{
+    Dados $A,B\en\mathcal{A}$, se dice que $A \ctpeq B$ cuando $\mu(A \Delta B) = 0$. Notemos que, en general, se puede decir que $A \subseteq_{\text{a.e.}} B$ cuando $\mu(A \setminus B) = 0$, y así, $A \ctpeq B$ si y solo si $A \subseteq_{\text{a.e.}} B$ y $B \subseteq_{\text{a.e.}}A$ (ya que $A \Delta B = A \setminus B \,\cup\, B\setminus A$). 
+    % Se puede probar de forma sencilla que la relación "$\ctpeq$" es de equivalencia en $\mathcal{A}$ y las operaciones finitas de conjuntos están bien definidas, haciendo de $\mathcal{A}/\ctpeq$ un retículo booleano. Más aún, la localizabilidad es la condición necesaria y suficiente para que dicho retículo sea completo, pues la envolvente de una familia corresponde a su unión a.e.
+}
+En efecto, sea $b\en\mathbb{R}$ arbitrario:
+\begin{itemize}
+\item[($\supseteq_{_\text{a.e.}}$)]
+Tenemos $A^b_f \setminus (X^b\cap A_f) = A^b_f \setminus X^b \cup A^b_f \setminus A_f = A^b_f \setminus X^b$ (ya que $A^b_f \setminus A_f$). Pero ya probamos que $X^b$ es envolvente de $\mathcal{E}^b$, por lo cual $\mu\bigl(A^b_f \setminus (X^b\cap A_f)\bigr) = \mu\bigl(A^b_f \setminus X^b\bigr) =0$.
+
+\item[($\subseteq_{_\text{a.e.}}$)]
+En primera, $(X^b\cap A_f) \setminus A^b_f = X^b\cap A_f \setminus A^b_f$; además, por su definición, 
+\[
+A_f \setminus A^b_f \;=\; \set{x\en A_f \given f(x) \ge b}% \;\equiv\; \set{f \ge b}
+\]
+Sea entonces $h\en\mathcal{F}$ arbitraria. Sustituyendo esto último, obtenemos%
+\footnote{
+    Usamos primero la propiedad elemental: $M\setminus(N\setminus L) = M \cap (L \setminus N)$.
+}
+\begin{align*}
+A^b_h\setminus (A^b_f \setminus A_f)
+&\;=\; A^b_h\cap A_f \setminus A^b_f
+\;=\; \set*{x\en A_h \given h(x) < b} \cap \set*{x\en A_f \given f(x) \ge b}\\
+&\;=\; \set*{x \en A_h \cap A_f \given h(x) < b \leq f(x)}
+\;\subseteq\; \set*{x \en A_h \cap A_f \given h(x) \neq f(x)}
+\end{align*}
+Pero el conjunto del final tiene medida cero ya que $h$ y $f$ coinciden casi en todas partes en $A_h \cap A_f$. Se sigue que $\mu\bigl(A^b_h\setminus (A^b_f \setminus A_f)\bigr) = 0$. Como $h\en\mathcal{F}$ es arbitraria entonces, gracias a que $X^b$ es envolvente de $\mathcal{E}^b$, se tiene $\mu\bigl(X^b\setminus (A^b_f \setminus A_f)\bigr) = 0$. Como $X^b\setminus (A^b_f \setminus A_f) = X^b\cap A_f \setminus A^b_f$ concluimos que $\mu\bigl((X^b\cap A_f) \setminus A^b_f\bigr) = 0$.
+\end{itemize}
+Hemos probado que $\set{\tilde{g}|_{A_f} < b} \ctpeq \set{f<b}$, donde $b\en\mathbb{R}$ es arbitrario. Solo falta ver que esto implica $\tilde{g}|_{A_f} \ctpeq f$. Esto es así: sea $x \en A_f$, entonces, si $\tilde{g}(x) < f(x)$, por densidad de $\mathbb{Q}$ se sigue que existe $q\en\mathbb{Q}$ tal que $\tilde{g}(x) < q < f(x)$. En otras palabras:
+\[
+\set{\tilde{g}|_{A_f} < f}
+\;=\;\bigcup_{q\en\mathbb{Q}} \set{\tilde{g}|_{A_f} < q} \cap \set{q< f}
+\]
+pero $\set{\tilde{g}|_{A_f} < q} \cap \set{q< f} \subseteq \set{\tilde{g}|_{A_f} < q} \cap \set{q \le f} = \set{\tilde{g}|_{A_f} < q} \setminus \set{f < q}$; no obstante, este último conjunto tiene medida cero gracias a que $\set{\tilde{g}|_{A_f} < q} \ctpeq \set{f < q}$. Se sigue que $\set{\tilde{g}|_{A_f} < f}$ tiene medida cero al ser unión contable de conjuntos de medida cero.
+De forma análoga, 
+\[
+\set{f<\tilde{g}|_{A_f}}
+\;=\;\bigcup_{q\en\mathbb{Q}} \set{f < q}\cap\set{q < \tilde{g}|_{A_f}}
+\]
+donde $\set{f < q}\cap\set{q < \tilde{g}|_{A_f}} \subseteq \set{f<q} \setminus \set{\tilde{g}|_{A_f} < q}$ tiene medida cero gracias a que tenemos $\set{\tilde{g}|_{A_f} < q} \ctpeq \set{f < q}$, y de esto se sigue que $
+\set{f<\tilde{g}|_{A_f}}$ tiene medida cero al ser unión contable de conjuntos de medida cero. Finalmente, esto garantiza que 
+\[
+\set{\tilde{g}|_{A_f} \neq f}
+\;=\; \set{\tilde{g}|_{A_f} < f} \cup \set{f<\tilde{g}|_{A_f}}
+\]
+tiene medida cero, y así $\tilde{g}|_{A_f} \ctpeq f$.\vspace{1em}\\
+\emph{Restrinjamos los valores de $\tilde{g}$ a los reales}:\\
+Como $\tilde{g}$ es medible, $\set{\tilde{g} \neq \pm\infty}\equiv\tilde{g}^{-1}(\mathbb{R})\en\mathcal{A}$. Entonces definimos $g\coloneq \tilde{g}\cdot\chi_{\set{\tilde{g}\neq\pm\infty}}$ ($g$ vale cero allá donde $\tilde{g}$ vale $\infty$ o $-\infty$). Tenemos de inmediato que $g \colon X \to \mathbb{R}$ es medible, así que basta probar que sigue siendo extensión c.t.p. de cada $f\en\mathcal{F}$. Esto es inmediato, si $f\en\mathcal{F}$ entonces, ya que $\tilde{g}|_{A_f} \ctpeq f$ y $f$ toma valores reales, tenemos que $\set{\tilde{g}|_{A_f}=\pm\infty} \subseteq \set{\tilde{g}|_{A_f} \neq f}$ tiene medida cero; sin embargo, $\set{\tilde{g}|_{A_f} \neq g|_{A_f}} = \set{\tilde{g}|_{A_f} = \pm \infty}$, por lo cual acabamos de probar que $\set{\tilde{g}|_{A_f} \neq g|_{A_f}}$ tiene medida cero, es decir, $\tilde{g}|_{A_f} \ctpeq g|_{A_f}$. Finalmente, como ya sabíamos que $\tilde{g}|_{A_f} \ctpeq f$, la transitividad de "$\ctpeq$" en funciones medibles (vimos que es rel. de equivalencia para definir $L^{1}(X)$) garantiza $g|_{A_f} \ctpeq f$. Como $f\en\mathcal{F}$ es arbitrario, esto concluye la prueba.
+\end{sol}
+

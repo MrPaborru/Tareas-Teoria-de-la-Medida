@@ -1,0 +1,38 @@
+%------------------------------ Ejercicio 5.33 -------------------------------
+\setcounter{neje}{32}
+\begin{nejer}
+Sea $X \coloneq [0, \infty)$, denote por $\mathcal{B} \subseteq 2^X$ a la $\sigma$-álgebra de Borel, y sea $\mu \colon \mathcal{B} \to [0, \infty]$ la restricción de la medida de Lebesgue a $\mathcal{B}$. Defina las medidas
+$$
+\lambda_1, \lambda_2 \colon \mathcal{B} \to [0, \infty]
+$$
+mediante
+$$
+\lambda_1(B) \coloneq \sum_{n=1}^\infty \frac{1}{n^3} \int_{B \cap [n, n+1]} x \dd{x}, \quad \lambda_2(B) \coloneq \int_{B \cap [1, \infty)} \frac{1}{x^2} \dd{x}
+$$
+para $B \en \mathcal{B}$.
+Pruebe que $\lambda_1$ y $\lambda_2$ son medidas finitas que satisfacen
+$$
+\lambda_1 \ll \mu, \quad \lambda_2 \ll \mu, \quad \lambda_1 \ll \lambda_2, \quad \lambda_2 \ll \lambda_1,
+$$
+y
+$$
+\mu \not\ll \lambda_1, \quad \mu \not\ll \lambda_2.
+$$
+\end{nejer}
+\begin{sol}
+Si $\mu(B)=0$ entonces $\mu(B\cap[n,n+1]) = 0$ para cada $n\en\mathbb{N}$ y $\mu(B\cap[1,\infty)) = 0$, así
+\[
+\forall n\en\mathbb{N},\;
+\int_{B \cap [n, n+1]} x \dd{x} = 0
+\qquad\text{y}\qquad
+\int_{B \cap [1, \infty)} \frac{1}{x^2} \dd{x} = 0
+\]
+por lo que $\lambda_1(B) = 0$ y $\lambda_2(B) = 0$. Esto prueba que $\lambda_1 \ll \mu$ y $\lambda_2 \ll \mu$.\par
+Por otro lado, si $\lambda_2(B) = 0$ entonces $\int \frac{1}{x^2}\cdot\chi_{B \cap [1, \infty)} \dd{x}=\int_{B \cap [1, \infty)} \frac{1}{x^2} \dd{x} = 0$. Como el integrando es no negativo, de esto se sigue que $\frac{1}{x^2}\cdot\chi_{B \cap [1, \infty)} \ctpeq 0$, y como $\frac{1}{x^2} >0$, se sigue $\chi_{B \cap [1, \infty)} \ctpeq 0$, es decir, $\mu(B \cap [1, \infty)) = 0$. Por tanto, para todo $n\en\mathbb{N}$, se tiene $\mu(B \cap [n, n+1]) \leq \mu(B \cap [1, \infty)) = 0$, y así $\int_{B \cap [n, n+1]} x \dd{x} = 0$. En consecuencia: 
+\[
+\lambda_1(B) \;=\; \sum^\infty_{n=1}\frac{1}{n^3}\int_{B \cap [n, n+1]} x \dd{x} \;=\; 0
+\]
+Esto prueba $\lambda_1 \ll \lambda_2$.\par
+Recíprocamente, supongamos $\lambda_1(B) = 0$, es decir, $\sum^\infty_{n=1}\frac{1}{n^3}\int_{B \cap [n, n+1]} x \dd{x} = 0$. Como esta serie es de términos no negativos, se sigue que $\frac{1}{n^3}\int_{B \cap [n, n+1]} x \dd{x} = 0$, y por tanto, $\int_{B \cap [n, n+1]} x \dd{x} = 0$, para cada $n\en\mathbb{N}$. De forma análoga a lo anterior, como $x>0$ (en cada $[n,n+1]$) se sigue que forzosamente $\mu(B\cap [n,n+1]) = 0$ para cada $n\en\mathbb{N}$, por lo cual $B\cap [1,\infty) = \bigcup^\infty_{n=1}B\cap [n,n+1]$ también tiene medida cero. De esto se sigue $\lambda_2(B) =\int_{B \cap [1, \infty)} \frac{1}{x^2} \dd{x} = 0$. Hemos probado $\lambda_2 \ll \lambda_1$.\par
+Por último, consideremos el boreliano $B \coloneq (0,1)$. Tanto $B\cap[1,\infty) = \varnothing$ como $B\cap[n,n+1] = \varnothing$ para todo $n\en\mathbb{N}$, así que obviamente $\lambda_1(B) = \lambda_2(B) = 0$; sin embargo, $\mu(B) = 1 >0$. Esto prueba que $\mu \not\ll \lambda_1$ y $\mu \not\ll \lambda_2$.
+\end{sol}

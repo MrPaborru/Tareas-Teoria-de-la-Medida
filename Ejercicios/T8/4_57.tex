@@ -1,0 +1,126 @@
+%------------------------------ Ejercicio 4.57 -------------------------------
+\setcounter{neje}{56}
+\begin{nejer}
+Sea $(X, \mathcal{U})$ un espacio de Hausdorff compacto y $\mu \colon \mathcal{B} \to [0, \infty]$ una medida de Borel. Sea $C(X) = C_c(X)$ el espacio de funciones continuas real-valuadas en $X$. Considere las siguientes condiciones:
+\begin{enumerate}[label = (\alph*), leftmargin=1.8em]
+    \item Todo subconjunto abierto no vacío de $X$ tiene medida positiva.
+    \item Existe un conjunto de Borel $E \subseteq X$ y un elemento $x_0 \en X$ tal que todo entorno abierto $U$ de $x_0$ satisface $\mu(U \cap E) > 0$ y $\mu(U \setminus E) > 0$.
+    \item $\mu$ es regular exterior y es regular interior en conjuntos abiertos.
+\end{enumerate}
+Pruebe lo siguiente.
+\begin{enumerate}[label = (\roman*), leftmargin=1.8em]
+    \item Asuma (a). Entonces la aplicación $C(X) \to L^\infty(\mu)$ es un encaje isométrico y por lo tanto su imagen es un subespacio lineal cerrado de $L^\infty(\mu)$.
+    \item Asuma (a) y (b). Entonces hay un funcional lineal acotado no nulo
+    $$
+    \Lambda \colon L^\infty(\mu) \to \mathbb{R}
+    $$
+    que se anula en la imagen de la inclusión $C(X) \to L^\infty(\mu)$.\par 
+    \emph{Sugerencia.} Si $f = \chi_E$ casi en todas partes, entonces $f$ es discontinua en $x_0$.
+    \item Asuma (a), (b) y (c). Entonces el encaje isométrico $L^1(\mu) \to L^\infty(\mu)^*$ del Teorema 4.33 no es sobreyectivo. \emph{Sugerencia.} Use la parte (ii) y el Ejercicio 4.53.
+    \item La medida de Lebesgue en $[0,1]$ satisface (a), (b) y (c).
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+\begin{enumerate}[label = (\roman*), leftmargin=1.8em]
+%-----------------------------------------------------
+\item % (i)
+La inclusión $C(X) \to \mathcal{L}^{\infty}(X)$ seguida por la proyección $\mathcal{L}^\infty(X) \to L^\infty(X)$ definen el mapa en cuestión $\iota\colon C(X) \to L^\infty(X)$. Como $X$ es compacto, toda $f\en C(X)$ tiene supremo y $\norm{f}_\infty \leq \sup_X \abs{f} < \infty$,%
+\footnote{
+    Como $\sup_X|f|$ es cota superior de $|f|$, también es cota esencial, pero $\norm{f}_\infty$ es la menor cota esencial.
+}
+por lo que $f\en\mathcal{L}^\infty(X)$, así que la inclusión está bien definida.\par
+Ahora veamos que el encaje preserva normas, es decir, $\sup_X|f| = \norm{f}_\infty$ para toda $f\en C(X)$. En efecto, ya sabemos que $\norm{f}_\infty \leq \sup_X \abs{f}$; además, si $c\ge0$ es cota esencial de $|f|$, entonces por definición el conjunto
+\[
+|f|^{-1}\bigl((c,\infty)\bigr) = \set*{x \en X \given |f(x)| > c}
+\]
+tiene medida cero, como además es abierto (por ser $|f|$ continua), la condición (a) implica que es vacío. En otras palabras, $c$ es cota superior de $|f|$, por lo cual $\sup_X |f| \leq c$. Como $c$ es cota esencial arbitraria, esto demuestra que $\sup_X|f| \leq \norm{f}_\infty$. \par
+Hemos probado que $\sup_X|f| = \norm{f}_\infty$, así que $\iota\colon C(X) \to L^\infty(X)$ es encaje isométrico (en particular, inyectivo); más aún, como $C(X)$ es completo, forzosamente su imagen isométrica $\iota(C(X)) \subseteq L^\infty(X)$ es completa también, por lo que es cerrada en $L^\infty(X)$.%
+\footnote{ 
+    Recordemos que todo subespacio completo de un espacio métrico es cerrado en este último.
+}\pagebreak[3]
+%-----------------------------------------------------
+\item % (ii)
+Para este inciso, es menester citar uno de los principales teoremas del análisis matemático.
+\begin{tcolorbox}[colback=white, boxrule=0.5pt, fontupper=\small,arc=0.5mm]
+\begin{teo}[Hahn-Banach]\label{teo:HB}
+Si $(V,\norm{\cdot})$ es un espacio normado, $W \leq V$ un subespacio y $\varphi\en W^*$ un funcional (acotado), entonces existe $\tilde{\varphi} \en V^*$ tal que $\tilde{\varphi}|_W = \varphi$ y $\norm{\tilde{\varphi}} = \norm{\varphi}$.
+\end{teo}
+\end{tcolorbox}\vspace{1em}
+\emph{Primero probemos que $\iota(C(X)) \neq L^\infty(X)$ (el encaje isométrico $\iota$ está bien definido por (i))}:\\
+Sean $E$ un boreliano y $x_0 \en X$ tales que satisfacen la condición (b). 
+% Notemos que podemos suponer s.p.g. $x_0\en E$, ya que si $x_0\en X\setminus E$, entonces $E' \coloneq X\setminus E$ también satisface (b).\par
+Probaremos que toda $f \ctpeq \chi_E$ es discontinua en $x_0$. En efecto, supongamos por contradicción que $f$ es continua en $x_0$. Luego, como $\mathbb{R}$ es $T_1$, siempre existe un entorno abierto $I \pert f(x_0)$ tal que $1 \noten I$ o $0 \noten I$, y por continuidad de $f$ en $x_0$, existe un abierto $U\en\mathcal{U}$ tal que $x_0 \en U \subseteq f^{-1}(I)$. Analicemos dos posibilidades:
+\begin{itemize}[leftmargin = 1em]
+    \item Si $1\noten I$ entonces $f^{-1}(I) \subseteq \set{f \neq 1}$, así que $U \subseteq \set{f\neq 1}$, y así:%
+    \footnote{
+    Notemos que $\set{f \neq a}$ es notación para $\set{x \en X \given f(x) \neq a}$ (de modo similar cambiando "$\neq$" por "$=$", "$<$" o "$\leq$").
+    }
+    \[
+    U \cap E 
+    \;\subseteq\; \set{f \neq 1} \cap E
+    \;=\; \set{f\neq1} \cap \set{\chi_E = 1}
+    \;\subseteq\; \set{f \neq \chi_E}
+    \]
+    pero el conjunto de la derecha tiene medida cero ya que $f \ctpeq \chi_E$, así que por monotonía $\mu(U \cap E) = 0$, lo cual contradice (b).
+
+    \item Si $0\noten I$ entonces $f^{-1}(I) \subseteq \set{f \neq 0}$, así que $U \subseteq \set{f\neq 0}$, y así:
+    \[
+    U \cap (X\setminus E) 
+    \;\subseteq\; \set{f \neq 0} \cap (X\setminus E)
+    \;=\; \set{f\neq0} \cap \set{\chi_E = 0}
+    \;\subseteq\; \set{f \neq \chi_E}
+    \]
+    pero el conjunto de la derecha tiene medida cero ya que $f \ctpeq \chi_E$, así que por monotonía $\mu(U \cap (X\setminus E)) = 0$, lo cual contradice (b).
+\end{itemize}
+En cualquier caso, llegamos a una contradicción: el error estuvo en suponer que $f$ es continua en $x_0$. Se sigue que todo $f \ctpeq \chi_E$ es discontinuo en $x_0$, por lo que $[\chi_E]_\mu \noten \iota(C(X))$. Ahora denotaremos $W \coloneq \iota(C(X))$ y $a \coloneq[\chi_E]_\mu$.\vspace{1em}\\
+\emph{Construyamos $\Lambda$ extendiendo un $\varphi \en (W+\ang{a})^*$ no nulo}:\\
+Como $a\noten W$, entonces la suma $W + \ang{a}$ es directa.
+Definimos entonces el funcional lineal $\varphi \colon W\oplus\ang{a} \to \mathbb{R}$ tal que $\varphi(w+\lambda a) = \lambda$, para $w\en W, \lambda\en\mathbb{R}$. Es obvio que es función lineal bien definida; además, vimos en (i) que $W$ es cerrado, así que $0 <d(a,W) \le \norm{\frac{w}{\lambda} + a}$, de donde:
+\[
+\abs{\varphi(w+\lambda a)} 
+\;=\; \abs{\lambda} 
+\;\leq\; \abs{\lambda}\cdot \frac{\norm{\frac{w}{\lambda} + a}}{d(a,W)}
+\;=\; \frac{\norm{w+\lambda a}}{d(a,W)},
+\qquad\forall w\en W,\lambda\en\mathbb{R}
+\]
+Esto demuestra que $\varphi$ es acotado con $\norm{\varphi} \le d(a,W)^{-1}$.\par
+Finalmente, por \myref{teo:HB}, existe $\Lambda \en L^\infty(X)^*$ con $\Lambda|_{W+\ang{a}} = \varphi$ y $\norm{\Lambda} = \norm{\varphi}$. En otras palabras, $\Lambda\colon L^\infty(X) \to \mathbb{R}$ es funcional lineal acotado que cumple
+\[
+\forall w\en W, \quad \Lambda(w) = \varphi(w+0a) = 0,
+\qquad\text{y}\qquad
+\Lambda(a) = \varphi(0+1a) = 1
+\]
+Así que $\Lambda$ se anula en $\iota(C(X)) = W$ y no es nulo.
+%-----------------------------------------------------
+\item % (iii)
+Sea $[g]_\mu \mapsto \Lambda_g$ el encaje $L^1(X) \to L^\infty(X)^*$ del teorema 4.33. Por el ejercicio 5.53 (que podemos suponer ya que se cumple la condición (c)) sabemos que $\Lambda_g$ se anula en $W = \iota(C(X))$ si y solo si $[g]_\mu=0$, y esto último equivale a que $\Lambda_g = 0$ ya que $[g]_\mu \mapsto \Lambda_g$ es un encaje. En otras palabras, el único $\Lambda_g$ que se anula en $W$ es nulo; luego, como el funcional $\Lambda$ del inciso (ii) se anula en $W$ y no es nulo, se sigue que no existe $[g]_\mu\en L^1(X)$ tal que $\Lambda = \Lambda_g$. Esto prueba que $L^1(X) \to L^\infty(X)^*$ no es sobre.
+%-----------------------------------------------------
+\item % (iv) 
+Sabemos que la medida de Lebesgue $m$ (sobre $[0,1]$) es regular por teorema 2.13 (\cite[\S 2.2]{Salamon}), así que cumple (c). Por otro lado, si $U \subseteq[0,1]$ es abierto no vacío (relativo), existe $x\en U$ y luego un intervalo $(a,b) \subseteq \mathbb{R}$ tal que $x\en (a,b) \cap [0,1] \subseteq U$. Como $(a,b) \cap [0,1] \supseteq (m,M)$ con $m \coloneq \max\set{0,a}$ y $M \coloneq \min\set{1,b}$, entonces $U \supseteq(m,M)$, de donde:
+\begin{flalign*}
+&&m(U) 
+\;\ge\; m\bigl((m,M)\bigr) = M-m 
+\;\ge\; b-a
+\;>\; 0,
+&&\boxed{
+\begin{tabular}{c}
+\footnotesize Como $x\en (a,b)$ entonces
+\\
+\footnotesize $a<x<b$ y así $b-a>0$
+\end{tabular}
+}
+\end{flalign*}
+Esto prueba que $m$ satisface (a).\par
+Finalmente, veamos que satisface (b). En efecto, ya probamos en el \cref{nejer:2.32} que existe un boreliano $E_0\subseteq \mathbb{R}$ tal que $0 < m(E_0 \cap I) < m(I)$ para todo intervalo abierto acotado y no vacío $I \subseteq \mathbb{R}$. Tomamos entonces $E \coloneq E_0 \cap [0,1]$, y cualquier $x_0\en(0,1)$. Luego, si $U$ es entorno abierto de $x_0$ en $[0,1]$, se sigue que $U \cap (0,1)$ es entorno abierto de $x_0$ en $\mathbb{R}$, así que existe un intervalo abierto no vacío $I = (a,b)$ con $x_0\en I\subseteq U \cap (0,1) \subseteq U$. Ahora bien, tenemos por construcción de $E_0$ que:
+\[
+0 < m(I \cap E) = m(I \cap E_0) < m(I)
+\]
+de lo que se sigue también (aditividad) $m(I \setminus E) = m(I) - m(I \cap E) > 0$. En consecuencia:
+\[
+m(U \cap E) \ge m(I \cap E) > 0 
+\qquad\text{y}\qquad
+m(U \setminus E) \ge m(I \setminus E) > 0 
+\]
+Como $U$ es entorno arbitrario de $x_0$ en $[0,1]$, se sigue que $m$ satisface (b).
+\end{enumerate}
+\end{sol}

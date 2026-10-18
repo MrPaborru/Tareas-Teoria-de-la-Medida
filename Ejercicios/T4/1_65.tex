@@ -1,0 +1,30 @@
+\setcounter{neje}{64}
+\begin{nejer}
+Sea $(X, \mathcal{A})$ un espacio medible y defina
+$$
+\mu(A) := \begin{cases} 
+0 & \text{si } A = \varnothing, \\
+\infty & \text{si } A \en \mathcal{A} \quad\text{y}\quad A \neq \varnothing.
+\end{cases}
+$$
+Determine la completación $(X, \mathcal{A}^*, \mu^*)$ y el espacio $L^1(\mu)$.
+\end{nejer}
+\begin{sol}
+Ya tenemos $\mathcal{A} \subseteq \mathcal{A}^*$; además, si $E\en\mathcal{A}^*$ entonces existen $A,B\en\mathcal{A}$ tales que $A \subseteq E \subseteq B$ y $\mu(B/A) = 0$. Luego, la definición de $\mu$ obliga a que $B/A = \varnothing$, por lo que $A=E=B$, i.e., $E\en \mathcal{A}$. Hemos probado que $\mathcal{A}=\mathcal{A}^*$, como además $\mu|_\mathcal{A} = \mu$, la unicidad de $\mu^*$ garantiza $\mu = \mu^*$.\vspace{1em}\\
+\emph{Caractericemos $L^1(\mu)$}:\\
+Sea $f\en\mathcal{L}^1(\mu)$ arbitraria. En particular, $\int_X\abs{f} \dd{\mu} < \infty$, por lo que si definimos $A_n \coloneq \abs{f}^{-1}\bigl((\nicefrac{1}{n},\infty)\bigr)$, para cualquier $n\en\mathbb{N}$, entonces $\abs{f}$ es mayor a $\nicefrac{1}{n}$ en $A_n$, por lo tanto 
+\[
+\frac{1}{n}\mu(A_n)
+= \int_{A_n}\frac{1}{n} \dd{\mu}
+\leq \int_{A_n}\abs{f} \dd{\mu}
+< \infty
+\]
+Como $\nicefrac{1}{n} > 0$, forzosamente $\mu(A_n) < \infty$; luego, la definición de $\mu$ obliga a que $\mu(A_n) = 0$, de donde, $A_n = \varnothing$. En consecuencia:
+\[
+\abs{f}^{-1}\bigl((0,\infty)\bigr) 
+= \abs{f}^{-1}\biggl(\bigcup^\infty_{n=1}(\nicefrac{1}{n},\infty)\biggr)
+= \bigcup^\infty_{n=1}\abs{f}^{-1}\bigl((\nicefrac{1}{n},\infty)\bigr)
+= \bigcup^\infty_{n=1}A_n = \varnothing
+\]
+Esto implica que $|f|$ es idénticamente nula, de donde $f$ también es nula. Hemos probado que la única función integrable es la función cero. En otras palabras, $\mathcal{L}^1(\mu) = \set{0}$ y $L^1(\mu) = \set{[0]}$.
+\end{sol}

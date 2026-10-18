@@ -1,0 +1,116 @@
+%------------------------------ Ejercicio 5.36 -------------------------------
+\setcounter{neje}{35}
+\begin{nejer}
+Sea $(X, \mathcal{A}, \mu)$ un espacio de medida y sea $f \colon X \to [0, \infty)$ una función medible. Defina la medida $\mu_f \colon \mathcal{A} \to [0, \infty]$ mediante
+$$
+\mu_f(A) \coloneq \int_A f \dd{\mu} \quad \text{para } A \en \mathcal{A}.
+$$
+(Ver Teorema 1.40.) Pruebe lo siguiente.
+\begin{enumerate}[label = (\roman*), leftmargin=1.8em]
+    \item Si $\mu$ es $\sigma$-finita, entonces también lo es $\mu_f$.
+    \item Si $\mu$ es semi-finita, entonces también lo es $\mu_f$.
+    \item Si $\mu$ es localizable, entonces también lo es $\mu_f$.
+\end{enumerate}
+\emph{Nota.} Ver el Teorema 5.4 para (i) y [4, Proposición 234N] para (ii) y (iii). Es esencial que $f$ no tome el valor $\infty$. Encuentre un ejemplo de un espacio de medida $(X, \mathcal{A}, \mu)$ y una función medible $f \colon X \to [0, \infty]$ que viole las afirmaciones (i), (ii) y (iii).
+
+% \emph{Sugerencia 1.} Para probar (ii), fije un conjunto $A \en \mathcal{A}$, defina $A_f \coloneq \set{x \en A \mid f(x) > 0}$, y elija un conjunto medible $E \en \mathcal{A}$ tal que $E \subseteq A_f$ y $0 < \mu(E) < \infty$. Considere los conjuntos $E_n \coloneq \{x \en E \mid f(x) \le n\}$.
+
+% \emph{Sugerencia 2.} Para probar (iii), sea $\mathcal{E} \subseteq \mathcal{A}$ cualquier colección de conjuntos medibles y elija una envolvente $\mu$-medible $H \en \mathcal{A}$ de $\mathcal{E}$. Pruebe que el conjunto
+% $$
+% H_f \coloneq \{x \en H \mid f(x) > 0\}
+% $$
+% es una envolvente $\mu_f$-medible de $\mathcal{E}$. En particular, si $N \en \mathcal{A}$ es un conjunto medible tal que $\mu_f(E \cap N) = 0$ para todo $E \en \mathcal{E}$, defina $N_f \coloneq \set{x \en N \mid f(x) > 0}$, muestre que $\mu(H \cap N_f) = 0$, y deduzca que $\mu_f(H_f \cap N) = \mu_f(H \cap N_f) = 0$.
+
+\end{nejer}
+\begin{sol}
+Primero notemos que $\mu_f \ll \mu $, ya que $\mu(A) =0 $ implica $\mu_f(A) = \int_A f\dd{\mu} = 0$.
+\begin{enumerate}[label = (\roman*), leftmargin=1.8em]
+\item 
+Como $\mu$ es $\sigma$-finita, la implicación "(ii) $\Rightarrow$ (i)" del teorema de Radon–Nikodým (\cite[teorema 5.4]{Salamon}) garantiza que $\mu_f$ es también $\sigma$-finita.
+\item
+Sea $A\en\mathcal{A}$ con $\mu_f(A) = \int_Af\dd{\mu} > 0$, probemos que existe $E\subseteq A$ con $0 < \mu_f(E) < \infty$. En efecto, consideremos $E_n \coloneq \set{x\en A \given \nicefrac{1}{n} \leq f(x) \leq n}$, para cada $n\en\mathbb{N}$. Entonces, si denotamos $A_{0} \coloneq \set{x\en A \given f(x)=0}$, tenemos $A  = A_0 \cup \bigcup_{n\en\mathbb{N}}E_n$,%
+\footnote{
+    Aquí es donde usamos que $f$ no toma valor $\infty$, pues si lo tomara, habría que considerar en esta unión el conjunto $A_\infty = A \cap\set{f=\infty}$, el cual no necesariamente es $\mu_f$-nulo. El argumento se arregla si suponemos de antemano $\mu_f(\set{f=\infty}) = 0$, o equivalentemente, $\mu(\set{f=\infty})=0$.
+}
+así que gracias a que $\mu_f$ es medida:
+\[
+0 
+\;<\; \mu_f(A)
+\;\leq\; \mu_f(A_0) + \sum^\infty_{n=1}\mu_f(E_n) 
+\]
+sin embargo, $\mu_f(A_0) = \int_{A_0} f\dd{\mu} = \int0\dd{\mu}=0$, así que $\sum^\infty_{n=1}\mu_f(E_n) >0$, por lo que forzosamente existe $n\en\mathbb{N}$ tal que $\mu_f(E_n)>0$. De esto se sigue $\mu(E_n) >0$ (ya que $\mu_f \ll\mu$).\par
+Ahora bien, gracias a que $\mu(E_n)>0$ y a que $\mu$ es semi-finita, existe $E\subseteq E_n$ medible con $0 < \mu(E) < \infty$. Solo falta probar que $E$ es el conjunto buscado.
+Esto es así: como $E\subseteq E_n$, tenemos que $\nicefrac{1}{n} \leq f(x) \leq n$ para todo $x\en E$. Por lo tanto:
+\[
+0 
+\;<\;\frac{1}{n}\mu(E)
+\;\leq\; \int_E f \dd{\mu} 
+\;\leq\; n\mu(E) 
+\;<\; \infty
+\]
+En otras palabras, $E\subseteq E_n \subseteq A$ cumple $0<\mu_f(A) < \infty$.
+\item 
+Supongamos que $\mu$ es localizable. Por (ii) ya sabemos que $\mu_f$ es semi-finita,%
+\footnote{
+    En esta parte de (iii) es donde requerimos la suposición de que $f$ es finita (al menos c.t.p.), solo para preservar la semi-finitud (como ya vimos en (ii)); para el resto de la prueba no se requiere tal suposición. Esto quiere decir que, incluso si $f$ toma valores infinitos, el hecho de que existan $\mu$-envolturas garantiza que existen $\mu_f$-envolturas.
+}
+así que solo falta ver que toda familia $\mathcal{E} \subseteq \mathcal{A}$ admite una $\mu_f$-envolvente.
+Esto es así, por hipótesis existe una $\mu$-envolvente $H\en\mathcal{A}$ para $\mathcal{E}$, así que definamos
+\[
+H_f \coloneq \set[\big]{x\en H \given f(x)>0} \in \mathcal{A}
+\]
+
+\emph{Solo falta probar que $H_f$ es $\mu_f$-envolvente para $\mathcal{E}$}:
+\begin{itemize}[leftmargin=1em]
+\item Sea $E\en\mathcal{E}$. Como $H_f = H\cap \set{f>0}$,%
+\footnote{
+    Recordemos que $\set{f>0}$ es notación para $\set{x\en X \given f(x)>0}$.
+}
+tenemos $E\setminus H_f = (E \setminus H) \cup (E\cap\set{f=0})$.
+% \[
+% \mu_f(E \setminus H_f) 
+% \;\leq\; \mu_f(E \setminus H) + \mu_f(E\cap\set{f=0})
+% \]
+Sin embargo, $\mu_f(E\cap\set{f=0}) = \int_{E\cap\set{f=0}}f\dd{\mu} = \int0\dd{\mu}=0$; además, gracias a que $\mu(E\setminus H) = 0$ (pues $H$ es $\mu$-envolvente de $\mathcal{E}$) y $\mu_f \ll \mu$, también $\mu_f(E \setminus H)=0$. Por lo tanto, $\mu_f(E\setminus H_f) = 0$ al ser unión de $\mu_f$-nulos. 
+\item 
+Supongamos que $G\en\mathcal{A}$ satisface $\mu_f(E\setminus G) = 0$ para todo $E\en\mathcal{E}$. Luego, para cada $E\en\mathcal{E}$:
+\[
+E \setminus (G\cup \set{f=0}) = E\setminus G \cap \set{f>0}
+\]
+en particular, $f$ es positiva en $E \setminus (G\cup \set{f=0})$; sin embargo, también se sigue:
+\[
+0
+\;\leq\; \int_{E \setminus (G\cup \set{f=0})}f\dd{\mu}
+\;=\; \mu_f(E \setminus (G\cup \set{f=0}))
+\;\leq\; \mu_f(E\setminus G)
+\;=\; 0
+\]
+Como $f$ es positiva y de integral cero en $E \setminus (G\cup \set{f=0})$, tenemos $\mu(E \setminus (G\cup \set{f=0}))=0$.%
+\footnote{
+    Esto es obvio, cualquier $A\en\mathcal{A}$ con $f|_A>0$ y $\int_Af\dd{\mu} = \int_Xf\cdot\chi_A\dd{\mu}=0$ satisface (\cite{Salamon}, lema 1.49) que $f\cdot\chi_A \ctpeq0$, pero como $f|_A >0$ se sigue que $f\cdot\chi_A$ y $\chi_A$ se anulan en el mismo conjunto, por lo cual $\chi_A \ctpeq 0$ de donde $\mu(A)=0$. Notemos que esta prueba es válida aún si $f$ toma valores infinitos, ya que $[0,\infty]$ no tiene divisores de cero y el lema 1.49 aplica para cualquier $f \colon X \to [0,\infty]$ medible.
+}
+No obstante, $E\en\mathcal{E}$ es arbitrario y $H$ es una $\mu$-envolvente de $\mathcal{E}$, así que lo último implica $\mu(H \setminus (G\cup \set{f=0})) = 0$. Por último, notemos que
+\[
+H \setminus (G\cup \set{f=0})
+\;=\; H \setminus G \cap \set{f>0}
+\;=\; (H\cap\set{f>0}) \setminus G
+\;=\; H_f \setminus G
+\]
+es decir, acabamos de probar que $\mu(H_f\setminus G) = 0$, pero $\mu_f \ll \mu$, así que $\mu_f(H_f\setminus G) = 0$.
+\end{itemize}
+Estos dos puntos demuestran que $H_f$ es $\mu_f$-envolvente de $\mathcal{E}$, por lo cual $\mu_f$ es localizable.
+\end{enumerate}
+\medskip
+\emph{Demos los contra-ejemplos solicitados}:\par
+Un solo contra-ejemplo sirve para los tres incisos. Sea $(X,\mathcal{A},\mu)$ cualquier espacio de medida $\sigma$-finito (no nulo) y consideremos $f \colon X \to [0,\infty]$ idénticamente infinita. Por un lado, el \cref{nejer:4.58} garantiza que $\mu$ es localizable, por lo que satisface las hipótesis de los tres incisos. Por otro lado, notemos que, para cualquier $A\en\mathcal{A}$,
+\[
+\mu_f(A) 
+\;=\; \int_A f\dd{\mu} 
+\;=\; \infty\cdot\mu(A) 
+\;=\; \begin{cases}
+    0, &\text{si } \mu(A)=0\\
+    \infty, &\text{si } \mu(A) >0
+\end{cases}
+\]
+Luego, como $\mu$ no es nula, existe $A\en\mathcal{A}$ con $\mu(A)>0$, por tanto, se tiene $\mu_f(A) = \infty$, pero cualquier $E\subseteq A$ cumple $\mu_f(E) = \infty$ o $\mu_f(E)=0$. Esto prueba que $\mu_f$ no es semi-finita, por lo que tampoco es localizable ni $\sigma$-finita. En conclusión, este ejemplo no satisface (i), (ii) ni (iii). 
+\end{sol}

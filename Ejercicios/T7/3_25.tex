@@ -1,0 +1,45 @@
+%------------------------------ Ejercicio 3.25 -------------------------------
+\setcounter{neje}{24}
+\begin{nejer}
+Sean $(X, \mathcal{U}_X)$ y $(Y, \mathcal{U}_Y)$ espacios Hausdorff localmente compactos y $\mathcal{B}_X \subseteq 2^X, \mathcal{B}_Y \subseteq 2^Y$ sus $\sigma$-álgebras de Borel. Si $\phi \colon X \to Y$ es un mapeo continuo y $\mu_X \colon \mathcal{B}_X \to [0, \infty]$ una medida.
+\begin{enumerate}[label = (\roman*), leftmargin=1.8em]
+    \item Pruebe que $\mathcal{B}_Y \subseteq \phi_*\mathcal{B}_X$ (ver Ejercicio 1.69).
+    \item Si $\mu_X$ es regular interior, muestre que $\phi_*\mu_X|_{\mathcal{B}_Y}$ es regular interior.
+    \item Encuentre un ejemplo donde $\mu_X$ es regular exterior y $\phi_*\mu_X|_{\mathcal{B}_Y}$ no es regular exterior. \par
+    \emph{Sugerencia.} Considere la inclusión de $\mathbb{N}$ en su compactificación por un punto y use el Ejercicio 3.24.
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+\begin{enumerate}[label = (\roman*), leftmargin=1.8em]
+%----------------------------------------------------
+\item % (i)
+Como $\phi$ es continua, el teorema 1.20 de \cite[\S 1.2]{Salamon} implica que es medible; luego, por ser medible, el teorema 1.19 de \cite[\S 1.2]{Salamon} garantiza que $\mathcal{B}_Y \subseteq \phi_*\mathcal{B}_X$.
+%----------------------------------------------------
+\item % (ii)
+Sea $B \en \mathcal{B}_Y$ arbitrario, y denotemos $S \coloneq \sup\set[\big]{\phi_*\mu_X(K) \given K \subseteq B \text{ es compacto}}$. Por un lado, la monotonía garantiza $\phi_*\mu_X(K) \leq \phi_*\mu_X(B)$ para todo compacto $K \subseteq B$, por lo cual $S \leq \phi_*\mu_X(B)$.\par 
+Por otro lado, como $\mu_X$ es regular interior, tenemos
+\[
+\phi_*\mu_X(B) = \mu_X(\phi^{-1}(B)) = \sup\set[\big]{\mu_X(C) \given C \subseteq \phi^{-1}(B) \text{ es compacto}}
+\]
+luego, si $C \subseteq \phi^{-1}(B)$ compacto arbitrario, tenemos que $K_C \coloneq \phi(C) \subseteq B$ es compacto (por continuidad), así que $\phi_*\mu_X(K_C) \le S$. No obstante, $ C \subseteq \phi^{-1}(\phi(C)) = \phi^{-1}(K_C)$, así que la monotonía implica $\mu_X(C) \le \mu_X(\phi^{-1}(K_C)) = \phi_*\mu_X(K_C)$. Se sigue que $\mu_X(C) \leq S$, y ya que $C \subseteq \phi^{-1}(B)$ es compacto arbitrario, al tomar supremos se concluye $\phi_*\mu_X(B) \le S$. Hemos probado que $\phi_*\mu_X(B) = S$, por lo que $\phi_*\mu_X|_{\mathcal{B}_Y}$ es regular interior.
+%----------------------------------------------------
+\item % (iii)
+% Ejemplo 3.3 \S 3.1
+Consideremos $(X,\mathcal{U}_X) = (\mathbb{N},2^\mathbb{N})$ y $(Y,\mathcal{U}_Y) = (\mathbb{N}_\infty, \mathcal{U})$ su compactificación por un punto dada en el \cref{nejer:3.24}; asimismo, tomamos $\mu_X\colon 2^\mathbb{N} \to [0,\infty]$ como la medida de conteo y $\phi$ como la inclusión $i \colon \mathbb{N} \to \mathbb{N}_\infty$.\par
+En el \cref{nejer:3.24} (i) ya vimos que la $\sigma$-álgebra de $\mathcal{U}$ es $\mathcal{B}_Y = 2^{\mathbb{N}_\infty}$. Además, 
+\[
+i_*\mu_X(B) = \mu_X(i^{-1}(B)) = \mu_X(\mathbb{N} \cap B),
+\qquad\forall B \subseteq \mathbb{N}_\infty
+\]
+Por tanto, $i_*\mu_X(\set{\infty}) = 0$. No obstante, si $U \supseteq \set{\infty}$ es abierto, forzosamente $U^c$ es finito, y como $X = U \cup U^c$ es infinito, se sigue que $U$ es infinito. Por tanto $i_*\mu_X(U) = \mu_X(U \setminus\set\infty) = \infty$. Esto prueba que
+\[
+\inf\set[\big]{i_*\mu_X(U) \given U \supseteq \set{\infty} \text{ es abierto}}
+= \inf\set{\infty} = \infty
+\]
+Por consiguiente,
+\[
+i_*\mu_X(\set{\infty}) \neq \inf\set{i_*\mu_X(U) \given U \supseteq \set{\infty} \text{ es abierto}}
+\]
+así que $i_*\mu_X|_{\mathcal{B}_Y} = i_*\mu_X$ no es regular exterior. Sin embargo, en el ejemplo 3.3 de \cite[\S 3.1]{Salamon} ya vimos que $\mu_X$ es regular exterior (es medida regular de Borel).
+\end{enumerate}
+\end{sol}

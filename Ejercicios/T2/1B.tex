@@ -1,0 +1,64 @@
+%------------------------------ Ejercicio 1B.3 -------------------------------
+
+\setcounter{eje}{2} % Ajusta el contador a 2 para que el ejercicio sea el 3
+\begin{ejer}
+Suponga que $f, g\colon [a, b] \to \mathbb{R}$ son funciones acotadas. Pruebe que
+$$
+L(f, [a, b]) + L(g, [a, b]) \leq L(f + g, [a, b])
+$$
+y
+$$
+U(f + g, [a, b]) \leq U(f, [a, b]) + U(g, [a, b]).
+$$
+\end{ejer}
+\begin{sol}
+Si $I\subseteq [a,b]$, entonces $f(x) + g(x) \leq \sup_I f + \sup_I g$ para cada $x\en I$, por lo cual 
+\[
+\sup\nolimits_I(f+g) \leq \sup\nolimits_I f + \sup\nolimits_I g
+\]
+De modo similar, se prueba que 
+\[
+\inf\nolimits_I f + \inf\nolimits_Ig \leq \inf\nolimits_I(f+g)
+\]
+Por otro lado, dadas $P$ y $Q$ dos particiones arbitrarias de $[a,b]$, tenemos que su refinamiento común $R = P \wedge Q$ satisface que
+\[
+U(f,R,[a,b]) \leq U(f,P,[a,b])%
+\quad\text{y}\quad%
+U(g,R,[a,b]) \leq U(g,Q,[a,b])
+\]
+Por lo tanto, si $R = \set{x_0 < \cdots < x_n}$, se cumple
+\begin{align*}
+U(f+g,[a,b])
+&\leq U(f+g,R,[a,b])\\
+&= \sum^n_{k=1} (x_k-x_{k-1})\sup_{[x_{k-1},x_k]} (f+g)\\
+&\leq \sum^n_{k=1} (x_k-x_{k-1})\big({\sup_{[x_{k-1},x_k]}f} \;+ {\sup_{[x_{k-1},x_k]}g}\big)\\
+&= \sum^n_{k=1} (x_k-x_{k-1}){\sup_{[x_{k-1},x_k]}f} \;+\; \sum^n_{k=1} (x_k-x_{k-1}){\sup_{[x_{k-1},x_k]}g}\\
+&= U(f,R,[a,b]) + U(g,R,[a,b])\\
+&\leq U(f,P,[a,b]) + U(g,Q,[a,b])
+\end{align*}
+Ahora, tomando ínfimos sobre $P$, obtenemos $U(f+g,[a,b]) \leq U(f,[a,b]) + U(g,Q,[a,b])$ para toda partición $Q$ de $[a,b]$; si ahora tomamos ínfimos sobre $Q$, obtenemos finalmente
+\[
+U(f+g,[a,b]) \leq U(f,[a,b]) + U(g,[a,b])
+\]
+
+Probar la desigualdad de las integrales inferiores es análogo: si $P$ y $Q$ son particiones arbitrarias y tomamos $R = P \wedge Q$, entonces
+\[
+L(f,R,[a,b]) \geq L(f,P,[a,b])%
+\quad\text{y}\quad%
+L(g,R,[a,b]) \geq L(g,Q,[a,b])
+\]
+Por consiguiente,
+\begin{align*}
+L(f+g,[a,b])
+&\geq L(f+g,R,[a,b])\\
+&= \sum^n_{k=1} (x_k-x_{k-1})\inf_{[x_{k-1},x_k]} (f+g)\\
+&\geq \sum^n_{k=1} (x_k-x_{k-1})\big({\inf_{[x_{k-1},x_k]}f} \;+ {\inf_{[x_{k-1},x_k]}g}\big)\\
+&= \sum^n_{k=1} (x_k-x_{k-1}){\inf_{[x_{k-1},x_k]}f} \;+\; \sum^n_{k=1} (x_k-x_{k-1}){\inf_{[x_{k-1},x_k]}g}\\
+&= L(f,R,[a,b]) + L(g,R,[a,b])\\
+&\geq L(f,P,[a,b]) + L(g,Q,[a,b])
+\end{align*}
+Así que, tomando supremos sobre $P$ y luego sobre $Q$, obtenemos
+\[
+L(f+g,[a,b]) \geq L(f,[a,b]) + L(g,[a,b])
+\]
+\end{sol}

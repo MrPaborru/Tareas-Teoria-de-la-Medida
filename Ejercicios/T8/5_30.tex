@@ -1,0 +1,64 @@
+%------------------------------ Ejercicio 5.30 -------------------------------
+\setcounter{neje}{29}
+\begin{nejer}
+Sea $X \coloneq \mathbb{R}$, denote por $\mathcal{B} \subseteq 2^X$ a la $\sigma$-álgebra de Borel, y sea $\mu \colon \mathcal{B} \to [0, \infty]$ la restricción de la medida de Lebesgue a $\mathcal{B}$. Sea $\lambda \colon \mathcal{B} \to [0, \infty]$ una medida. Pruebe lo siguiente.
+\begin{enumerate}[label = (\roman*), leftmargin=1.8em]
+    \item Si $B \en \mathcal{B}$ y $0 < c < \mu(B)$, entonces existe un conjunto de Borel $A \subseteq B$ tal que $\mu(A) = c$. \emph{Sugerencia.} Muestre que la función $f(t) \coloneq \mu(B \cap [-t, t])$ es continua.
+    \item Si existe una constante $0 < c < \infty$ tal que
+    $$
+    \mu(B) = c \implies \lambda(B) = c
+    $$
+    para todo $B \en \mathcal{B}$, entonces $\lambda \ll \mu$.
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+\begin{enumerate}[label=(\roman*), leftmargin=1.8em]
+%--------------------------------------------------
+\item % (i)
+\emph{Veamos que $f\colon \mathbb{R}_{\ge0} \to \mathbb{R}$ tal que $f(t) \coloneq \mu(B\cap[-t,t])$ es 2-Lipschitz}:\\
+Sean $t_1,t_2\en\mathbb{R}_{\ge0}$ arbitrarios, y supongamos sin perder generalidad que $t_1 \leq t_2$. Luego, gracias a que $B \cap [-t_1,t_1] \subseteq B \cap [-t_2,t_2]$ y $\mu(B \cap [-t_2,t_2]) < \infty$, la aditividad garantiza:
+\[
+\abs{ 
+    \mu\bigl( B \cap [-t_2,t_2] \bigr) - \mu\bigl( B \cap [-t_1,t_1] \bigr)
+}
+\;=\; \mu\bigl((B \cap [-t_2,t_2]) \setminus(B \cap [-t_1,t_1])\bigr)
+\]
+pero es inmediato que $(B \cap [-t_2,t_2]) \setminus(B \cap [-t_1,t_1]) = B \cap [-t_2,t_2]\setminus[-t_1,t_1]$. Así que:
+\begin{align*}
+\abs{ 
+    \mu\bigl( B \cap [-t_2,t_2] \bigr) - \mu\bigl( B \cap [-t_1,t_1] \bigr)
+}
+&\;=\; \mu\bigl(B \cap [-t_2,t_2] \setminus [-t_1,t_1]\bigr)\\
+&\;\leq\; \mu\bigl([-t_2,t_2] \setminus [-t_1,t_1]\bigr)\\
+&\;=\; \mu\bigl([-t_2,-t_1) \cup (t_1,t_2]\bigr)\;=\; 2(t_2-t_1)
+\end{align*}
+En otras palabras, $\abs{f(t_2) - f(t_1)} \leq 2\abs{t_2-t_1}$, donde $t_1,t_2\en\mathbb{R}_{\ge0}$ son arbitrarios.\par
+Ahora bien, como $\set{B\cap[-n,n]}_{n\en\mathbb{N}}$ es monótona con unión $B$, tenemos
+\[
+\lim_{n\to\infty}f(n) 
+= \lim_{n\to\infty}\mu(B\cap[-n,n])
+=\mu(B)
+\]
+Por consiguiente, si $0<c<\mu(B)$, forzosamente existe $n_0\en\mathbb{N}$ tal que $c < f(n_0) \le \mu(B)$; sin embargo, como
+$f$ es Lipschitz, es (uniformemente) continua, así que $f(0) = 0 < c < f(n_0)$ garantiza (por teo. del valor intermedio) que existe $t_0\en(0,n_0)$ tal que $f(t_0) = c$. En otras palabras, $A \coloneq B \cap [-t_0,t_0]$ satisface $\mu(A) = c$.
+%--------------------------------------------------
+\item % (ii)
+Supongamos que $c\en\mathbb{R}^+$ es tal que "$\mu(B) = c \implies \lambda(B)=c$".
+Luego, sea $A\en\mathcal{A}$ arbitrario con $\mu(A)=0$, buscamos probar que $\lambda(A) = 0$. En efecto, por aditividad 
+\[
+\mu(A^c) \;=\; \mu(A) + \mu(A^c) \;=\; \mu(X) \;=\; \infty
+\] 
+por lo que $0<c<\mu(A^c)$, y así, el inciso anterior garantiza que existe $C\subseteq A^c$ medible con $\mu(C) = c$, de donde también $\lambda(C) = c$. Luego, como $A \cap C = \varnothing$, 
+\[
+\mu(A\cup C) \;=\; \mu(A) + \mu(C) \;=\; \mu(C) \;=\; c
+\]
+de donde se sigue también $\lambda(A \cup C) = c$. Solo resta aplicar aditividad de $\lambda$:
+\[
+c 
+= \lambda(A \cup C) = \lambda(A) + \lambda(C) = \lambda(A) + c
+\qquad\text{lo cual implica}\qquad
+\lambda(A) = 0
+\]
+Como $A\en\mathcal{A}$ es arbitrario, esto prueba que $\lambda \ll \mu$.
+\end{enumerate}
+\end{sol}

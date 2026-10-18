@@ -1,0 +1,243 @@
+%------------------------------ Ejercicio 7.54 -------------------------------
+\setcounter{neje}{53}
+\begin{nejer}
+Sea $(\mathbb{R}, \mathcal{A}, m)$ el espacio de medida de Lebesgue, sea $\mathcal{B} \subseteq \mathcal{A}$ la $\sigma$-álgebra de Borel, y denote por $\mathcal{M}$ el espacio de Banach de todas las medidas de Borel con signo $\mu \colon \mathcal{B} \to \mathbb{R}$ con la norma $\|\mu\| \coloneq |\mu|(\mathbb{R})$. (Ver Ejercicio 5.34.) La convolución de dos medidas con signo $\mu, \nu \en \mathcal{M}$ es la aplicación
+$$
+\mu * \nu \colon \mathcal{B} \to \mathbb{R}
+$$
+definida por
+$$
+(\mu * \nu)(B) \coloneq (\mu \otimes \nu)\bigl(\set*{(x, y) \en \mathbb{R}^2 \mid x + y \en B}\bigr)
+$$
+para $B \en \mathcal{B}$, donde
+$$
+(\mu \otimes \nu) \coloneq \mu^+ \otimes \nu^+ + \mu^- \otimes \nu^- - \mu^+ \otimes \nu^- - \mu^- \otimes \nu^+.
+$$
+(Ver Definición 5.13 y Teorema 5.20.)
+
+Pruebe lo siguiente.
+\begin{enumerate}[label = (\roman*)]
+    \item Si $\mu, \nu \en \mathcal{M}$, entonces $\mu * \nu \en \mathcal{M}$ y
+    $$
+    \|\mu * \nu\| \le \|\mu\| \|\nu\|.
+    $$
+    \item Existe un único elemento $\delta \en \mathcal{M}$ tal que
+    $$
+    \delta * \mu = \mu
+    $$
+    para todo $\mu \en \mathcal{M}$.
+    \item El producto de convolución en $\mathcal{M}$ es conmutativo, asociativo y distributivo. Por lo tanto $\mathcal{M}$ es un álgebra de Banach conmutativa con unidad.
+    \item Si $f \en \mathcal{L}^1(\mathbb{R})$ y $\mu_f \colon \mathcal{B} \to \mathbb{R}$ está definida por
+    $$
+    \mu_f(B) \coloneq \int_B f \dd{m} \quad \text{para } B \en \mathcal{B},
+    $$
+    entonces $\mu_f \en \mathcal{M}$ y $\|\mu_f\| = \|f\|_1$.
+    \item Si $f, g \en \mathcal{L}^1(\mathbb{R})$, entonces $\mu_f * \mu_g = \mu_{f * g}$.
+    \item Sean $\lambda, \mu, \nu \en \mathcal{M}$. Entonces $\lambda = \mu * \nu$ si y solo si
+    $$
+    \int_{\mathbb{R}} f \dd{\lambda} = \int_{\mathbb{R}^2} f(x + y) \dd{(\mu \otimes \nu)(x, y)}
+    $$
+    para todas las funciones acotadas medibles Borel $f \colon \mathbb{R} \to \mathbb{R}$.
+    \item Si $\mu, \nu \en \mathcal{M}$ y $B \en \mathcal{B}$, entonces
+    $$
+    (\mu * \nu)(B) = \int_{\mathbb{R}} \mu(B - t) \dd{\nu(t)}.
+    $$
+\end{enumerate}
+\end{nejer}
+\begin{sol}
+Primero notemos que toda medida con signo sobre $\mathcal{B}$ es finita, y por tanto, de Borel. En otras palabras, $\mathcal{M}$ es simplemente el espacio de medidas con signo sobre $\mathcal{B}$.
+
+También notemos que el libro jamás define integral respecto a una medida con signo $\nu$ (a pesar de que los incisos (vi) y (vii) requieren dicha definición); sin embargo, esta se puede definir mediante la descomposición de Jordan $\nu = \nu^+-\nu^-$ de modo que
+\[
+\int f \dd{\nu} \coloneq \int f\dd{\nu^+} - \int f \dd{\nu^-},
+\qquad\forall f\en \mathcal{L}^1(|\nu|)
+\]
+Está bien definida ya que $\nu^+,\nu^-,|\nu|$ son no negativas y obviamente $\mathcal{L}^1(|\nu|) = \mathcal{L}^1(\nu^+) \cap \mathcal{L}^1(\nu^-)$,
+gracias a que $\int f \dd{|\nu|} = \int f \dd{\nu^+} + \int f \dd{\nu^-}$ (a los elementos de $\mathcal{L}^1(|\nu|)$ se les dice $\nu$-integrables, i.e., $\mathcal{L}^1(\nu) \coloneq \mathcal{L}^1(|\nu|)$). La linealidad de $\int {\cdot}\dd{\nu}$ se sigue de que es resta de dos operadores lineales. Luego, bajo esta definición se cumple (por defi. de $\otimes$ en medidas no negativas)
+\begin{align*}
+(\mu\otimes\nu)(Q)
+&=(\mu^+ \otimes \nu^+)(Q) + (\mu^- \otimes \nu^-)(Q) - (\mu^+ \otimes \nu^-)(Q) - (\mu^- \otimes \nu^+)(Q)\\
+&= \int \mu^+(Q^x)\dd{\nu^+(x)} +\int \mu^-(Q^x)\dd{\nu^-(x)} + \int \mu^+(Q^x)\dd{\nu^-(x)} \int \mu^-(Q^x)\dd{\nu^+(x)} \\
+&= \int (\mu^+-\mu^-)(Q^x) \dd{(\nu^+-\nu^-)(x)}
+= \int \mu(Q^x) \dd{\nu(x)}
+\end{align*}
+Del mismo modo se prueba $(\mu\otimes\nu)(Q) = \int \nu(Q_x) \dd{\mu(x)}$
+(recordemos $Q_x\coloneq\set{y\given (x,y)\en Q}$ y $Q^x\coloneq\set{y\given (y,x)\en Q}$). De este modo, al tomar $Q = A \times B$, se tiene $Q^x = B$ para todo $x\en A$, por lo que $(\mu\otimes\nu)(A\times B) = \int \mu(B)\dd{\nu(x)} = \mu(B)\nu(A)$. También se sigue que $\infty > (|\mu| \otimes|\nu|)(A) = \int |\mu|(Q^x) \dd{|\nu|(x)}$, así que $x \mapsto |\mu|(Q^x)$ (y, por tanto, $x \mapsto \mu(Q^x)$) es $|\nu|$-integrable.
+
+\medskip
+
+Ahora bien, denotemos $\hat{B} = \set*{(x, y) \en \mathbb{R}^2 \mid x + y \en B}$. La continuidad de la suma $+ \colon \mathbb{R} \times \mathbb{R} \to \mathbb{R}$ (a la cual denotaremos "$s$") garantiza que es medible entre $\mathcal{B}_{\mathbb{R}\times\mathbb{R}}$ y $\mathcal{B}$, como $\mathcal{B}_{\mathbb{R}\times\mathbb{R}} \subseteq \mathcal{B} \otimes\mathcal{B}$, también es medible entre $\mathcal{B} \otimes \mathcal{B}$ y $\mathcal{B}$. Así
+\[
+B\en\mathcal{B}
+\qquad\implies\qquad
+\hat{B} = s^{-1}(B) \en \mathcal{B}\otimes\mathcal{B}
+\]
+por lo cual, la aplicación $(\mu*\nu)(B) = (\mu\otimes\nu)(\hat{B})$ es simplemente la restricción a $\mathcal{B}$ del pushforward $s_*(\mu\otimes\nu)\colon{s_*}(\mathcal{B}\otimes\mathcal{B}) \to \mathbb{R}$ (como $s$ es medible, $\mathcal{B} \subseteq {s_*}(\mathcal{B}\otimes\mathcal{B})$). 
+\begin{enumerate}[label=(\roman*)]
+%--------------------------------------------------
+\item % (i)
+Como $\mu^\pm,\nu^\pm\en\mathcal{M}$ (desc. de Jordan de $\mu,\nu$ respectivamente) son no negativas, ya sabemos que sus productos están en $\mathcal{M}$, así que la combinación 
+{\thickmuskip=10mu
+\[
+\mu\otimes\nu 
+= \mu^+ \otimes \nu^+ + \mu^- \otimes \nu^- - \mu^+ \otimes \nu^- - \mu^- \otimes \nu^+
+\in \mathcal{M}
+\]}%
+por consiguiente, también $\mu*\nu= s_*(\mu\otimes\nu)|_{\mathcal{B}}\en\mathcal{M}$.%
+\footnote{
+En 1.69 (tarea 4) se probó que el pushforward de una medida es también medida, pero la prueba para medidas con signo es idéntica, la $\sigma$-aditividad es heredada directamente gracias a que la imagen inversa preserva uniones ajenas.
+}\par
+Por otro lado, como la imagen directa es lineal en $\mathcal{M}$,%
+\footnote{
+    Esta propiedad es trivial, si $f\colon X \to Y$ y $\lambda_1,\lambda_2$ son medidas sobre $(\mathcal{A},X)$ y $\alpha\en\mathbb{R}$, entonces para todo $B\en f_*\mathcal{A}$ se cumple $f_*(\lambda_1+\alpha\lambda_2)(B) = (\lambda_1+\alpha\lambda_2)(f^{-1}(B)) = \lambda_1(f^{-1}(B))+\alpha\lambda_2(f^{-1}(B)) = f_*\lambda_1(B) +\alpha f_*\lambda_2(B)$.
+}
+tenemos
+{\thickmuskip=10mu
+\[
+\mu*\nu ={s_*(\mu^+ \otimes \nu^+)|_{\mathcal{B}}} + {s_*(\mu^- \otimes \nu^-)|_{\mathcal{B}}} - {s_*(\mu^+ \otimes \nu^-)|_{\mathcal{B}}} - s_*(\mu^- \otimes \nu^+)|_{\mathcal{B}}
+\]}%
+Como $\mu*\nu$ se expresa como diferencia de dos medidas no negativas, se sigue:%
+\footnote{
+    Ya probé esto en la tarea 9, pero copio la prueba: sean $\lambda$ medida con signo sobre $(\mathcal{A},X)$ de modo que $\lambda = \lambda^+- \lambda^-$ donde $\lambda^\pm$ son medidas no negativas en $(\mathcal{A},X)$. Se sigue que $\lambda \le \lambda^+$ y $-\lambda \le \lambda^-$, así que dados $A,E,F\en\mathcal{A}$ con $A = E \dotcup F$ se tiene $\lambda(E) - \lambda(F) \leq \lambda^+(E) + \lambda^-(F) \le \lambda^+(A) + \lambda^-(A)$, así que al tomar supremos $\abs{\lambda}(A) \le \lambda^+(A) + \lambda^-(A)$.
+}
+{\thickmuskip=10mu
+\[
+\abs{\mu*\nu} 
+\leq {s_*(\mu^+ \otimes \nu^+)|_{\mathcal{B}}} + {s_*(\mu^- \otimes \nu^-)|_{\mathcal{B}}} + {s_*(\mu^+ \otimes \nu^-)|_{\mathcal{B}}} + s_*(\mu^- \otimes \nu^+)|_{\mathcal{B}}
+\]}%
+Al evaluar en $\mathbb{R}$ y aprovechar que $\hat{\mathbb{R}} = s^{-1}(\mathbb{R}) = \mathbb{R}\times\mathbb{R}$:
+{\thickmuskip=10mu
+\begin{align*}
+\abs{\mu*\nu} (\mathbb{R})
+&\leq (\mu^+\otimes\nu^+)(\mathbb{R}\times\mathbb{R}) + (\mu^-\otimes\nu^-)(\mathbb{R}\times\mathbb{R}) + (\mu^+\otimes\nu^-)(\mathbb{R}\times\mathbb{R}) + (\mu^-\otimes\nu^+)(\mathbb{R}\times\mathbb{R})\\
+&= \mu^+(\hat{\mathbb{R}})\nu^+(\hat{\mathbb{R}}) + \mu^-(\hat{\mathbb{R}})\nu^-(\hat{\mathbb{R}}) + \mu^+(\hat{\mathbb{R}})\nu^-(\hat{\mathbb{R}}) + \mu^-(\hat{\mathbb{R}})\nu^+(\hat{\mathbb{R}})\\
+&= (\mu^++\mu^-)(\mathbb{R})(\nu^++\nu^-)(\mathbb{R})
+= \abs{\mu}(\mathbb{R})\abs{\nu}(\mathbb{R})
+\end{align*}}%
+es decir, $\norm{\mu*\nu} \le \norm{\mu}\norm{\nu}$.
+%--------------------------------------------------
+\item % (ii)
+Consideremos $\delta = \delta_0$ la delta de Dirac (sobre $\mathcal{B}$) concentrada en cero. Por definición de medida producto y gracias a que $\int f \dd{\delta} = f(0)$ (1.66, tarea 4), para cada $Q\en\mathcal{B}\otimes\mathcal{B}$:
+{\thickmuskip=10mu
+\[
+(\delta\otimes\mu)(Q) 
+= \int_{\mathbb{R}} \mu(Q_x) \dd{\delta(x)}
+= \mu(Q_0),
+\]}%
+Por consiguiente, dado $A\en\mathcal{B}$ se tiene $\hat{A}_0 = \set{x \given x+0 \en A} = A$. Por tanto:
+{\thickmuskip=10mu
+\[
+(\delta\ast\mu)(A) = (\delta\otimes\mu)(\hat{A}) = \mu(\hat{A}_0) = \mu(A)
+\]}%
+esto prueba que $\delta*\mu=\mu$.\par
+Más adelante en (iii) probaremos conmutatividad, así que también $\mu*\delta = \mu$; de este modo, si $\delta'\en\mathcal{M}$ también satisface esto, se tiene $\delta'  = \delta' * \delta = \delta$. Por lo tanto $\delta$ es única.
+%--------------------------------------------------
+\item % (iii)
+Sean $\mu,\nu,\lambda\en\mathcal{M}$ y $A\en\mathcal{A}$ arbitrarios. Entonces
+\begin{itemize}
+\item\emph{Conmutatividad:} 
+es sencillo probar que $\hat{A}_x = A-x = \hat{A}^x$.%
+\footnote{
+    $y\en A-x \iff x+y \en A$ (así $y+x\en{A}$) $\iff (x,y)\en\hat{A}$ (así $(y,x)\en\hat{A}$) $\iff y\en\hat{A}_x$ (así $y\en\hat{A}^x$)
+}
+Así que recordando lo visto al inicio, $(\mu\otimes\nu)(Q) = \int \nu(Q_x)\dd{\mu(x)} = \int\mu(Q^x)\dd{\nu(x)}$: 
+{\thickmuskip=10mu
+\begin{align*}
+(\mu*\nu)(A)
+= \int_{\mathbb{R}} \mu(\hat{A}^x) \dd{\nu(x)}
+= \int_{\mathbb{R}} \mu(A-x) \dd{\nu(x)}
+= \int_{\mathbb{R}} \mu(\hat{A}_x) \dd{\nu(x)}
+= (\nu*\mu)(A)
+\end{align*}}%
+De esto también se sigue $(\mu*\nu)(A)=\int \mu(A-x) \dd{\nu(x)}$, lo cual prueba (vii).
+
+\item\emph{Asociatividad:} recordando $(\nu*\lambda) = s_*(\nu\otimes\lambda)$ y el cómo se integra respecto a una medida pushforward (i.e., $\int f\dd{\phi_*\mu} = \int f\circ \phi \dd{\mu}$, 1.69, tarea 4):
+{\thickmuskip=10mu
+\begin{align*}
+\bigl(\mu*(\nu*\lambda)\bigr)(A) 
+= \int_{\mathbb{R}} \mu(A-t) \dd{(\nu*\lambda)(t)}
+= \int_{\mathbb{R\times\mathbb{R}}} \mu(A-s(x,y)) \dd{(\nu\otimes\lambda)(x,y)}
+\end{align*}}%
+Por lo que vimos al inicio, $t\mapsto \mu(\hat{A}^t) = \mu(A-t)$ es $(\nu*\lambda)$-integrable, así que el pushforward $t \mapsto \mu(A-s(x,y))$ es $(\nu\otimes\lambda)$-integrable, por tanto Fubini (7.30) implica:%
+\footnote{
+    Si bien Fubini solo fue probado para integrales respecto a medidas no negativas, se puede extender a medidas con signo trabajando con las partes positivas y negativas, aplicando Fubini usual a las 4 combinaciones $\mu^\pm\otimes\nu^\pm$ y $\mu^\pm\otimes\nu^\mp$.
+}
+{\thickmuskip=10mu
+\begin{align*}
+\int_{\mathbb{R}^2} \mu(A-s(x,y)) \dd{(\nu\otimes\lambda)(x,y)}
+&= \int_{\mathbb{R}}\int_{\mathbb{R}} \mu(A-y-x) \dd{\nu(x)}\dd{\lambda(y)}\\
+&= \int_{\mathbb{R}}(\mu*\nu)(A-y)\dd{\lambda(y)}
+= \bigl((\mu*\nu)*\lambda\bigr)(A)
+\end{align*}}%
+esto prueba que $\mu*(\nu*\lambda) = (\mu*\nu)*\lambda$.
+
+\item\emph{Distributividad}: Por linealidad
+{\thickmuskip=10mu
+\begin{align*}
+\bigl((\mu+\nu)*\lambda)\bigr)(A) 
+&= \int_{\mathbb{R}} (\mu+\nu)(A-t) \dd{\lambda(t)}\\
+&=\int_{\mathbb{R}} \mu(A-t) \dd{\lambda(t)} + \int_{\mathbb{R}} \nu(A-t) \dd{\lambda(t)}
+= (\mu*\lambda)(A) + (\nu*\lambda)(A)
+\end{align*}}%
+Por conmutatividad, esto prueba distributividad bilateral.
+\end{itemize}
+El ejercicio ya supone a $\mathcal{M}$ un espacio de Banach; luego, lo probado en este inciso implica que la convolución hace de $\mathcal{M}$ es un álgebra conmutativa; además, (ii) prueba que tiene identidad $\delta$ y (i) prueba que la norma es compatible con la convolución (sub-multiplicatividad). Por lo tanto, $\mathcal{M}$ es un álgebra de Banach conmutativa con identidad.
+%--------------------------------------------------
+\item % (iv)
+En el ejercicio 5.34 ya fue probado que $L^1(m) \to \mathcal{M}\colon[f]_m \mapsto \mu_f$ es embebimiento isométrico, en particular, $\mu_f\en\mathcal{M}$ y $\norm{f}_1 = \norm{[f]_m} = \norm{\mu_f}$. 
+%--------------------------------------------------
+\item % (v)
+Es una simple aplicación de (vii) (lo cual fue probado al demostrar conmutatividad en (iii)) y de que, por Radon-Nikodým, $\int h \dd{\mu_g} = \int hg\dd{m}$:
+{\thickmuskip=10mu
+\begin{align*}
+(\mu_f*\mu_g)(A)
+&=\int_{\mathbb{R}} \mu_f(A-x) \dd{\mu_g(x)}
+=\int_{\mathbb{R}} \mu_f(A-x)g(x) \dd{m(x)}\\
+&=\int_{\mathbb{R}} \left(\int_{A-x} f(y)\dd{m(y)}\right)g(x) \dd{m(x)}\\
+&=\int_{\mathbb{R}} \left(\int_{A} f(y-x)\dd{m(y)}\right)g(x) \dd{m(x)}\\
+&=\int_{\mathbb{R}} \int_{A} f(y-x)g(x)\dd{m(y)} \dd{m(x)}
+\end{align*}}%
+(este último cambio de variable funciona gracias a invarianza bajo traslación de $m$). Podemos aplicar esta misma serie de desigualdades a $|f|,|g|\en\mathcal{L}^1(m)$ para tener, gracias a Fubini para no negativas: $\int |f(y-x)g(x)| \dd{m_2} = \iint |f(y-x)g(x)|\dd{m(y)} \dd{m(x)} = (\mu_{|f|}*\mu_{|g|})(\mathbb{R}) <\infty$. Por lo que $f(y-x)g(x)$ es $m_2$-integrable y podemos usar Fubini para funciones integrables:
+{\thickmuskip=10mu
+\begin{align*}
+(\mu_f*\mu_g)(A)
+&=\int_{\mathbb{R}} \int_{A} f(y-x)g(x)\dd{m(y)} \dd{m(x)}\\
+&= \int_{A} \int_{\mathbb{R}}f(y-x)g(x)\dd{m(x)}\dd{m(y)} \\
+&= \int_{A} (f*g)(y)\dd{m(y)}
+= \mu_{f*g}(A)
+\end{align*}}%
+Esto prueba que $\mu_f *\mu_g=\mu_{f*g}$.
+%--------------------------------------------------
+\item % (vi)
+Si $f\colon \mathbb{R} \to \mathbb{R}$ es una función Borel medible que cumple $\sup_{\mathbb{R}}|f| < \infty$, entonces sabemos que $\int |f| \dd{|\sigma|} \leq \sup_\mathbb{R}|f| \cdot \abs{\sigma}(\mathbb{R}) < \infty$ para cualquier $\sigma\en\mathcal{M}$ (ya que $|\sigma|$ es medida finita). Por tanto $f\en\mathcal{L}^1(\sigma)\coloneq\mathcal{L}^1(|\sigma|)$ para cualquier $\sigma\en\mathcal{M}$.\par
+\medskip
+\emph{Necesidad}: si $\lambda = \mu*\nu = s_*(\mu\otimes\nu)$, sabemos cómo se integran pushforwards (1.69, tarea 4):
+{\thickmuskip=10mu
+\begin{equation}\label{eq:pushprod}
+\int_{\mathbb{R}} f \dd{\lambda}
+= \int_{\mathbb{R}^2} (f \circ s) \dd{(\mu\otimes\nu)}
+\equiv \int_{\mathbb{R}^2} f(x+y) \dd{(\mu\otimes\nu)(x,y)}
+\end{equation}}\par
+\medskip
+\emph{Suficiencia}: supongamos que $\lambda\en\mathcal{M}$ cumple \eqref{eq:pushprod} para toda función acotada $f\colon\mathbb{R}\to \mathbb{R}$. En particular, para cualquier $A\en\mathcal{B}$ podemos tomar $f = \chi_A$ para obtener
+{\thickmuskip=10mu
+\begin{align*}
+\lambda(A)
+=\int_{\mathbb{R}} \chi_A \dd{\lambda}
+= \int_{\mathbb{R}^2} (\chi_A \circ s) \dd{(\mu\otimes\nu)}
+\end{align*}}%
+pero $\im(\chi_A\circ s) \subseteq \im(\chi_A) = \set{0,1}$ y $(\chi_A\circ s)^{-1}(\set1) = s^{-1}(\chi_A^{-1}(A)) = s^{-1}(A) = \hat{A}$, por lo que se tiene $\chi_A\circ s = \chi_{\hat{A}}$. Luego, gracias a lo anterior:
+{\thickmuskip=10mu
+\begin{align*}
+\lambda(A)
+= \int_{\mathbb{R}^2} (\chi_A \circ s) \dd{(\mu\otimes\nu)}
+= \int_{\mathbb{R}^2} \chi_{\hat{A}} \dd{(\mu\otimes\nu)}
+= (\mu\otimes\nu)(\hat{A})
+= (\mu*\nu)(A)
+\end{align*}}%
+Se sigue $\lambda = \mu*\nu$.
+%--------------------------------------------------
+\item % (vii)
+Este inciso fue probado al demostrar conmutatividad en (iii).
+\end{enumerate}
+\end{sol}

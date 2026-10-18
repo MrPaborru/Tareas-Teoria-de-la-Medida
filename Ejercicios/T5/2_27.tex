@@ -1,0 +1,12 @@
+\setcounter{neje}{26}
+\begin{nejer}[Falso]
+Sean $A, B \subseteq \mathbb{R}^n$ conjuntos nulos de Lebesgue. Pruebe que su suma
+$$
+A + B \coloneq \set*{x + y \given x \en A, y \en B}
+$$
+es un conjunto Lebesgue-nulo.
+\end{nejer}
+\begin{sol}
+Este ejercicio es falso: ya vimos que $\mathcal{C}$ es Lebesgue-nulo (más aún, vimos que es Jordan-nulo); sin embargo, es conocido el hecho de que $[0,2] = \mathcal{C} + \mathcal{C}$, mientras que $[0,2]$ no es Lebesgue-nulo, ya que $\nu([0,2]) = 2 > 0$.\par
+De hecho, hay contra-ejemplo para cualquier dimensión: si $n>1$ siempre podemos descomponer $\mathbb{R}^n$ como suma de algunos dos subespacios propios, $M,N < \mathbb{R}^n$. En 2.26 ya vimos que $m(M) = m(N) = 0$, pero $\mathbb{R}^n = M + N$ no es Lebesgue-nulo.
+\end{sol}

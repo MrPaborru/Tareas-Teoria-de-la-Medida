@@ -1,0 +1,113 @@
+%------------------------------ Ejercicio 4.41 -------------------------------
+\setcounter{neje}{40}
+\begin{nejer}
+Sea $(X, \mathcal{A}, \mu)$ un espacio de medida y sea $f = (f_1, \dots, f_n) \colon X \to \mathbb{R}^n$ una función medible tal que $\int_X |f_i| \dd{\mu} < \infty$ para $i = 1, \dots, n$. Defina
+$$
+\int_X f \dd{\mu} \coloneq \left( \int_X f_1 \dd{\mu}, \dots, \int_X f_n \dd{\mu} \right) \in \mathbb{R}^n.
+$$
+Sea $\norm{\cdot} \colon \mathbb{R}^n \to [0, \infty)$ cualquier norma en $\mathbb{R}^n$. Pruebe que la función $\norm{f}\colon X \to [0, \infty)$ tal que $x \mapsto \|f(x)\|$ es integrable y
+$$
+\left\| \int_X f \dd{\mu} \right\| \le \int_X \|f\| \dd{\mu}.
+$$
+\emph{Sugerencia.} Primero pruebe la desigualdad para funciones escalonadas integrables con valores vectoriales $s \colon X \to \mathbb{R}^n$. Luego muestre que para todo $\varepsilon > 0$ hay una función escalonada integrable con valores vectoriales $s \colon X \to \mathbb{R}^n$ tal que $\left\| \int_X (f - s) \dd{\mu} \right\| < \varepsilon$ y $\int_X \|f - s\| \dd{\mu} < \varepsilon$.
+\end{nejer}
+\begin{sol}
+Como todas las normas en $\mathbb{R}^n$ son equivalentes, existen $c,C\en\mathbb{R}^+$ tales que 
+\[
+c\norm{x}_{1} \leq \norm{x} \leq C\norm{x}_1,
+\quad\forall x\en\mathbb{R}^n
+\]
+donde $\norm{x}_1 = \sum^n_{i=1}|x_i|$ es la norma del taxista.\par
+Por un lado, gracias a que $\norm{\cdot}$ es continua y $f$ medible, su composición $\norm{f}$ también es medible, además se cumple $\norm{f} \leq C\norm{f}_1$, por lo que aplicando linealidad y que $\int_X |f_i| \dd{\mu} < \infty$:
+\[
+\int_X \norm{f} \dd{\mu}
+\le \int_X C\norm{f}_1 \dd{\mu}
+= \int_X C\sum^n_{i=1}|f_i| \dd{\mu} 
+= C\sum^n_{i=1} \int_X |f_i| \dd{\mu} < \infty
+\]
+Se sigue que $\norm{f}$ es integrable.
+\medskip\\
+\emph{Probemos la desigualdad para funciones escalonadas integrables}:\\
+Sea $s = (s_1,\dots,s_n) \colon X \to \mathbb{R}^n$ escalonada e integrable, lo cual equivale a que cada $s_i$ sea escalonada e integrable.%
+\footnote{
+    En efecto, $\im(s)$ es finito, cada $\im(s_i) = \im(\pi_i\circ s) = \pi_i(\im(s))$ es finito; recíprocamente, si cada $\im(s_i)$ es finito, entonces $\im(s) \subseteq \prod^n_{i=1}\im(s_i)$ es finito. Esto prueba que $s$ es escalonada si y solo si cada $s_i$ es escalonada. Más aún, por teorema 1.22 (\cite[\S 1.2]{Salamon}), sabemos que $s$ es medible ssi cada $s_i$ es medible, y $s$ fue definida integrable cuando cada $\int |s_i|\dd{\mu}<\infty$. 
+}
+Entonces es inmediato verificar, evaluando punto a punto, que si $s = \sum^m_{k=1} a_k\chi_{A_k}$ con $a_k\en\mathbb{R}^n$ y $A_k \coloneq s^{-1}(a_k)$ disjuntos a pares, se cumple $\norm{s} = \sum^m_{k=1}\norm{a_k}\chi_{A_k}$, por lo cual, $\norm{s} \ge0$ es escalonada integrable y
+\begin{equation}\label{eq:intnorm}
+\int_X \norm{s} \dd{\mu} = \sum^m_{k=1}\norm{a_k}\mu(A_k)
+\end{equation}
+Asimismo, la $i$-ésima entrada de $\int a_k\chi_{A_k}\dd{\mu}$ es por definición $\int\pi_i(a_k)\chi_{A_k}\dd{\mu} = \pi_i(a_k)\mu({A_k})$,%
+\footnote{
+    $\pi_i$ es la proyección canónica.
+}
+por lo tanto $\int a_k\chi_{A_k}\dd{\mu} = a_k\mu(A_k)$. Gracias a esto y a la linealidad%
+\footnote{
+    Si $f,g \colon X \to \mathbb{R}^n$ son integrables, entonces para cada $i=1,\dots,n$, $f_i,g_i\en\mathcal{L}^1(X)$ de donde $f_i+g_i\en\mathcal{L}^1(X)$; además, $\int f+g \dd{\mu} = \left(\int f_1+g_1 \dd{\mu},\dots,\int f_n+g_n \dd{\mu}\right) = \left(\int f_1\dd{\mu}+\int g_1 \dd{\mu},\dots,\int f_n\dd{\mu}+\int g_n \dd{\mu}\right) = \int f\dd{\mu} + \int g\dd{\mu}$.
+}
+de la integral en $\mathbb{R}^n$ se sigue que
+\begin{equation}\label{eq:intesc}
+\int_X s \dd{\mu} 
+= \int_X \sum^m_{k=1} a_k\chi_{A_k} \dd{\mu}
+= \sum^m_{k=1} \int_X  a_k\chi_{A_k} \dd{\mu}
+= \sum^m_{k=1} a_k\mu(A_k)
+\end{equation}
+Por consiguiente, aplicando desigualdad triangular de $\norm{\cdot}$ junto a (\ref{eq:intnorm}) y (\ref{eq:intesc}):
+\[
+\norm{\int_X s \dd{\mu}} 
+= \norm{\sum^m_{k=1} a_k\mu(A_k)}
+\leq \sum^m_{k=1}\norm{a_k}\mu({A_k})
+= \int_X \norm{s} \dd{\mu}
+\]
+\medskip\\
+\emph{Probemos la desigualdad para toda función integrable $f$}:\\
+Cada componente $f_i$ es integrable, así que podemos poner $f_i = f^+_i - f^-_i$ de modo que $f_i^+,f^-_i \ge 0$ y $\int f^+_i \dd{\mu},\int f^-_i \dd{\mu}<\infty$. Luego sea $\varepsilon>0$ arbitrario. Por definición de integral para funciones medibles no negativas, existen funciones escalonadas medibles $0 \leq s^+_i \le f^+_i$ y $0 \leq s^-_i \le f^-_i$ con
+\[
+0 \;\leq\; \int_X f^+_i - s^+_i \dd{\mu} \;<\; \varepsilon
+\qquad\text{y}\qquad
+0 \;\leq\; \int_X f^-_i - s^-_i \dd{\mu} \;<\; \varepsilon
+\]
+Luego, $s_i \coloneq s^+_i - s^-_i$ es escalonada integrable, así que $s = (s_1,\dots,s_n) \colon X \to \mathbb{R}^n$ también es escalonada integrable. Luego, gracias a la eq. de normas y a que $f_i-s_i = (f^+_i-s^-_i)-(f^-_i-s^-_i)$:
+\begin{equation}\label{eq:cotanormint}
+\begin{split}
+\norm{ \int_X f-s \dd{\mu} }
+&\;\le\; C \norm{ \int_X f-s \dd{\mu} }_1
+\;=\; C \sum^n_{i=1} \abs{ \int_Xf_i-s_i \dd{\mu} }\\
+&\;=\; C \sum^n_{i=1} \abs{ \int_X(f^+_i-s^+_i)\dd{\mu} - \int_X(f^-_i-s^-_i)\dd{\mu} }\\
+&\;\le\; C \sum^n_{i=1} \abs{ \int_X(f^+_i-s^+_i)\dd{\mu} } + \abs{ \int_X(f^-_i-s^-_i)\dd{\mu} }\\
+&\;<\; C \sum^n_{i=1} 2\varepsilon \;=\; 2nC\varepsilon
+\end{split}
+\end{equation}
+Análogamente,
+\begin{align*}
+\int_X \norm{f-s} \dd{\mu}
+&\;\leq\; \int_X C\norm{f-s}_1 \dd{\mu}
+\;=\; \int_X C\sum^n_{i=1} \abs{ f_i-s_i } \dd{\mu} 
+\;=\; C\sum^n_{i=1} \int_X \abs{ f_i-s_i } \dd{\mu}\\
+&\;=\; C\sum^n_{i=1} \int_X \abs{ (f^+_i-s^+_i) - (f^-_i - s^-_i) } \dd{\mu}
+\;=\; C\sum^n_{i=1} \int_X \abs{f^+_i-s^+_i} + \abs{f^-_i - s^-_i} \dd{\mu}
+\end{align*}
+Como $f^+_i - s^+_i \ge 0$ y $f^-_i - s^-_i \ge 0$, se sigue
+\begin{equation}\label{eq:cotaintnorm}
+\begin{split}
+\int_X \norm{f-s} \dd{\mu}
+&\;\leq\; C\sum^n_{i=1} \int_X \abs{f^+_i-s^+_i} + \abs{f^-_i - s^-_i} \dd{\mu}\\
+&\;=\; C\sum^n_{i=1} \int_X {f^+_i-s^+_i} \dd{\mu} + \int_X {f^-_i - s^-_i} \dd{\mu}
+\;<\; C \sum^n_{i=1} 2\varepsilon = 2nC\varepsilon
+\end{split}
+\end{equation}
+Gracias a las cotas encontradas en (\ref{eq:cotanormint}), (\ref{eq:cotaintnorm}) y a que ya probamos $\norm{\int s \dd{\mu}} \le \int \norm{s} \dd{\mu}$ 
+\begin{align*}
+\norm{\int_X f \dd{\mu}}
+&\;=\; \norm{\int_X f-s \dd{\mu} + \int_X s \dd{\mu}}
+\;\leq\; \norm{\int_X f-s \dd{\mu}} + \norm{\int_X s \dd{\mu}}\\
+&\;<\; 2nC\varepsilon + \int_X \norm{s} \dd{\mu}
+\;=\; 2nC\varepsilon + \int_X \norm{s-f + f} \dd{\mu}\\
+&\;\leq\; 2nC\varepsilon + \int_X \norm{s-f} + \norm{f} \dd{\mu}
+\;=\; 2nC\varepsilon + \int_X \norm{s-f} \dd{\mu} + \int_X \norm{f} \dd{\mu}\\
+&\;\leq\; 4nC\varepsilon + \int_X \norm{f} \dd{\mu}
+\end{align*}
+Como $\varepsilon>0$ es arbitrario, se concluye que
+\[
+\norm{\int_X f \dd{\mu}} \;\leq\; \int_X \norm{f} \dd{\mu}
+\]
+\end{sol}
