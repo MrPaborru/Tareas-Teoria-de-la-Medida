@@ -20,7 +20,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CAPITULOS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \cftpagenumbersoff{chap}
-\renewcommand{\cftchappresnum}{\bfseries\color{white}}
 \newcommand{\chaptertocbox}{%
     \makebox[0pt][l]{%
         \tikz[remember picture,overlay]{
@@ -28,15 +27,43 @@
                 ([xshift=-0.05em,yshift=-0.35em]0,0)
                 rectangle
                 ++(\textwidth,1.22em);
-            \fill[color=grisCIMAT, line width=1pt]
-                ([xshift=-0.05em,yshift=-0.35em]0,0)
-                rectangle
-                ++(\cftchapnumwidth,1.25em);
         }%
     }%
 }
 \renewcommand{\cftchapfont}{\large\chaptertocbox}
 \renewcommand{\cftchapaftersnumb}{\scshape}
+
+% Número adaptable: mínimo de 1em como en la referencia; misma altura y separación.
+\newsavebox{\chaptertocnumber}
+\newcommand{\chaptertocnumberline}[1]{%
+    \begingroup
+    \setlength{\fboxsep}{0pt}%
+    \sbox{\chaptertocnumber}{%
+        \colorbox{grisCIMAT}{%
+            \rule[-0.35em]{0pt}{1.25em}%
+            \makebox[\maxof{1em}{\widthof{\bfseries#1}+0.3em}][c]{%
+                \bfseries\color{white}#1%
+            }%
+        }%
+    }%
+    \makebox[\dimexpr\wd\chaptertocnumber+\cftchapnumwidth-1em\relax][l]{%
+        \hspace*{-0.05em}\smash{\usebox{\chaptertocnumber}}\vphantom{\bfseries#1}%
+    }%
+    \endgroup
+    \cftchapaftersnumb
+}
+
+% El formato adaptable se aplica únicamente a los capítulos.
+\makeatletter
+\let\oldl@chapter\l@chapter
+\renewcommand{\l@chapter}[2]{%
+    \begingroup
+    \let\numberline\chaptertocnumberline
+    \oldl@chapter{#1}{#2}%
+    \endgroup
+}
+\makeatother
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECCIONES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
